@@ -97,7 +97,7 @@ const i18N = {
     admin: '管理员认证',
     enterprise: '企业认证',
     university: '院校认证',
-    mechanism: '机构认证',
+    mechanism: '机构认证'
   },
 
   m_nav_data: [
@@ -105,40 +105,40 @@ const i18N = {
       id: 1,
       text: '发现',
       path: '/m/index.html',
-      icon: '<i class="icon xfind"></i>',
+      icon: '<i class="icon xfind"></i>'
     },
     {
       id: 2,
       text: '话题',
       path: '/m/index.html',
-      icon: '<i class="icon theme"></i>',
+      icon: '<i class="icon theme"></i>'
     },
-    {id: 3, text: '我的', path: '/m/user.html', icon: '<i class="icon my"></i>'},
+    {id: 3, text: '我的', path: '/m/user.html', icon: '<i class="icon my"></i>'}
   ],
   nav_data: [
     {
       id: 1,
       text: '首页',
       path: '/index.html',
-      icon: '<i class="fas fa-home"></i>',
+      icon: '<i class="fas fa-home"></i>'
     },
     {
       id: 2,
       text: '登陆',
       path: '/login.html',
-      icon: '<i class="fas fa-sign-in-alt"></i>',
+      icon: '<i class="fas fa-sign-in-alt"></i>'
     },
     {
       id: 3,
       text: '后台',
       path: '/user/admin',
-      icon: '<i class="fas fa-sign-in-alt"></i>',
-    },
+      icon: '<i class="fas fa-sign-in-alt"></i>'
+    }
   ],
   nav_more_data: [
     {id: 1, text: '后台', path: '/user/admin', icon: ''},
     {id: 2, text: '手机版', path: '/m/index.html?no_redirect=true', icon: ''},
-    {id: 3, text: 'GitHub', path: 'https://github.com/sbx0/Zhibei', icon: ''},
+    {id: 3, text: 'GitHub', path: 'https://github.com/sbx0/Zhibei', icon: ''}
   ],
   nav_user_data: [
     {id: 1, text: '私信', path: '#', icon: '<i class="fas fa-comments"></i>'},
@@ -146,14 +146,14 @@ const i18N = {
       id: 2,
       text: '设置',
       path: '/setting.html',
-      icon: '<i class="fas fa-wrench"></i>',
+      icon: '<i class="fas fa-wrench"></i>'
     },
     {
       id: 3,
       text: '退出',
       path: '/user/logout',
-      icon: '<i class="fas fa-sign-out-alt"></i>',
-    },
+      icon: '<i class="fas fa-sign-out-alt"></i>'
+    }
   ],
   nav_post_data: [
     {id: 1, text: '问题', path: '#', icon: '<i class="fas fa-question"></i>'},
@@ -162,14 +162,14 @@ const i18N = {
       id: 3,
       text: '文章',
       path: '/post.html',
-      icon: '<i class="far fa-newspaper"></i>',
+      icon: '<i class="far fa-newspaper"></i>'
     },
     {
       id: 4,
       text: '建议',
       path: '#',
-      icon: '<i class="fas fa-comment-medical"></i>',
-    },
+      icon: '<i class="fas fa-comment-medical"></i>'
+    }
   ],
   category_data: [
     {id: 1, text: '全部', path: '#', icon: '<i class="fas fa-question"></i>'},
@@ -179,14 +179,14 @@ const i18N = {
       id: 4,
       text: '建议',
       path: '#',
-      icon: '<i class="fas fa-comment-medical"></i>',
-    },
+      icon: '<i class="fas fa-comment-medical"></i>'
+    }
   ],
   tab_data: [
     {id: 1, text: '最新', path: '#', icon: '<i class="fas fa-question"></i>'},
     {id: 2, text: '热门', path: '#', icon: '<i class="fas fa-award"></i>'},
     {id: 3, text: '悬赏', path: '#', icon: '<i class="fas fa-award"></i>'},
-    {id: 4, text: '等待回复', path: '#', icon: '<i class="far fa-newspaper"></i>'},
+    {id: 4, text: '等待回复', path: '#', icon: '<i class="far fa-newspaper"></i>'}
   ],
   foot_html: '智贝科技有限公司 2019',
   table: {
@@ -196,7 +196,7 @@ const i18N = {
     certification: '申请表',
     file: '文件表',
     log: '日志表',
-    article: '文章表',
+    article: '文章表'
   },
   attribute: {
     user: {
@@ -215,7 +215,7 @@ const i18N = {
       integral: '积分',
       level: '等级',
       exp: '经验',
-      exp_max: '经验上限',
+      exp_max: '经验上限'
     },
     role: {
       id: '编号',
@@ -224,7 +224,7 @@ const i18N = {
       registerTime: '注册时间',
       available: '是否可用',
       father: '父亲',
-      permissions: '权限',
+      permissions: '权限'
     },
     permission: {
       id: '编号',
@@ -233,7 +233,7 @@ const i18N = {
       url: '权限链接',
       str: '权限字符串',
       available: '是否可用',
-      father: '父亲',
+      father: '父亲'
     },
     certification: {
       id: '编号',
@@ -244,7 +244,7 @@ const i18N = {
       end_time: '结束时间',
       user: '申请者',
       license: '相关证件号',
-      img: '相关证件扫描件',
+      img: '相关证件扫描件'
     },
     file: {
       id: '编号',
@@ -255,7 +255,7 @@ const i18N = {
       md5: '唯一识别码',
       size: '大小',
       time: '上传时间',
-      banned: '是否封禁',
+      banned: '是否封禁'
     },
     log: {
       id: '编号',
@@ -266,7 +266,7 @@ const i18N = {
       args: '参数',
       method: '方法',
       className: '类名',
-      url: '链接',
+      url: '链接'
     },
     article: {
       id: '编号',
@@ -281,14 +281,14 @@ const i18N = {
       likes: '喜欢数',
       dislikes: '不喜欢数',
       top: '置顶排序指数',
-      author: '作者',
-    },
+      author: '作者'
+    }
   },
   alert: {
     empty: '为空',
     illegal: '不合法',
     special_str: '特殊字符',
-    error: '错误',
+    error: '错误'
   },
   status: [
     '操作成功',
@@ -298,7 +298,7 @@ const i18N = {
     '超出限制',
     '查无结果',
     '暂无权限',
-    '重复操作',
-  ],
-};
-export default i18N;
+    '重复操作'
+  ]
+}
+export default i18N

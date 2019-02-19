@@ -53,46 +53,46 @@
 </template>
 
 <script>
-  import i18N from '../assets/i18N/i18N';
-  import $ from 'jquery';
+import i18N from '../assets/i18N/i18N'
+import $ from 'jquery'
 
-  export default {
-    name: 'My',
-    data: () => ({
-      i18N: i18N,
-      user: {
-        name: i18N.not + i18N.login,
-        email: i18N.not + i18N.login,
-        avatar: '/img/avatar-min-img.png',
-      },
-    }),
-    methods: {
-      getInfo() {
-        const _this = this;
-        $.ajax({
-          type: 'get',
-          url: i18N.domain + '/user/info',
-          dataType: 'json',
-          async: true,
-          crossDomain: true,
-          xhrFields: {
-            withCredentials: true,
-          },
-          success: function(json) {
-            const status = json.status;
-            console.log(status);
-            if (json.user !== undefined) { _this.user = json.user; }
-          },
-          error: function() {
-            alert(i18N.network + i18N.alert.error);
-          },
-        });
-      },
-    },
-    created() {
-      this.getInfo();
-    },
-  };
+export default {
+  name: 'My',
+  data: () => ({
+    i18N: i18N,
+    user: {
+      name: i18N.not + i18N.login,
+      email: i18N.not + i18N.login,
+      avatar: '/img/avatar-min-img.png'
+    }
+  }),
+  methods: {
+    getInfo () {
+      const _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/user/info',
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          const status = json.status
+          if (json.user !== undefined) { _this.user = json.user }
+          if (status !== 0) this.$router.push({path: '/login'})
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    }
+  },
+  created () {
+    this.getInfo()
+  }
+}
 </script>
 
 <style scoped>

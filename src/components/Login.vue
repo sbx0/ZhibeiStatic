@@ -41,56 +41,56 @@
 </template>
 
 <script>
-  import i18N from '../assets/i18N/i18N';
-  import $ from 'jquery';
+import i18N from '../assets/i18N/i18N'
+import $ from 'jquery'
 
-  export default {
-    name: 'Login',
-    data: () => ({
-      i18N: i18N, // i18N配置文件
-      domain: i18N.domain, // 请求地址
-      valid: true,
-      name: '',
-      nameRules: [
-        v => !!v || i18N.attribute.user.name + i18N.is + i18N.empty,
-      ],
-      password: '',
-      passwordRules: [
-        v => !!v || i18N.attribute.user.password + i18N.is + i18N.empty,
-      ],
-    }),
-    methods: {
-      validate() {
-        if (this.$refs.form.validate()) {
-          this.snackbar = true;
-          $.ajax({
-            type: 'post',
-            url: i18N.domain + '/user/login',
-            data: $('#loginForm').serialize(),
-            dataType: 'json',
-            async: false,
-            crossDomain: true,
-            xhrFields: {
-              withCredentials: true,
-            },
-            success: function(json) {
-              const status = json.status;
-              if (status === 0) {
-                alert(i18N.login);
-              }
-            },
-            error: function() {
-              alert(i18N.network + i18N.alert.error);
-              return false;
-            },
-          });
-        }
-      },
-      reset() {
-        this.$refs.form.reset();
-      },
+export default {
+  name: 'Login',
+  data: () => ({
+    i18N: i18N, // i18N配置文件
+    domain: i18N.domain, // 请求地址
+    valid: true,
+    name: '',
+    nameRules: [
+      v => !!v || i18N.attribute.user.name + i18N.is + i18N.empty
+    ],
+    password: '',
+    passwordRules: [
+      v => !!v || i18N.attribute.user.password + i18N.is + i18N.empty
+    ]
+  }),
+  methods: {
+    validate () {
+      if (this.$refs.form.validate()) {
+        this.snackbar = true
+        $.ajax({
+          type: 'post',
+          url: i18N.domain + '/user/login',
+          data: $('#loginForm').serialize(),
+          dataType: 'json',
+          async: false,
+          crossDomain: true,
+          xhrFields: {
+            withCredentials: true
+          },
+          success: function (json) {
+            const status = json.status
+            if (status === 0) {
+              alert(i18N.login)
+            }
+          },
+          error: function () {
+            alert(i18N.network + i18N.alert.error)
+            return false
+          }
+        })
+      }
     },
-  };
+    reset () {
+      this.$refs.form.reset()
+    }
+  }
+}
 
 </script>
 

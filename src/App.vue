@@ -45,12 +45,12 @@
         <v-icon>home</v-icon>
       </v-btn>
       <v-btn dark v-on:click="clickButton(1)">
-        <span>{{ i18N.topic }}</span>
-        <v-icon>music_note</v-icon>
+        <span>{{ i18N.post }}</span>
+        <v-icon>send</v-icon>
       </v-btn>
       <v-btn dark v-on:click="clickButton(2)">
-        <span>{{ i18N.hot }}</span>
-        <v-icon>book</v-icon>
+        <span>{{ i18N.login }}</span>
+        <v-icon>plus_one</v-icon>
       </v-btn>
       <v-btn dark v-on:click="clickButton(3)">
         <span>{{ i18N.setting }}</span>
@@ -61,55 +61,58 @@
 </template>
 
 <script>
-  import i18N from './assets/i18N/i18N';
+import i18N from './assets/i18N/i18N'
 
-  export default {
-    name: 'App',
-    data() {
-      return {
-        currentRoute: window.location.pathname, // 当前路由地址
-        bottomNav: 0, // 当前按下的导航按钮
-        i18N: i18N, // i18N配置文件
-        links: [ // 页脚链接
-          'Home',
-          'About Us',
-          'Team',
-          'Services',
-          'Blog',
-          'Contact Us',
-        ],
-      };
-    },
-    computed: {
-      color() {
-        switch (this.bottomNav) {
-          case 0:
-            return 'blue-grey';
-          case 1:
-            return 'teal';
-          case 2:
-            return 'brown';
-          case 3:
-            return 'indigo';
-        }
-      },
-    },
-    methods: {
-      clickButton: function(data) {
-        switch (data) {
-          case 0:
-            this.$router.push({path: '/'});
-            break;
-          case 3:
-            this.$router.push({path: '/my'});
-            break;
-          default:
-            this.$router.push({path: '/login'});
-        }
-      },
-    },
-    created() {},
-  };
+export default {
+  name: 'App',
+  data () {
+    return {
+      currentRoute: window.location.pathname, // 当前路由地址
+      bottomNav: 0, // 当前按下的导航按钮
+      i18N: i18N, // i18N配置文件
+      links: [ // 页脚链接
+        'Home',
+        'About Us',
+        'Team',
+        'Services',
+        'Blog',
+        'Contact Us'
+      ]
+    }
+  },
+  computed: {
+    color () {
+      switch (this.bottomNav) {
+        case 0:
+          return 'blue-grey'
+        case 1:
+          return 'teal'
+        case 2:
+          return 'brown'
+        case 3:
+          return 'indigo'
+      }
+    }
+  },
+  methods: {
+    clickButton: function (data) {
+      switch (data) {
+        case 0:
+          this.$router.push({path: '/'})
+          break
+        case 1:
+          this.$router.push({path: '/post'})
+          break
+        case 3:
+          this.$router.push({path: '/my'})
+          break
+        default:
+          this.$router.push({path: '/login'})
+      }
+    }
+  },
+  created () {}
+}
 </script>
 
 <style>
