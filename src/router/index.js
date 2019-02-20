@@ -26,7 +26,7 @@ export default new Router({
       component: Login
     },
     {
-      path: '/article',
+      path: '/article/:id',
       name: 'Article',
       component: Article
     },
@@ -35,5 +35,12 @@ export default new Router({
       name: 'Post',
       component: Post
     }
-  ]
+  ],
+  scrollBehavior (to, from, savedPosition) {
+    if (savedPosition) {
+      return savedPosition
+    } else {
+      return { x: 0, y: 0 }
+    }
+  }
 })

@@ -1,7 +1,13 @@
 <template>
   <div>
     <v-list two-line>
-      <template v-for="(item,index) in articleData">
+      <div class="text-xs-center" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+      ></v-progress-circular>
+      </div>
+      <template v-for="(item,index) in articleData" v-else>
         <v-list-tile
           :key="item.id"
           avatar
@@ -10,7 +16,7 @@
             <img :src="domain+item.author.avatar">
           </v-list-tile-avatar>
           <v-list-tile-content>
-            <router-link :to="{ name: 'Article', params: { id: item.id }}">
+            <router-link :to="'/article/'+item.id">
             <v-list-tile-title v-html="item.title"></v-list-tile-title>
           </router-link>
             <v-list-tile-sub-title v-html="item.introduction"></v-list-tile-sub-title>
@@ -30,9 +36,9 @@ export default {
   name: 'Index',
   data () {
     return {
-      // domain: 'http://localhost:8085', // 请求地址
-      domain: 'https://zb.sbx0.cn', // 请求地址
       i18N: i18N, // i18N配置文件
+      domain: i18N.domain, // 请求地址
+      loading: true, // 是否加载中
       page: 1, // 当前页数
       size: 10, // 每页条数
       totalPage: 0, // 总页数
@@ -45,6 +51,7 @@ export default {
   methods: {
     getArticleData: function () {
       const _this = this
+      _this.loading = true
       $.ajax({
         type: 'get',
         url: _this.domain + '/article/index?page=' + _this.page +
@@ -59,6 +66,7 @@ export default {
         },
         success: function (json) {
           _this.articleData = json.objects
+          _this.loading = false
         },
         error: function () {
           alert(i18N.network + i18N.alert.error)
