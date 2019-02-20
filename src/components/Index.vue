@@ -1,24 +1,35 @@
 <template>
   <div>
+    <v-carousel
+      height="200">
+      <v-carousel-item
+        v-for="(item,i) in items"
+        :key="i"
+        :src="item.src"
+      ></v-carousel-item>
+    </v-carousel>
     <v-list two-line>
       <div class="text-xs-center" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-      ></v-progress-circular>
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          class="loading-control"
+        ></v-progress-circular>
       </div>
       <template v-for="(item,index) in articleData" v-else>
         <v-list-tile
           :key="item.id"
           avatar
         >
-          <v-list-tile-avatar>
-            <img :src="i18N.domain+item.author.avatar">
-          </v-list-tile-avatar>
+          <router-link :to="'/user/'+item.author.id">
+            <v-list-tile-avatar>
+              <img :src="i18N.domain+item.author.avatar">
+            </v-list-tile-avatar>
+          </router-link>
           <v-list-tile-content>
             <router-link :to="'/article/'+item.id">
-            <v-list-tile-title v-html="item.title"></v-list-tile-title>
-          </router-link>
+              <v-list-tile-title v-html="item.title"></v-list-tile-title>
+            </router-link>
             <v-list-tile-sub-title v-html="item.introduction"></v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
@@ -44,7 +55,21 @@ export default {
       totalElements: 0, // 总条数
       attribute: 'time', // 按什么排序
       direction: 'DESC', // 倒序
-      articleData: [] // 文章数据
+      articleData: [], // 文章数据
+      items: [
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
+        },
+        {
+          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
+        }
+      ]
     }
   },
   methods: {
@@ -84,6 +109,10 @@ export default {
 <style scoped>
   a {
     text-decoration: none;
-    color:#000;
+    color: #000;
+  }
+
+  .loading-control {
+    margin: 50px 50px;
   }
 </style>

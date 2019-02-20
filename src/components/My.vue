@@ -1,7 +1,14 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm6 offset-sm3>
-      <v-card>
+      <div class="text-xs-center" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          class="loading-control"
+        ></v-progress-circular>
+      </div>
+      <v-card v-else>
         <v-img
           :src="i18N.domain+user.avatar"
           height="300px"
@@ -73,25 +80,29 @@ import $ from 'jquery'
 
 export default {
   name: 'My',
-  data: () => ({
-    i18N: i18N,
-    user: {
-      name: i18N.not + i18N.login,
-      email: i18N.not + i18N.login,
-      avatar: '/img/avatar-min-img.png'
-    },
-    items: [
-      { title: i18N.logout }
-    ]
-  }),
+  data () {
+    return {
+      i18N: i18N,
+      loading: true, // 是否加载中
+      user: {
+        name: i18N.not + i18N.login,
+        email: i18N.not + i18N.login,
+        avatar: '/img/avatar-min-img.png'
+      },
+      items: [
+        {title: i18N.logout}
+      ]
+    }
+  },
   methods: {
     getInfo () {
       const _this = this
+      _this.loading = true
       $.ajax({
         type: 'get',
         url: i18N.domain + '/user/info',
         dataType: 'json',
-        async: true,
+        async: false,
         crossDomain: true,
         xhrFields: {
           withCredentials: true
@@ -100,6 +111,7 @@ export default {
           const status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             if (json.user !== undefined) { _this.user = json.user }
+            _this.loading = false
           } else {
             _this.$router.push({path: '/login'})
           }
@@ -136,5 +148,7 @@ export default {
 </script>
 
 <style scoped>
-
+  .loading-control {
+    margin: 50px 50px;
+  }
 </style>

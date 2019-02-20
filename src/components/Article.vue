@@ -4,6 +4,7 @@
       <v-progress-circular
         indeterminate
         color="primary"
+        class="loading-control"
       ></v-progress-circular>
     </div>
     <v-card-text v-else>
@@ -31,38 +32,40 @@
 
 <script>
 import i18N from '../assets/i18N/i18N'
-import markdownEditor from 'mavon-editor'
 import $ from 'jquery'
+import markdownEditor from 'mavon-editor'
 import 'github-markdown-css'
 
 export default {
   name: 'Article',
-  data: () => ({
-    i18N: i18N, // i18N配置文件
-    loading: true, // 是否加载中
-    articleData: {
-      title: i18N.loading
+  data () {
+    return {
+      i18N: i18N, // i18N配置文件
+      loading: true, // 是否加载中
+      articleData: {
+        title: i18N.loading
+      }
     }
-  }),
+  },
   computed: {
     markdown () {
       return markdownEditor.markdownIt.render(this.articleData.content)
     }
   },
   methods: {
-    getArticle () {
+    getData () {
       const _this = this
       const _id = this.$route.params.id
       if (_id === undefined) {
-        this.$router.push({path: '/'})
+        this.$router.push({path: '/NotFound'})
         return false
       }
       _this.loading = true
       $.ajax({
         type: 'get',
         url: i18N.domain + '/article/id/' + _id,
-        data: $('#loginForm').serialize(),
         dataType: 'json',
+        async: false,
         crossDomain: true,
         xhrFields: {
           withCredentials: true
@@ -84,13 +87,17 @@ export default {
   },
   watch: {
     '$route' () {
-      this.getArticle()
+      this.getData()
     }
   },
   created () {
-    this.getArticle()
+    this.getData()
   }
 }
 </script>
 
-<style scoped></style>
+<style scoped>
+  .loading-control {
+    margin: 50px 50px;
+  }
+</style>

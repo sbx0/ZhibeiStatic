@@ -1,29 +1,29 @@
 <template>
   <v-app>
-  <v-form
-    id="postForm"
-    ref="form"
-    v-model="valid"
-    lazy-validation
-    class="form-control"
-  >
-    <v-text-field
-      name="title"
-      v-model="title"
-      :rules="contentRules"
-      :label="i18N.attribute.article.title"
-      required
-    ></v-text-field>
-    <v-text-field
-      name="introduction"
-      v-model="introduction"
-      :rules="introductionRules"
-      :label="i18N.attribute.article.introduction"
-      required
-    ></v-text-field>
-    <textarea name="content" :value="content" hidden></textarea>
-  </v-form>
-  <mavon-editor v-model="content"/>
+    <v-form
+      id="postForm"
+      ref="form"
+      v-model="valid"
+      lazy-validation
+      class="form-control"
+    >
+      <v-text-field
+        name="title"
+        v-model="title"
+        :rules="titleRules"
+        :label="i18N.attribute.article.title"
+        required
+      ></v-text-field>
+      <v-text-field
+        name="introduction"
+        v-model="introduction"
+        :rules="introductionRules"
+        :label="i18N.attribute.article.introduction"
+        required
+      ></v-text-field>
+      <textarea name="content" :value="content" hidden></textarea>
+    </v-form>
+    <mavon-editor v-model="content"/>
     <v-btn
       :disabled="!valid"
       color="success"
@@ -70,7 +70,7 @@ export default {
         type: 'get',
         url: i18N.domain + '/user/info',
         dataType: 'json',
-        async: true,
+        async: false,
         crossDomain: true,
         xhrFields: {
           withCredentials: true

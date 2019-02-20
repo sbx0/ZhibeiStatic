@@ -28,7 +28,7 @@
           white--text
           xs12
         >
-          &copy;2018 — <strong>{{ i18N.website_name }}</strong>
+          &copy;2019 — <strong>{{ i18N.website_name }}</strong>
         </v-flex>
       </v-layout>
     </v-footer>
