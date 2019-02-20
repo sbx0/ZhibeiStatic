@@ -49,7 +49,6 @@ export default {
   data () {
     return {
       i18N: i18N, // i18N配置文件
-      domain: i18N.domain, // 请求地址
       valid: true,
       title: '',
       titleRules: [
@@ -68,9 +67,32 @@ export default {
   methods: {
     validate () {
       if (this.$refs.form.validate()) {
-        this.snackbar = true
         this.post()
       }
+    },
+    getInfo () {
+      const _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/user/info',
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          const status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            if (json.user !== undefined) { _this.user = json.user }
+          } else {
+            _this.$router.push({path: '/login'})
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
     },
     post: function () {
       const _this = this
@@ -86,8 +108,10 @@ export default {
         },
         success: function (json) {
           const status = json.status
-          if (status === 0) {
+          if (_this.tools.statusCodeToBool(status)) {
             _this.$router.push({path: '/'})
+          } else {
+            alert(_this.tools.statusCodeToAlert(status))
           }
         },
         error: function () {
@@ -96,6 +120,9 @@ export default {
         }
       })
     }
+  },
+  created () {
+    this.getInfo()
   }
 }
 </script>

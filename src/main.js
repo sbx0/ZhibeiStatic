@@ -5,12 +5,14 @@ import App from './App'
 import router from './router'
 import Vuetify from 'vuetify'
 import 'vuetify/dist/vuetify.min.css'
-import mavonEditor from 'mavon-editor'
+import markdownEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
+import tools from './assets/tools'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
-Vue.use(mavonEditor)
+Vue.use(markdownEditor)
+Vue.prototype.tools = tools
 
 /* eslint-disable no-new */
 new Vue({

@@ -13,7 +13,7 @@
           avatar
         >
           <v-list-tile-avatar>
-            <img :src="domain+item.author.avatar">
+            <img :src="i18N.domain+item.author.avatar">
           </v-list-tile-avatar>
           <v-list-tile-content>
             <router-link :to="'/article/'+item.id">
@@ -37,7 +37,6 @@ export default {
   data () {
     return {
       i18N: i18N, // i18N配置文件
-      domain: i18N.domain, // 请求地址
       loading: true, // 是否加载中
       page: 1, // 当前页数
       size: 10, // 每页条数
@@ -54,7 +53,7 @@ export default {
       _this.loading = true
       $.ajax({
         type: 'get',
-        url: _this.domain + '/article/index?page=' + _this.page +
+        url: i18N.domain + '/article/index?page=' + _this.page +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
             '&direction=' + _this.direction,

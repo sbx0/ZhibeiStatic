@@ -31,7 +31,6 @@ export default {
   name: 'Article',
   data: () => ({
     i18N: i18N, // i18N配置文件
-    domain: i18N.domain, // 请求地址
     loading: true, // 是否加载中
     articleData: {
       title: i18N.loading
@@ -48,7 +47,7 @@ export default {
       _this.loading = true
       $.ajax({
         type: 'get',
-        url: i18N.domain + '/article/' + _id,
+        url: i18N.domain + '/article/id/' + _id,
         data: $('#loginForm').serialize(),
         dataType: 'json',
         crossDomain: true,
@@ -57,14 +56,15 @@ export default {
         },
         success: function (json) {
           const status = json.status
-          if (status === 0) {
+          if (_this.tools.statusCodeToBool(status)) {
             _this.articleData = json.object
-            _this.loading = false
+          } else {
+            alert(_this.tools.statusCodeToAlert(status))
           }
+          _this.loading = false
         },
         error: function () {
           alert(i18N.network + i18N.alert.error)
-          return false
         }
       })
     }

@@ -21,9 +21,24 @@
                 <v-icon>edit</v-icon>
               </v-btn>
 
-              <v-btn dark icon>
-                <v-icon>more_vert</v-icon>
-              </v-btn>
+              <v-menu bottom left>
+                <v-btn
+                  slot="activator"
+                  dark
+                  icon
+                >
+                  <v-icon>more_vert</v-icon>
+                </v-btn>
+
+                <v-list>
+                  <v-list-tile
+                    v-for="(item, i) in items"
+                    :key="i"
+                  >
+                    <v-list-tile-title @click="logout">{{ item.title }}</v-list-tile-title>
+                  </v-list-tile>
+                </v-list>
+              </v-menu>
             </v-card-title>
 
             <v-spacer></v-spacer>
@@ -64,7 +79,10 @@ export default {
       name: i18N.not + i18N.login,
       email: i18N.not + i18N.login,
       avatar: '/img/avatar-min-img.png'
-    }
+    },
+    items: [
+      { title: i18N.logout }
+    ]
   }),
   methods: {
     getInfo () {
@@ -80,8 +98,30 @@ export default {
         },
         success: function (json) {
           const status = json.status
-          if (json.user !== undefined) { _this.user = json.user }
-          if (status !== 0) this.$router.push({path: '/login'})
+          if (_this.tools.statusCodeToBool(status)) {
+            if (json.user !== undefined) { _this.user = json.user }
+          } else {
+            _this.$router.push({path: '/login'})
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
+    logout () {
+      const _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/user/logout',
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function () {
+          _this.getInfo()
         },
         error: function () {
           alert(i18N.network + i18N.alert.error)
