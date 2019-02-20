@@ -18,6 +18,8 @@ Vue.prototype.tools = tools
 new Vue({
   el: '#app',
   router,
-  components: {App},
+  components: {
+    App
+  },
   template: '<App/>'
 })

@@ -21,13 +21,7 @@
       :label="i18N.attribute.article.introduction"
       required
     ></v-text-field>
-    <v-text-field
-      name="content"
-      v-model="content"
-      :rules="contentRules"
-      :label="i18N.attribute.article.content"
-      required
-    ></v-text-field>
+    <textarea name="content" :value="content" hidden></textarea>
   </v-form>
   <mavon-editor v-model="content"/>
     <v-btn

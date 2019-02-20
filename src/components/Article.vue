@@ -17,15 +17,23 @@
           <v-icon>mdi-account</v-icon>
         </v-btn>
       </v-layout>
-      <p v-html="articleData.introduction"></p>
-      <p v-html="articleData.content"></p>
+      <div class="markdown-body">
+        <blockquote>
+          <p>
+            {{articleData.introduction}}
+          </p>
+        </blockquote>
+        <div v-html="markdown"></div>
+      </div>
     </v-card-text>
   </v-card>
 </template>
 
 <script>
 import i18N from '../assets/i18N/i18N'
+import markdownEditor from 'mavon-editor'
 import $ from 'jquery'
+import 'github-markdown-css'
 
 export default {
   name: 'Article',
@@ -36,6 +44,11 @@ export default {
       title: i18N.loading
     }
   }),
+  computed: {
+    markdown () {
+      return markdownEditor.markdownIt.render(this.articleData.content)
+    }
+  },
   methods: {
     getArticle () {
       const _this = this
@@ -78,7 +91,6 @@ export default {
     this.getArticle()
   }
 }
-
 </script>
 
 <style scoped></style>
