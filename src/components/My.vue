@@ -1,136 +1,138 @@
 <template>
-  <v-layout justify-center>
-    <v-flex xs12 sm8>
-      <div class="text-xs-center" v-if="loading">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-          class="loading-control"
-        ></v-progress-circular>
-      </div>
-      <v-card else>
-        <v-card-title class="cyan darken-1">
-          <span class="headline white--text">{{user.name}}</span>
-          <v-spacer></v-spacer>
-          <v-btn dark icon>
-            <v-icon>chevron_left</v-icon>
-          </v-btn>
-          <v-btn dark icon>
-            <v-icon>edit</v-icon>
-          </v-btn>
-          <v-menu bottom left>
+  <div>
+    <div class="text-xs-center" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        class="loading-control"
+      ></v-progress-circular>
+    </div>
+    <v-layout justify-center v-else>
+      <v-flex xs12 sm8>
+        <v-card>
+          <v-card-title class="cyan darken-1">
+            <span class="headline white--text">{{user.name}}</span>
+            <v-spacer></v-spacer>
+            <v-btn dark icon>
+              <v-icon>chevron_left</v-icon>
+            </v-btn>
+            <v-btn dark icon>
+              <v-icon>edit</v-icon>
+            </v-btn>
+            <v-menu bottom left>
+              <v-btn
+                slot="activator"
+                dark
+                icon
+              >
+                <v-icon>more_vert</v-icon>
+              </v-btn>
+
+              <v-list>
+                <v-list-tile
+                  v-for="(item, i) in items"
+                  :key="i"
+                >
+                  <v-list-tile-title @click="logout">{{ item.title }}</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
+          </v-card-title>
+          <v-list>
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>phone</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>(650) 555-1234</v-list-tile-title>
+              </v-list-tile-content>
+              <v-list-tile-action>
+
+                <v-icon>chat</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+
+            <v-divider inset></v-divider>
+
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>phone</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>(323) 555-6789</v-list-tile-title>
+              </v-list-tile-content>
+
+              <v-list-tile-action>
+                <v-icon>chat</v-icon>
+              </v-list-tile-action>
+            </v-list-tile>
+
+            <v-divider inset></v-divider>
+
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>mail</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>mcbeal@example.com</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+
+            <v-divider inset></v-divider>
+
+            <v-list-tile>
+              <v-list-tile-action>
+                <v-icon>location_on</v-icon>
+              </v-list-tile-action>
+
+              <v-list-tile-content>
+                <v-list-tile-title>Orlando, FL 79938</v-list-tile-title>
+              </v-list-tile-content>
+            </v-list-tile>
+          </v-list>
+          <v-dialog
+            v-model="dialog"
+            width="500"
+          >
             <v-btn
               slot="activator"
+              color="red lighten-2"
               dark
-              icon
-            >
-              <v-icon>more_vert</v-icon>
-            </v-btn>
-
-            <v-list>
-              <v-list-tile
-                v-for="(item, i) in items"
-                :key="i"
-              >
-                <v-list-tile-title @click="logout">{{ item.title }}</v-list-tile-title>
-              </v-list-tile>
-            </v-list>
-          </v-menu>
-        </v-card-title>
-        <v-list>
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>phone</v-icon>
-            </v-list-tile-action>
-
-            <v-list-tile-content>
-              <v-list-tile-title>(650) 555-1234</v-list-tile-title>
-            </v-list-tile-content>
-            <v-list-tile-action>
-
-              <v-icon>chat</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-
-          <v-divider inset></v-divider>
-
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>phone</v-icon>
-            </v-list-tile-action>
-
-            <v-list-tile-content>
-              <v-list-tile-title>(323) 555-6789</v-list-tile-title>
-            </v-list-tile-content>
-
-            <v-list-tile-action>
-              <v-icon>chat</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-
-          <v-divider inset></v-divider>
-
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>mail</v-icon>
-            </v-list-tile-action>
-
-            <v-list-tile-content>
-              <v-list-tile-title>mcbeal@example.com</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-divider inset></v-divider>
-
-          <v-list-tile>
-            <v-list-tile-action>
-              <v-icon>location_on</v-icon>
-            </v-list-tile-action>
-
-            <v-list-tile-content>
-              <v-list-tile-title>Orlando, FL 79938</v-list-tile-title>
-            </v-list-tile-content>
-          </v-list-tile>
-        </v-list>
-        <v-dialog
-          v-model="dialog"
-          width="500"
-        >
-          <v-btn
-            slot="activator"
-            color="red lighten-2"
-            dark
-            @click="upload"
-          >
-            Click Me
-          </v-btn>
-          <v-card>
-            <v-card-title
-              class="headline grey lighten-2"
-              primary-title
+              @click="upload"
             >
               {{i18N.upload}}{{i18N.attribute.user.avatar}}
-            </v-card-title>
-            <router-view></router-view>
-            <v-divider></v-divider>
-            <v-card-actions>
-              <v-spacer></v-spacer>
-              <v-btn
-                color="primary"
-                flat
-                @click="back"
+            </v-btn>
+            <v-card>
+              <v-card-title
+                class="headline grey lighten-2"
+                primary-title
               >
-                {{i18N.close}}
-              </v-btn>
-            </v-card-actions>
-          </v-card>
-        </v-dialog>
-        <v-img
-          :src="i18N.domain+user.avatar"
-        ></v-img>
-      </v-card>
-    </v-flex>
-  </v-layout>
+                {{i18N.upload}}{{i18N.attribute.user.avatar}}
+              </v-card-title>
+              <router-view></router-view>
+              <v-divider></v-divider>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn
+                  color="primary"
+                  flat
+                  @click="back"
+                >
+                  {{i18N.close}}
+                </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <v-img
+            :src="i18N.domain+user.avatar"
+          ></v-img>
+        </v-card>
+      </v-flex>
+    </v-layout>
+  </div>
 </template>
 
 <script>

@@ -8,7 +8,7 @@
         @input-file="inputFile"
         @input-filter="inputFilter"
       >
-        上传文件
+        {{i18N.upload}}
       </file-upload>
     </v-btn>
   </div>

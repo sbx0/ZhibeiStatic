@@ -1,37 +1,46 @@
 <template>
-  <v-app>
-    <v-form
-      id="postForm"
-      ref="form"
-      v-model="valid"
-      lazy-validation
-      class="form-control"
-    >
-      <v-text-field
-        name="title"
-        v-model="title"
-        :rules="titleRules"
-        :label="i18N.attribute.article.title"
-        required
-      ></v-text-field>
-      <v-text-field
-        name="introduction"
-        v-model="introduction"
-        :rules="introductionRules"
-        :label="i18N.attribute.article.introduction"
-        required
-      ></v-text-field>
-      <textarea name="content" :value="content" hidden></textarea>
-    </v-form>
-    <mavon-editor v-model="content" ref=md @imgAdd="$imgAdd"/>
-    <v-btn
-      :disabled="!valid"
-      color="success"
-      @click="validate"
-    >
-      {{i18N.post}}
-    </v-btn>
-  </v-app>
+  <div>
+    <div class="text-xs-center" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        class="loading-control"
+      ></v-progress-circular>
+    </div>
+    <v-app v-else>
+      <v-form
+        id="postForm"
+        ref="form"
+        v-model="valid"
+        lazy-validation
+        class="form-control"
+      >
+        <v-text-field
+          name="title"
+          v-model="title"
+          :rules="titleRules"
+          :label="i18N.attribute.article.title"
+          required
+        ></v-text-field>
+        <v-text-field
+          name="introduction"
+          v-model="introduction"
+          :rules="introductionRules"
+          :label="i18N.attribute.article.introduction"
+          required
+        ></v-text-field>
+        <textarea name="content" :value="content" hidden></textarea>
+      </v-form>
+      <mavon-editor v-model="content" ref=md @imgAdd="$imgAdd"/>
+      <v-btn
+        :disabled="!valid"
+        color="success"
+        @click="validate"
+      >
+        {{i18N.post}}
+      </v-btn>
+    </v-app>
+  </div>
 </template>
 
 <script>
@@ -45,6 +54,7 @@ export default {
     return {
       i18N: i18N, // i18N配置文件
       valid: true,
+      loading: true,
       title: '',
       titleRules: [
         v => !!v || i18N.attribute.article.title + i18N.is + i18N.empty
@@ -71,7 +81,7 @@ export default {
         url: i18N.domain + '/file/upload',
         method: 'post',
         data: imgData,
-        headers: { 'Content-Type': 'multipart/form-data' },
+        headers: {'Content-Type': 'multipart/form-data'},
         crossDomain: true
       }).then(function (response) {
         const status = response.data.status
@@ -88,11 +98,12 @@ export default {
     },
     getInfo () {
       const _this = this
+      _this.loading = true
       $.ajax({
         type: 'get',
         url: i18N.domain + '/user/info',
         dataType: 'json',
-        async: false,
+        async: true,
         crossDomain: true,
         xhrFields: {
           withCredentials: true
@@ -100,10 +111,13 @@ export default {
         success: function (json) {
           const status = json.status
           if (_this.tools.statusCodeToBool(status)) {
-            if (json.user !== undefined) { _this.user = json.user }
+            if (json.user !== undefined) {
+              _this.user = json.user
+            }
           } else {
             _this.$router.push({path: '/login'})
           }
+          _this.loading = false
         },
         error: function () {
           alert(i18N.network + i18N.alert.error)
@@ -146,5 +160,8 @@ export default {
 <style scoped>
   .form-control {
     margin: 25px 25px;
+  }
+  .loading-control {
+    margin: 50px 50px;
   }
 </style>

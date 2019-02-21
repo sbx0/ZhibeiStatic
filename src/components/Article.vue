@@ -65,7 +65,7 @@ export default {
         type: 'get',
         url: i18N.domain + '/article/id/' + _id,
         dataType: 'json',
-        async: false,
+        async: true,
         crossDomain: true,
         xhrFields: {
           withCredentials: true

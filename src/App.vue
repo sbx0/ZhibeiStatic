@@ -111,7 +111,25 @@ export default {
       }
     }
   },
-  created () {}
+  watch: {
+    '$route' () {
+      switch (window.location.hash) {
+        case '#/':
+          this.bottomNav = 0
+          break
+        case '#/post':
+          this.bottomNav = 1
+          break
+        case '#/login':
+          this.bottomNav = 2
+          break
+        case '#/my':
+          this.bottomNav = 3
+          break
+        default:
+      }
+    }
+  }
 }
 </script>
 

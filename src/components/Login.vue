@@ -124,6 +124,28 @@ export default {
     }
   },
   methods: {
+    getInfo () {
+      const _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/user/info',
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          const status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            _this.$router.push({path: '/my'})
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
     validateLogin () {
       const _this = this
       if (this.$refs.form.validate()) {
@@ -183,6 +205,9 @@ export default {
     reset () {
       this.$refs.form.reset()
     }
+  },
+  created () {
+    this.getInfo()
   }
 }
 
