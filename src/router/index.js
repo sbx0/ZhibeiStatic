@@ -7,6 +7,7 @@ import Article from '../components/Article'
 import Post from '../components/Post'
 import User from '../components/User'
 import NotFound from '../components/NotFound'
+import Upload from '../components/Upload'
 
 Vue.use(Router)
 
@@ -20,7 +21,15 @@ export default new Router({
     {
       path: '/my',
       name: 'My',
-      component: My
+      component: My,
+      children: [
+        {
+          // 当 /my/upload 匹配成功，
+          // Upload 会被渲染在 My 的 <router-view> 中
+          path: 'upload',
+          component: Upload
+        }
+      ]
     },
     {
       path: '/login',
@@ -41,6 +50,11 @@ export default new Router({
       path: '/post',
       name: 'Post',
       component: Post
+    },
+    {
+      path: '/upload',
+      name: 'Upload',
+      component: Upload
     },
     {
       path: '/*',
