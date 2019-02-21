@@ -23,7 +23,7 @@
       ></v-text-field>
       <textarea name="content" :value="content" hidden></textarea>
     </v-form>
-    <mavon-editor v-model="content"/>
+    <mavon-editor v-model="content" ref=md @imgAdd="$imgAdd"/>
     <v-btn
       :disabled="!valid"
       color="success"
@@ -36,6 +36,7 @@
 
 <script>
 import i18N from '../assets/i18N/i18N'
+import axios from 'axios'
 import $ from 'jquery'
 
 export default {
@@ -59,6 +60,27 @@ export default {
     }
   },
   methods: {
+    // 绑定@imgAdd event
+    $imgAdd (pos, $file) {
+      const _this = this
+      // 第一步.将图片上传到服务器.
+      let imgData = new FormData()
+      imgData.append('file', $file)
+      axios.defaults.withCredentials = true
+      axios({
+        url: i18N.domain + '/file/upload',
+        method: 'post',
+        data: imgData,
+        headers: { 'Content-Type': 'multipart/form-data' },
+        crossDomain: true
+      }).then(function (response) {
+        const status = response.data.status
+        if (_this.tools.statusCodeToBool(status) || status === 7) {
+          const url = i18N.domain + '/upload/' + response.data.type + '/' + response.data.name
+          _this.$refs.md.$img2Url(0, url)
+        }
+      })
+    },
     validate () {
       if (this.$refs.form.validate()) {
         this.post()
