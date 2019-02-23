@@ -54,8 +54,8 @@ export default {
   },
   methods: {
     getData () {
-      const _this = this
-      const _id = this.$route.params.id
+      let _this = this
+      let _id = this.$route.params.id
       if (_id === undefined) {
         this.$router.push({path: '/NotFound'})
         return false
@@ -71,7 +71,7 @@ export default {
           withCredentials: true
         },
         success: function (json) {
-          const status = json.status
+          let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             _this.articleData = json.object
           } else {

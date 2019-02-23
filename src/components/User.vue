@@ -30,47 +30,15 @@
           slider-color="yellow"
         >
           <v-tab
-            v-for="item in items"
-            :key="item"
-            :href="'#tab-' + item"
+            v-for="(item,key) in items"
+            :key="key"
+            :href="'#tab-' + item.index"
           >
-            {{ item }}
+            {{ item.title }}
           </v-tab>
-          <v-menu
-            v-if="more.length"
-            bottom
-            class="v-tabs__div"
-            left
-          >
-            <a slot="activator" class="v-tabs__item">
-              more
-              <v-icon>arrow_drop_down</v-icon>
-            </a>
-            <v-list class="grey lighten-3">
-              <v-list-tile
-                v-for="item in more"
-                :key="item"
-              >
-                {{ item }}
-              </v-list-tile>
-            </v-list>
-          </v-menu>
         </v-tabs>
       </v-toolbar>
-      <v-tabs-items v-model="currentItem">
-        <v-tab-item
-          v-for="item in items.concat(more)"
-          :key="item"
-          :value="'tab-' + item"
-        >
-          <v-card flat>
-            <v-card-text>
-              <h2>{{ item }}</h2>
-              {{ text }}
-            </v-card-text>
-          </v-card>
-        </v-tab-item>
-      </v-tabs-items>
+      <router-view></router-view>
     </div>
   </div>
 </template>
@@ -88,20 +56,24 @@ export default {
       userData: {
         name: i18N.loading
       },
-      currentItem: 'tab-Web',
+      currentItem: 'tab-Article',
       items: [
-        'Web', 'Shopping', 'Videos', 'Images'
-      ],
-      more: [
-        'News', 'Maps', 'Books', 'Flights', 'Apps'
+        {
+          title: i18N.article,
+          index: 'Article'
+        },
+        {
+          title: 'Coming Soon',
+          index: 'Ask'
+        }
       ],
       text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
     }
   },
   methods: {
     getData () {
-      const _this = this
-      const _id = this.$route.params.id
+      let _this = this
+      let _id = this.$route.params.id
       if (_id === undefined) {
         this.$router.push({path: '/NotFound'})
         return false
@@ -117,7 +89,7 @@ export default {
           withCredentials: true
         },
         success: function (json) {
-          const status = json.status
+          let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             _this.userData = json.object
           } else {

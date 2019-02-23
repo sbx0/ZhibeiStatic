@@ -72,7 +72,7 @@ export default {
   methods: {
     // 绑定@imgAdd event
     $imgAdd (pos, $file) {
-      const _this = this
+      let _this = this
       // 第一步.将图片上传到服务器.
       let imgData = new FormData()
       imgData.append('file', $file)
@@ -84,9 +84,9 @@ export default {
         headers: {'Content-Type': 'multipart/form-data'},
         crossDomain: true
       }).then(function (response) {
-        const status = response.data.status
+        let status = response.data.status
         if (_this.tools.statusCodeToBool(status) || status === 7) {
-          const url = i18N.domain + '/upload/' + response.data.type + '/' + response.data.name
+          let url = i18N.domain + '/upload/' + response.data.type + '/' + response.data.name
           _this.$refs.md.$img2Url(0, url)
         }
       })
@@ -97,7 +97,7 @@ export default {
       }
     },
     getInfo () {
-      const _this = this
+      let _this = this
       _this.loading = true
       $.ajax({
         type: 'get',
@@ -109,7 +109,7 @@ export default {
           withCredentials: true
         },
         success: function (json) {
-          const status = json.status
+          let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             if (json.user !== undefined) {
               _this.user = json.user
@@ -125,7 +125,7 @@ export default {
       })
     },
     post: function () {
-      const _this = this
+      let _this = this
       $.ajax({
         type: 'post',
         url: i18N.domain + '/article/post',
@@ -137,7 +137,7 @@ export default {
           withCredentials: true
         },
         success: function (json) {
-          const status = json.status
+          let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             _this.$router.push({path: '/'})
           } else {

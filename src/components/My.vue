@@ -165,7 +165,7 @@ export default {
       this.$router.push({path: '/my/upload'})
     },
     getInfo () {
-      const _this = this
+      let _this = this
       _this.loading = true
       $.ajax({
         type: 'get',
@@ -177,7 +177,7 @@ export default {
           withCredentials: true
         },
         success: function (json) {
-          const status = json.status
+          let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             if (json.user !== undefined) {
               _this.user = json.user
@@ -193,7 +193,7 @@ export default {
       })
     },
     logout () {
-      const _this = this
+      let _this = this
       $.ajax({
         type: 'get',
         url: i18N.domain + '/user/logout',

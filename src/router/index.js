@@ -8,6 +8,7 @@ import Post from '../components/Post'
 import User from '../components/User'
 import NotFound from '../components/NotFound'
 import Upload from '../components/Upload'
+import ArticleList from '../components/ArticleList'
 
 Vue.use(Router)
 
@@ -44,7 +45,13 @@ export default new Router({
     {
       path: '/user/:id',
       name: 'User',
-      component: User
+      component: User,
+      children: [
+        {
+          path: 'article',
+          component: ArticleList
+        }
+      ]
     },
     {
       path: '/post',

@@ -1,4 +1,6 @@
-### [智贝](http://m.sbx0.cn "智贝")  
+### [智贝 网页客户端](http://m.sbx0.cn "智贝 网页客户端")  
+
+> 配套后端代码 [智贝](https://github.com/sbx0/Zhibei "智贝")  （暂时是私有项目）  
 
 > A Vue.js project  
 

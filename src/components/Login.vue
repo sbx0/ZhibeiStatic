@@ -125,7 +125,7 @@ export default {
   },
   methods: {
     getInfo () {
-      const _this = this
+      let _this = this
       $.ajax({
         type: 'get',
         url: i18N.domain + '/user/info',
@@ -136,7 +136,7 @@ export default {
           withCredentials: true
         },
         success: function (json) {
-          const status = json.status
+          let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             _this.$router.push({path: '/my'})
           }
@@ -147,7 +147,7 @@ export default {
       })
     },
     validateLogin () {
-      const _this = this
+      let _this = this
       if (this.$refs.form.validate()) {
         $.ajax({
           type: 'post',
@@ -160,7 +160,7 @@ export default {
             withCredentials: true
           },
           success: function (json) {
-            const status = json.status
+            let status = json.status
             if (_this.tools.statusCodeToBool(status)) {
               _this.$router.push({path: '/'})
             } else {
@@ -175,7 +175,7 @@ export default {
       }
     },
     validateRegister () {
-      const _this = this
+      let _this = this
       if (_this.$refs.form.validate()) {
         $.ajax({
           type: 'post',
@@ -188,7 +188,7 @@ export default {
             withCredentials: true
           },
           success: function (json) {
-            const status = json.status
+            let status = json.status
             if (_this.tools.statusCodeToBool(status)) {
               _this.loginOrRegister = true
             } else {

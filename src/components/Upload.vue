@@ -18,7 +18,7 @@
 import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
 
-const VueUploadComponent = require('vue-upload-component')
+let VueUploadComponent = require('vue-upload-component')
 export default {
   name: 'Upload',
   data () {
@@ -48,11 +48,11 @@ export default {
         }
       }
       if (newFile && oldFile && !newFile.active && oldFile.active) {
-        const json = newFile.response
-        const status = json.status
+        let json = newFile.response
+        let status = json.status
         if (this.tools.statusCodeToBool(status) || status === 7) {
           if (this.$router.currentRoute.path === '/my/upload') {
-            const _this = this
+            let _this = this
             $.ajax({
               type: 'GET',
               url: i18N.domain + '/file/avatar?md5=' + json.md5,
@@ -63,7 +63,7 @@ export default {
                 withCredentials: true
               },
               success: function (json) {
-                const status = json.status
+                let status = json.status
                 if (_this.tools.statusCodeToBool(status)) {
                   _this.$router.push({path: '/my'})
                 }
