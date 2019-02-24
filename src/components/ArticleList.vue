@@ -26,6 +26,7 @@
       </v-list-tile>
       <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
     </template>
+    <v-btn block @click="readMore()">{{i18N.read_more}}</v-btn>
   </v-list>
 </template>
 
@@ -63,13 +64,72 @@ export default {
     }
   },
   methods: {
+    readMore: function () {
+      let _this = this
+      let url = i18N.domain +
+          '/article/index?page=' + (_this.page + 1) +
+          '&size=' + _this.size +
+          '&attribute=' + _this.attribute +
+          '&direction=' + _this.direction
+      let path = _this.$router.currentRoute.path
+      let pathRegExp = new RegExp('.*?((?:[a-z][a-z]+)).*?((?:[a-z][a-z]+))')
+      let pathM = pathRegExp.exec(path)
+      if (pathM != null) {
+        let word1 = pathM[1]
+        let word2 = pathM[2]
+        path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
+      }
+      if (path === '/user/article') {
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain +
+            '/article/user?id=' + id +
+            '&page=' + (_this.page + 1) +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
+      }
+      $.ajax({
+        type: 'get',
+        url: url,
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          if (json.objects != null) {
+            let articleData = []
+            for (let i = 0; i < _this.articleData.length; i++) {
+              articleData.push(_this.articleData[i])
+            }
+            for (let j = 0; j < json.objects.length; j++) {
+              articleData.push(json.objects[j])
+            }
+            _this.articleData = articleData
+            _this.loading = false
+            _this.page += 1
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+          return false
+        }
+      }
+      )
+    },
     getArticleData: function () {
       let _this = this
       _this.loading = true
       let url = i18N.domain + '/article/index?page=' + _this.page +
-        '&size=' + _this.size +
-        '&attribute=' + _this.attribute +
-        '&direction=' + _this.direction
+          '&size=' + _this.size +
+          '&attribute=' + _this.attribute +
+          '&direction=' + _this.direction
       let path = _this.$router.currentRoute.path
       let pathRegExp = new RegExp('.*?((?:[a-z][a-z]+)).*?((?:[a-z][a-z]+))')
       let pathM = pathRegExp.exec(path)
@@ -86,10 +146,10 @@ export default {
           id = idM[1].replace(/</, '&lt;')
         }
         url = i18N.domain + '/article/user?id=' + id +
-          '&page=' + _this.page +
-          '&size=' + _this.size +
-          '&attribute=' + _this.attribute +
-          '&direction=' + _this.direction
+            '&page=' + _this.page +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
       }
       $.ajax({
         type: 'get',
