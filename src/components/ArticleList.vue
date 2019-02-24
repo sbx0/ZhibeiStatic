@@ -7,7 +7,7 @@
         class="loading-control"
       ></v-progress-circular>
     </div>
-    <template v-for="(item,index) in articleData" v-else>
+    <template v-for="(item,index) in data" v-else>
       <v-list-tile
         :key="item.id"
         avatar
@@ -46,7 +46,7 @@ export default {
       totalElements: 0, // 总条数
       attribute: 'time', // 按什么排序
       direction: 'DESC', // 倒序
-      articleData: [], // 文章数据
+      data: [], // 文章数据
       items: [
         {
           src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
@@ -104,14 +104,14 @@ export default {
         },
         success: function (json) {
           if (json.objects != null) {
-            let articleData = []
-            for (let i = 0; i < _this.articleData.length; i++) {
-              articleData.push(_this.articleData[i])
+            let data = []
+            for (let i = 0; i < _this.data.length; i++) {
+              data.push(_this.data[i])
             }
             for (let j = 0; j < json.objects.length; j++) {
-              articleData.push(json.objects[j])
+              data.push(json.objects[j])
             }
-            _this.articleData = articleData
+            _this.data = data
             _this.loading = false
             _this.page += 1
           }
@@ -161,7 +161,7 @@ export default {
           withCredentials: true
         },
         success: function (json) {
-          _this.articleData = json.objects
+          _this.data = json.objects
           _this.loading = false
         },
         error: function () {

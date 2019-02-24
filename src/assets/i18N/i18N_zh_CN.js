@@ -283,6 +283,15 @@ const i18N = {
       dislikes: '不喜欢数',
       top: '置顶排序指数',
       author: '作者'
+    },
+    comment: {
+      id: '编号',
+      time: '发表时间',
+      content: '评论内容',
+      likes: '喜欢数',
+      dislikes: '不喜欢数',
+      top: '置顶排序指数',
+      poster: '作者'
     }
   },
   alert: {

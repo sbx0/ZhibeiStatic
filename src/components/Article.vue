@@ -1,33 +1,36 @@
 <template>
-  <v-card flat>
-    <div class="text-xs-center" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        class="loading-control"
-      ></v-progress-circular>
-    </div>
-    <v-card-text v-else>
-      <v-layout align-center mb-3>
-        <v-avatar color="grey" class="mr-3">
-          <img :src="i18N.domain+articleData.author.avatar" alt="avatar">
-        </v-avatar>
-        <strong class="title">{{articleData.title}}</strong>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>mdi-account</v-icon>
-        </v-btn>
-      </v-layout>
-      <div class="markdown-body">
-        <blockquote>
-          <p>
-            {{articleData.introduction}}
-          </p>
-        </blockquote>
-        <div v-html="markdown"></div>
+  <div>
+    <v-card flat>
+      <div class="text-xs-center" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          class="loading-control"
+        ></v-progress-circular>
       </div>
-    </v-card-text>
-  </v-card>
+      <v-card-text v-else>
+        <v-layout align-center mb-3>
+          <v-avatar color="grey" class="mr-3">
+            <img :src="i18N.domain+data.author.avatar" alt="avatar">
+          </v-avatar>
+          <strong class="title">{{data.title}}</strong>
+          <v-spacer></v-spacer>
+          <v-btn icon>
+            <v-icon>mdi-account</v-icon>
+          </v-btn>
+        </v-layout>
+        <div class="markdown-body">
+          <blockquote>
+            <p>
+              {{data.introduction}}
+            </p>
+          </blockquote>
+          <div v-html="markdown"></div>
+        </div>
+      </v-card-text>
+    </v-card>
+    <CommentList></CommentList>
+  </div>
 </template>
 
 <script>
@@ -35,21 +38,26 @@ import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
 import markdownEditor from 'mavon-editor'
 import 'github-markdown-css'
+import CommentList from '../components/CommentList'
 
 export default {
   name: 'Article',
+  components: {CommentList},
   data () {
     return {
       i18N: i18N, // i18N配置文件
       loading: true, // 是否加载中
-      articleData: {
-        title: i18N.loading
+      data: {
+        title: i18N.loading,
+        content: ''
       }
     }
   },
   computed: {
     markdown () {
-      return markdownEditor.markdownIt.render(this.articleData.content)
+      if (this.data.content !== undefined) {
+        return markdownEditor.markdownIt.render(this.data.content)
+      }
     }
   },
   methods: {
@@ -73,7 +81,7 @@ export default {
         success: function (json) {
           let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
-            _this.articleData = json.object
+            _this.data = json.object
           } else {
             alert(_this.tools.statusCodeToAlert(status))
           }
