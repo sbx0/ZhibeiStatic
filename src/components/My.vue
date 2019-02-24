@@ -13,10 +13,7 @@
           <v-card-title class="cyan darken-1">
             <span class="headline white--text">{{user.name}}</span>
             <v-spacer></v-spacer>
-            <v-btn dark icon>
-              <v-icon>chevron_left</v-icon>
-            </v-btn>
-            <v-btn dark icon>
+            <v-btn dark icon @click="data">
               <v-icon>edit</v-icon>
             </v-btn>
             <v-menu bottom left>
@@ -27,13 +24,16 @@
               >
                 <v-icon>more_vert</v-icon>
               </v-btn>
-
               <v-list>
-                <v-list-tile
-                  v-for="(item, i) in items"
-                  :key="i"
-                >
-                  <v-list-tile-title @click="logout">{{ item.title }}</v-list-tile-title>
+                <v-list-tile>
+                  <v-list-tile-title @click="logout">
+                    {{ i18N.logout }}
+                  </v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile>
+                  <v-list-tile-title @click="upload">
+                    {{ i18N.avatar }}
+                  </v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -43,74 +43,54 @@
               <v-list-tile-action>
                 <v-icon>phone</v-icon>
               </v-list-tile-action>
-
               <v-list-tile-content>
                 <v-list-tile-title>(650) 555-1234</v-list-tile-title>
               </v-list-tile-content>
               <v-list-tile-action>
-
                 <v-icon>chat</v-icon>
               </v-list-tile-action>
             </v-list-tile>
-
             <v-divider inset></v-divider>
-
             <v-list-tile>
               <v-list-tile-action>
                 <v-icon>phone</v-icon>
               </v-list-tile-action>
-
               <v-list-tile-content>
                 <v-list-tile-title>(323) 555-6789</v-list-tile-title>
               </v-list-tile-content>
-
               <v-list-tile-action>
                 <v-icon>chat</v-icon>
               </v-list-tile-action>
             </v-list-tile>
-
             <v-divider inset></v-divider>
-
             <v-list-tile>
               <v-list-tile-action>
                 <v-icon>mail</v-icon>
               </v-list-tile-action>
-
               <v-list-tile-content>
                 <v-list-tile-title>mcbeal@example.com</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
-
             <v-divider inset></v-divider>
-
             <v-list-tile>
               <v-list-tile-action>
                 <v-icon>location_on</v-icon>
               </v-list-tile-action>
-
               <v-list-tile-content>
                 <v-list-tile-title>Orlando, FL 79938</v-list-tile-title>
               </v-list-tile-content>
             </v-list-tile>
           </v-list>
           <v-dialog
-            v-model="dialog"
+            v-model="uploadDialog"
             width="500"
           >
-            <v-btn
-              slot="activator"
-              color="red lighten-2"
-              dark
-              @click="upload"
-            >
-              {{i18N.upload}}{{i18N.attribute.user.avatar}}
-            </v-btn>
             <v-card>
               <v-card-title
                 class="headline grey lighten-2"
                 primary-title
               >
-                {{i18N.upload}}{{i18N.attribute.user.avatar}}
+                {{i18N.upload + i18N.attribute.user.avatar}}
               </v-card-title>
               <router-view></router-view>
               <v-divider></v-divider>
@@ -123,6 +103,21 @@
                 >
                   {{i18N.close}}
                 </v-btn>
+              </v-card-actions>
+            </v-card>
+          </v-dialog>
+          <v-dialog v-model="dataDialog" persistent max-width="600px">
+            <v-card>
+              <v-card-title>
+                <span class="headline">{{i18N.personal + i18N.information}}</span>
+              </v-card-title>
+              <v-card-text>
+                <router-view></router-view>
+              </v-card-text>
+              <v-card-actions>
+                <v-spacer></v-spacer>
+                <v-btn color="blue darken-1" flat @click="dataBack">{{i18N.close}}</v-btn>
+                <v-btn color="blue darken-1" flat @click="dataSave">{{i18N.save}}</v-btn>
               </v-card-actions>
             </v-card>
           </v-dialog>
@@ -145,23 +140,61 @@ export default {
     return {
       i18N: i18N,
       loading: true, // 是否加载中
-      dialog: false,
+      uploadDialog: false,
+      dataDialog: false,
       user: {
         name: i18N.not + i18N.login,
+        nickname: i18N.not + i18N.login,
         email: i18N.not + i18N.login,
-        avatar: '/img/avatar-min-img.png'
-      },
-      items: [
-        {title: i18N.logout}
-      ]
+        avatar: '/img/avatar-min-img.png',
+        sex: i18N.not + i18N.login,
+        introduction: i18N.not + i18N.login,
+        birthday: i18N.not + i18N.login
+      }
     }
   },
   methods: {
+    data () {
+      this.dataDialog = true
+      this.$router.push({path: '/my/data'})
+    },
+    dataSave () {
+      this.dataDialog = false
+      let _this = this
+      $.ajax({
+        type: 'post',
+        url: i18N.domain + '/user/data',
+        data: $('#dataForm').serialize(),
+        dataType: 'json',
+        async: false,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            _this.$router.push({path: '/my'})
+          } else {
+            alert(_this.tools.statusCodeToAlert(status))
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+          return false
+        }
+      })
+    },
+    dataBack () {
+      this.dataDialog = false
+      this.$router.push({path: '/my'})
+    },
     back () {
-      this.dialog = false
+      this.uploadDialog = false
       this.$router.push({path: '/my'})
     },
     upload () {
+      this.uploadDialog = true
       this.$router.push({path: '/my/upload'})
     },
     getInfo () {

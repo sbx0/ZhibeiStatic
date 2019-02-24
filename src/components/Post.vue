@@ -31,7 +31,7 @@
         ></v-text-field>
         <textarea name="content" :value="content" hidden></textarea>
       </v-form>
-      <mavon-editor v-model="content" ref=md @imgAdd="$imgAdd"/>
+      <mavon-editor v-model="content" ref=md @imgAdd="imgAdd"/>
       <v-btn
         :disabled="!valid"
         color="success"
@@ -71,7 +71,7 @@ export default {
   },
   methods: {
     // 绑定@imgAdd event
-    $imgAdd (pos, $file) {
+    imgAdd (pos, $file) {
       let _this = this
       // 第一步.将图片上传到服务器.
       let imgData = new FormData()
@@ -87,7 +87,7 @@ export default {
         let status = response.data.status
         if (_this.tools.statusCodeToBool(status) || status === 7) {
           let url = i18N.domain + '/upload/' + response.data.type + '/' + response.data.name
-          _this.$refs.md.$img2Url(0, url)
+          _this.$refs.md.$img2Url(pos, url)
         }
       })
     },

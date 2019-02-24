@@ -14,7 +14,8 @@
         <v-avatar class="mr-3">
           <img :src="i18N.domain+userData.avatar" alt="avatar">
         </v-avatar>
-        <v-toolbar-title>{{userData.name}}</v-toolbar-title>
+        <v-toolbar-title v-if="userData.nickname != null">{{userData.nickname}}@{{userData.name}}</v-toolbar-title>
+        <v-toolbar-title v-else>@{{userData.name}}</v-toolbar-title>
         <v-spacer></v-spacer>
         <v-btn icon>
           <v-icon>search</v-icon>
