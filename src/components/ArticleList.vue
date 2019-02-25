@@ -14,7 +14,7 @@
       >
         <router-link :to="'/user/'+item.author.id+'/article'">
           <v-list-tile-avatar>
-            <img :src="i18N.domain+item.author.avatar">
+            <img v-if="item.author.avatar !== undefined" :src="i18N.domain+item.author.avatar">
           </v-list-tile-avatar>
         </router-link>
         <v-list-tile-content>

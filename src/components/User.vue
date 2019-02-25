@@ -5,7 +5,7 @@
         tabs
       >
         <v-avatar class="mr-3">
-          <img :src="i18N.domain+userData.avatar" alt="avatar">
+          <img v-if="userData.avatar !== undefined" :src="i18N.domain+userData.avatar" alt="avatar">
         </v-avatar>
         <v-toolbar-title v-if="userData.nickname != null">{{userData.nickname}}@{{userData.name}}</v-toolbar-title>
         <v-toolbar-title v-else>@{{userData.name}}</v-toolbar-title>
@@ -102,9 +102,10 @@ export default {
         return false
       }
       _this.loading = true
+      let url = i18N.domain + '/user/id/' + _id
       $.ajax({
         type: 'get',
-        url: i18N.domain + '/user/id/' + _id,
+        url: url,
         dataType: 'json',
         async: true,
         crossDomain: true,
@@ -132,6 +133,22 @@ export default {
     }
   },
   created () {
+    let path = this.$router.currentRoute.path
+    let char = path.split('/')
+    switch (char[3]) {
+      case 'article':
+        this.currentItem = 'tab-Article'
+        break
+      case 'comment':
+        this.currentItem = 'tab-Comment'
+        break
+      case 'message_board':
+        this.currentItem = 'tab-MessageBoard'
+        break
+      default:
+        this.currentItem = 'tab-Article'
+        break
+    }
     this.getData()
   }
 }
