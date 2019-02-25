@@ -1,6 +1,23 @@
 import i18N from './i18N/i18N'
 
 const tools = {
+  setCookie: function (cName, cValue, exDays) {
+    let d = new Date()
+    d.setTime(d.getTime() + (exDays * 24 * 60 * 60 * 1000))
+    let expires = 'expires=' + d.toGMTString()
+    document.cookie = cName + '=' + cValue + '; ' + expires + ';path=/'
+  },
+  getCookie: function (cname) {
+    let name = cname + '='
+    let ca = document.cookie.split(';')
+    for (let i = 0; i < ca.length; i++) {
+      let c = ca[i].trim()
+      if (c.indexOf(name) === 0) {
+        return c.substring(name.length, c.length)
+      }
+    }
+    return ''
+  },
   statusCodeToAlert: function (status) {
     switch (status) {
       case 0:

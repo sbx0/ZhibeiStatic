@@ -30,6 +30,14 @@
         >
           &copy;2019 — <strong>{{ i18N.website_name }}</strong>
         </v-flex>
+        <v-select
+          v-model="i18NConfig"
+          :items="i18N.lib"
+          item-text="value"
+          item-value="name"
+          class="form-control"
+          @change="i18NChange"
+        ></v-select>
       </v-layout>
     </v-footer>
     <v-bottom-nav
@@ -70,6 +78,9 @@ export default {
       currentRoute: window.location.pathname, // 当前路由地址
       bottomNav: 0, // 当前按下的导航按钮
       i18N: i18N, // i18N配置文件
+      i18NConfig: {
+        value: 'zh_CN'
+      }, // i18N配置文件
       links: [ // 页脚链接
         'Home',
         'About Us',
@@ -95,6 +106,10 @@ export default {
     }
   },
   methods: {
+    i18NChange: function () {
+      this.tools.setCookie('i18N_config', this.i18NConfig, 30)
+      location.reload()
+    },
     clickButton: function (data) {
       switch (data) {
         case 0:
@@ -129,6 +144,9 @@ export default {
         default:
       }
     }
+  },
+  created () {
+    this.i18NConfig = this.tools.getCookie('i18N_config')
   }
 }
 </script>
@@ -136,5 +154,9 @@ export default {
 <style>
   .higher_foot {
     margin-bottom: 54px;
+  }
+
+  .form-control {
+    margin: 5px 20px;
   }
 </style>
