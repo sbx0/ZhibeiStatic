@@ -57,9 +57,7 @@ export default {
   },
   computed: {
     markdown () {
-      if (this.data.content !== undefined) {
-        return markdownEditor.markdownIt.render(this.data.content)
-      }
+      return markdownEditor.markdownIt.render(this.data.content)
     }
   },
   methods: {
@@ -75,7 +73,7 @@ export default {
         type: 'get',
         url: i18N.domain + '/article/id/' + _id,
         dataType: 'json',
-        async: true,
+        async: false,
         crossDomain: true,
         xhrFields: {
           withCredentials: true
