@@ -92,14 +92,30 @@ const i18N = {
   reset: '重置',
   not: '未',
   message_board: '留言板',
+  before_can_use: '前有效',
 
-  certification_type: {
-    personal: '个人认证',
-    admin: '管理员认证',
-    enterprise: '企业认证',
-    university: '院校认证',
-    mechanism: '机构认证'
-  },
+  certification_type: [
+    {
+      text: '个人认证',
+      value: 'personal'
+    },
+    {
+      text: '管理员认证',
+      value: 'admin'
+    },
+    {
+      text: '企业认证',
+      value: 'enterprise'
+    },
+    {
+      text: '院校认证',
+      value: 'university'
+    },
+    {
+      text: '机构认证',
+      value: 'mechanism'
+    }
+  ],
 
   m_nav_data: [
     {

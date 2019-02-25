@@ -73,8 +73,9 @@ export default {
                 alert(i18N.network + i18N.alert.error)
               }
             })
+          } else if (this.$router.currentRoute.path === '/my/certification') {
+            this.$emit('return-data', i18N.domain + '/upload/' + json.type + '/' + json.name)
           }
-          // alert(i18N.domain + '/upload/' + json.type + '/' + json.name)
         } else {
           alert(this.tools.statusCodeToAlert(status))
         }

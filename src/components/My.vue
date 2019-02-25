@@ -13,6 +13,9 @@
           <v-card-title class="cyan darken-1">
             <span class="headline white--text">{{user.name}}</span>
             <v-spacer></v-spacer>
+            <v-btn dark icon @click="certification">
+              <v-icon>assignment_ind</v-icon>
+            </v-btn>
             <v-btn dark icon @click="data">
               <v-icon>edit</v-icon>
             </v-btn>
@@ -109,7 +112,7 @@
           <v-dialog v-model="dataDialog" persistent max-width="600px">
             <v-card>
               <v-card-title>
-                <span class="headline">{{i18N.personal + i18N.information}}</span>
+                <span class="headline">{{cardTitle}}</span>
               </v-card-title>
               <v-card-text>
                 <router-view></router-view>
@@ -142,6 +145,7 @@ export default {
       loading: true, // 是否加载中
       uploadDialog: false,
       dataDialog: false,
+      cardTitle: i18N.personal + i18N.information,
       user: {
         name: i18N.not + i18N.login,
         nickname: i18N.not + i18N.login,
@@ -154,36 +158,68 @@ export default {
     }
   },
   methods: {
+    certification () {
+      this.cardTitle = i18N.certification
+      this.dataDialog = true
+      this.$router.push({path: '/my/certification'})
+    },
     data () {
+      this.cardTitle = i18N.personal + i18N.information
       this.dataDialog = true
       this.$router.push({path: '/my/data'})
     },
     dataSave () {
       this.dataDialog = false
       let _this = this
-      $.ajax({
-        type: 'post',
-        url: i18N.domain + '/user/data',
-        data: $('#dataForm').serialize(),
-        dataType: 'json',
-        async: false,
-        crossDomain: true,
-        xhrFields: {
-          withCredentials: true
-        },
-        success: function (json) {
-          let status = json.status
-          if (_this.tools.statusCodeToBool(status)) {
-            _this.$router.push({path: '/my'})
-          } else {
-            alert(_this.tools.statusCodeToAlert(status))
+      if (_this.$router.currentRoute.path === '/my/certification') {
+        $.ajax({
+          type: 'post',
+          url: i18N.domain + '/certification/submit',
+          data: $('#certificationForm').serialize(),
+          dataType: 'json',
+          async: false,
+          crossDomain: true,
+          xhrFields: {
+            withCredentials: true
+          },
+          success: function (json) {
+            let status = json.status
+            if (_this.tools.statusCodeToBool(status)) {
+              _this.$router.push({path: '/my'})
+            } else {
+              alert(_this.tools.statusCodeToAlert(status))
+            }
+          },
+          error: function () {
+            alert(i18N.network + i18N.alert.error)
+            return false
           }
-        },
-        error: function () {
-          alert(i18N.network + i18N.alert.error)
-          return false
-        }
-      })
+        })
+      } else if (_this.$router.currentRoute.path === '/my/data') {
+        $.ajax({
+          type: 'post',
+          url: i18N.domain + '/user/data',
+          data: $('#dataForm').serialize(),
+          dataType: 'json',
+          async: false,
+          crossDomain: true,
+          xhrFields: {
+            withCredentials: true
+          },
+          success: function (json) {
+            let status = json.status
+            if (_this.tools.statusCodeToBool(status)) {
+              _this.$router.push({path: '/my'})
+            } else {
+              alert(_this.tools.statusCodeToAlert(status))
+            }
+          },
+          error: function () {
+            alert(i18N.network + i18N.alert.error)
+            return false
+          }
+        })
+      }
     },
     dataBack () {
       this.dataDialog = false
