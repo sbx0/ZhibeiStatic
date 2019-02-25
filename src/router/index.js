@@ -10,6 +10,7 @@ import NotFound from '../components/NotFound'
 import Upload from '../components/Upload'
 import ArticleList from '../components/ArticleList'
 import UserData from '../components/UserData'
+import CommentList from '../components/CommentList'
 
 Vue.use(Router)
 
@@ -57,6 +58,14 @@ export default new Router({
         {
           path: 'article',
           component: ArticleList
+        },
+        {
+          path: 'comment',
+          component: CommentList
+        },
+        {
+          path: 'message_board',
+          component: CommentList
         }
       ]
     },

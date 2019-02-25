@@ -22,6 +22,9 @@
             <v-list-tile-title v-html="item.title"></v-list-tile-title>
           </router-link>
           <v-list-tile-sub-title v-html="item.introduction"></v-list-tile-sub-title>
+          <v-list-tile-sub-title>
+            {{item.time}}
+          </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
       <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">

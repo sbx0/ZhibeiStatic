@@ -1,13 +1,6 @@
 <template>
   <div>
-    <div class="text-xs-center" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        class="loading-control"
-      ></v-progress-circular>
-    </div>
-    <div v-else>
+    <div>
       <v-toolbar
         tabs
       >
@@ -34,12 +27,20 @@
             v-for="(item,key) in items"
             :key="key"
             :href="'#tab-' + item.index"
+            @click="tabChange(item.index)"
           >
             {{ item.title }}
           </v-tab>
         </v-tabs>
       </v-toolbar>
-      <router-view></router-view>
+      <div class="text-xs-center" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          class="loading-control"
+        ></v-progress-circular>
+      </div>
+      <router-view v-else></router-view>
     </div>
   </div>
 </template>
@@ -64,14 +65,35 @@ export default {
           index: 'Article'
         },
         {
-          title: 'Coming Soon',
-          index: 'Ask'
+          title: i18N.comment,
+          index: 'Comment'
+        },
+        {
+          title: i18N.message_board,
+          index: 'MessageBoard'
         }
-      ],
-      text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.'
+      ]
     }
   },
   methods: {
+    tabChange (index) {
+      let path = this.$router.currentRoute.path
+      let char = path.split('/')
+      switch (index) {
+        case 'Article':
+          this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/article'})
+          break
+        case 'Comment':
+          this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/comment'})
+          break
+        case 'MessageBoard':
+          this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/message_board'})
+          break
+        default:
+          this.$router.push({path: '/'})
+          break
+      }
+    },
     getData () {
       let _this = this
       let _id = this.$route.params.id

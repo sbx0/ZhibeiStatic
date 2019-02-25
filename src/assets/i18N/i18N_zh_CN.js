@@ -91,6 +91,7 @@ const i18N = {
   empty: '空',
   reset: '重置',
   not: '未',
+  message_board: '留言板',
 
   certification_type: {
     personal: '个人认证',

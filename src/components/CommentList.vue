@@ -2,7 +2,9 @@
   <v-list two-line>
     <v-form
       id="commentForm"
-      class="form-control">
+      class="form-control"
+      v-if="canPost"
+    >
       <input name="path" v-model="path" style="display: none;">
       <v-textarea
         :value="content"
@@ -37,6 +39,12 @@
         </router-link>
         <v-list-tile-content>
           <v-list-tile-title v-html="item.content"></v-list-tile-title>
+          <v-list-tile-sub-title v-if="!canPost">
+            <router-link :to="item.path">{{item.path}}</router-link>
+          </v-list-tile-sub-title>
+          <v-list-tile-sub-title v-else>
+            {{item.time}}
+          </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
       <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
@@ -56,6 +64,7 @@ export default {
       i18N: i18N,
       data: [],
       loading: false,
+      canPost: true,
       path: this.$router.currentRoute.path,
       page: 1, // 当前页数
       size: 10, // 每页条数
@@ -70,10 +79,34 @@ export default {
     readMore: function () {
       let _this = this
       let url = i18N.domain +
-          '/comment/load?path=' + _this.$router.currentRoute.path + '&page=' + (_this.page + 1) +
+          '/comment/load?path=' + _this.$router.currentRoute.path +
+          '&page=' + (_this.page + 1) +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
+      let path = _this.$router.currentRoute.path
+      let pathRegExp = new RegExp('.*?((?:[a-z][a-z]+)).*?((?:[a-z][a-z]+))')
+      let pathM = pathRegExp.exec(path)
+      if (pathM != null) {
+        let word1 = pathM[1]
+        let word2 = pathM[2]
+        path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
+      }
+      if (path === '/user/comment') {
+        _this.canPost = false
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain +
+            '/comment/load/user/?id=' + id +
+            '&page=' + (_this.page + 1) +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
+      }
       $.ajax({
         type: 'get',
         url: url,
@@ -112,6 +145,28 @@ export default {
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
+      let path = _this.$router.currentRoute.path
+      let pathRegExp = new RegExp('.*?((?:[a-z][a-z]+)).*?((?:[a-z][a-z]+))')
+      let pathM = pathRegExp.exec(path)
+      if (pathM != null) {
+        let word1 = pathM[1]
+        let word2 = pathM[2]
+        path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
+      }
+      if (path === '/user/comment') {
+        _this.canPost = false
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain + '/comment/load/user/?id=' + id +
+            '&page=' + _this.page +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
+      }
       $.ajax({
         type: 'get',
         url: url,

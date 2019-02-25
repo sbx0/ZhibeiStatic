@@ -10,9 +10,11 @@
       </div>
       <v-card-text v-else>
         <v-layout align-center mb-3>
-          <v-avatar color="grey" class="mr-3">
-            <img :src="i18N.domain+data.author.avatar" alt="avatar">
-          </v-avatar>
+          <router-link :to="'/user/'+data.author.id+'/article'">
+            <v-avatar color="grey" class="mr-3">
+              <img :src="i18N.domain+data.author.avatar" alt="avatar">
+            </v-avatar>
+          </router-link>
           <strong class="title">{{data.title}}</strong>
           <v-spacer></v-spacer>
           <v-btn icon>
