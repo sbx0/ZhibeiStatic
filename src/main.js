@@ -8,10 +8,12 @@ import 'vuetify/dist/vuetify.min.css'
 import markdownEditor from 'mavon-editor'
 import 'mavon-editor/dist/css/index.css'
 import tools from './assets/tools'
+import Viewer from 'v-viewer'
 
 Vue.config.productionTip = false
 Vue.use(Vuetify)
 Vue.use(markdownEditor)
+Vue.use(Viewer)
 Vue.prototype.tools = tools
 
 /* eslint-disable no-new */

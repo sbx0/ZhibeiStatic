@@ -27,7 +27,7 @@
               {{data.introduction}}
             </p>
           </blockquote>
-          <div v-html="markdown"></div>
+          <div v-html="markdown" v-viewer></div>
         </div>
       </v-card-text>
     </v-card>
@@ -41,6 +41,7 @@ import $ from 'jquery'
 import markdownEditor from 'mavon-editor'
 import 'github-markdown-css'
 import CommentList from '../components/CommentList'
+import 'viewerjs/dist/viewer.css'
 
 export default {
   name: 'Article',
@@ -106,6 +107,7 @@ export default {
   .loading-control {
     margin: 50px 50px;
   }
+
   .markdown-body img {
     max-width: 100%;
     max-height: 250px;
