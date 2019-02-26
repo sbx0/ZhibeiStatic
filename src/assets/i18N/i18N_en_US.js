@@ -1,6 +1,142 @@
 const i18N = {
   // domain: 'http://localhost:8085', // 请求地址
   domain: 'https://zb.sbx0.cn', // 请求地址
+  table: {
+    user: 'User Table',
+    tag: 'Tag Table',
+    category: 'Category Table',
+    certification: 'Certification Table',
+    demand: 'Demand Table',
+    role: 'Role Table',
+    permission: 'Permission Table',
+    file: 'File Table',
+    log: 'Log Table',
+    article: 'Article Table',
+    comment: 'Comment Table'
+  },
+  attribute: {
+    user: {
+      id: 'ID',
+      name: 'Username',
+      nickname: 'Nickname',
+      password: 'Password',
+      introduction: 'Introduction',
+      registerTime: 'RegisterTime',
+      banned: 'IsBanned',
+      phone: 'Phone',
+      email: 'Email',
+      avatar: 'Avatar',
+      sex: 'Sex',
+      role: 'Role',
+      birthday: 'Birthday',
+      integral: 'Integral',
+      level: 'Level',
+      exp: 'Exp',
+      exp_max: 'MaxExp'
+    },
+    role: {
+      id: 'ID',
+      name: 'Name',
+      introduction: 'Introduction',
+      registerTime: 'RegisterTime',
+      available: 'IsAvailable',
+      father: 'Father',
+      permissions: 'Permissions'
+    },
+    permission: {
+      id: 'ID',
+      name: 'Name',
+      introduction: 'Introduction',
+      url: 'Url',
+      str: 'Str',
+      available: 'IsAvailable',
+      father: 'Father'
+    },
+    certification: {
+      id: 'ID',
+      info: 'Info',
+      type: 'Type',
+      passed: 'IsPassed',
+      start_time: 'StartTime',
+      end_time: 'EndTime',
+      user: 'SubmitUser',
+      license: 'License',
+      img: 'LicenseImg'
+    },
+    file: {
+      id: 'ID',
+      name: 'FileName',
+      originalName: 'OriginalFileName',
+      ext: 'Ext',
+      type: 'Type',
+      md5: 'MD5',
+      size: 'Size',
+      time: 'UploadTime',
+      banned: 'IsBanned'
+    },
+    log: {
+      id: 'ID',
+      ip: 'IP',
+      user: 'User',
+      time: 'Time',
+      runTime: 'RunTime',
+      args: 'Args',
+      method: 'Method',
+      className: 'Classname',
+      url: 'Url'
+    },
+    article: {
+      id: 'ID',
+      title: 'Title',
+      time: 'Time',
+      introduction: 'Introduction',
+      content: 'Content',
+      lastChangeTime: 'LastChangeTime',
+      password: 'Password',
+      views: 'Views',
+      comments: 'Comments',
+      likes: 'Likes',
+      dislikes: 'Dislikes',
+      top: 'Top',
+      author: 'Author',
+      tags: 'Tags'
+    },
+    comment: {
+      id: 'ID',
+      path: 'Path',
+      time: 'Time',
+      floor: 'Floor',
+      content: 'Content',
+      likes: 'Likes',
+      dislikes: 'Dislikes',
+      top: 'Top',
+      father: 'Father',
+      poster: 'Poster'
+    },
+    category: {
+      id: '编号',
+      name: '名称',
+      introduction: '简介',
+      cover: '封面',
+      father: '父亲'
+    },
+    demand: {
+      id: '编号',
+      title: '标题',
+      time: '发布时间',
+      cover: '封面',
+      content: '内容',
+      endTime: '截止时间',
+      budget: '预算',
+      category: '分类'
+    },
+    tag: {
+      id: '编号',
+      name: '名称',
+      introduction: '简介',
+      cover: '封面'
+    }
+  },
   user: 'User',
   website_name: 'ZhiBei',
   admin_management_system: 'AMS',
@@ -117,111 +253,6 @@ const i18N = {
     }
   ],
   foot_html: 'ZhiBei 2019',
-  table: {
-    user: 'User Table',
-    role: 'Role Table',
-    permission: 'Permission Table',
-    certification: 'Certification Table',
-    file: 'File Table',
-    log: 'Log Table',
-    article: 'Article Table'
-  },
-  attribute: {
-    user: {
-      id: 'ID',
-      name: 'Username',
-      nickname: 'Nickname',
-      password: 'Password',
-      introduction: 'Introduction',
-      registerTime: 'RegisterTime',
-      banned: 'IsBanned',
-      phone: 'Phone',
-      email: 'Email',
-      avatar: 'Avatar',
-      sex: 'Sex',
-      role: 'Role',
-      birthday: 'Birthday',
-      integral: 'Integral',
-      level: 'Level',
-      exp: 'Exp',
-      exp_max: 'MaxExp'
-    },
-    role: {
-      id: 'ID',
-      name: 'Name',
-      introduction: 'Introduction',
-      registerTime: 'RegisterTime',
-      available: 'IsAvailable',
-      father: 'Father',
-      permissions: 'Permissions'
-    },
-    permission: {
-      id: 'ID',
-      name: 'Name',
-      introduction: 'Introduction',
-      url: 'Url',
-      str: 'Str',
-      available: 'IsAvailable',
-      father: 'Father'
-    },
-    certification: {
-      id: 'ID',
-      info: 'Info',
-      type: 'Type',
-      passed: 'IsPassed',
-      start_time: 'StartTime',
-      end_time: 'EndTime',
-      user: 'SubmitUser',
-      license: 'License',
-      img: 'LicenseImg'
-    },
-    file: {
-      id: 'ID',
-      name: 'FileName',
-      originalName: 'OriginalFileName',
-      ext: 'Ext',
-      type: 'Type',
-      md5: 'MD5',
-      size: 'Size',
-      time: 'UploadTime',
-      banned: 'IsBanned'
-    },
-    log: {
-      id: 'ID',
-      ip: 'IP',
-      user: 'User',
-      time: 'Time',
-      runTime: 'RunTime',
-      args: 'Args',
-      method: 'Method',
-      className: 'Classname',
-      url: 'Url'
-    },
-    article: {
-      id: 'ID',
-      title: 'Title',
-      time: 'Time',
-      introduction: 'Introduction',
-      content: 'Content',
-      lastChangeTime: 'LastChangeTime',
-      password: 'Password',
-      views: 'Views',
-      comments: 'Comments',
-      likes: 'Likes',
-      dislikes: 'Dislikes',
-      top: 'Top',
-      author: 'Author'
-    },
-    comment: {
-      id: 'ID',
-      time: 'Time',
-      content: 'Content',
-      likes: 'Likes',
-      dislikes: 'Dislikes',
-      top: 'Top',
-      poster: 'Poster'
-    }
-  },
   alert: {
     empty: 'Empty',
     illegal: 'Illegal',

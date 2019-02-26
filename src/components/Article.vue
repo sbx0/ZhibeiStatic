@@ -28,6 +28,17 @@
             </p>
           </blockquote>
           <div v-html="markdown" v-viewer></div>
+          <div class="text-xs-center">
+            <label>{{i18N.attribute.article.tags}}:</label>
+            <v-chip
+              label
+              small
+              v-for="tag in data.tags"
+              v-bind:key="tag.id"
+            >
+              {{tag.name}}
+            </v-chip>
+          </div>
         </div>
       </v-card-text>
     </v-card>

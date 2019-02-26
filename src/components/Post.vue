@@ -30,6 +30,21 @@
           required
         ></v-text-field>
         <textarea name="content" :value="content" hidden></textarea>
+        <select name="tags" multiple style="display: none;">
+          <option v-for="(tag,key) in tagsSelected" v-bind:key="key" :value="tag" selected>
+            {{tag}}
+          </option>
+        </select>
+        <v-select
+          :label="i18N.attribute.article.tags"
+          :items="tags"
+          v-model="tagsSelected"
+          item-text="name"
+          item-value="id"
+          attach
+          chips
+          multiple
+        ></v-select>
       </v-form>
       <mavon-editor v-model="content" ref=md @imgAdd="imgAdd"/>
       <v-btn
@@ -56,6 +71,8 @@ export default {
       valid: true,
       loading: true,
       title: '',
+      tags: [],
+      tagsSelected: [],
       titleRules: [
         v => !!v || i18N.attribute.article.title + i18N.is + i18N.empty
       ],
@@ -63,10 +80,7 @@ export default {
       introductionRules: [
         v => !!v || i18N.attribute.article.introduction + i18N.is + i18N.empty
       ],
-      content: '',
-      contentRules: [
-        v => !!v || i18N.attribute.article.content + i18N.is + i18N.empty
-      ]
+      content: ''
     }
   },
   methods: {
@@ -95,6 +109,33 @@ export default {
       if (this.$refs.form.validate()) {
         this.post()
       }
+    },
+    getTags () {
+      let _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/tag/normal/list?page=1' +
+            '&size=9999',
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            if (json.objects !== undefined) {
+              _this.tags = json.objects
+            }
+          } else {
+            alert(_this.tools.statusCodeToAlert(status))
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
     },
     getInfo () {
       let _this = this
@@ -153,6 +194,7 @@ export default {
   },
   created () {
     this.getInfo()
+    this.getTags()
   }
 }
 </script>
@@ -161,7 +203,12 @@ export default {
   .form-control {
     margin: 25px 25px;
   }
+
   .loading-control {
     margin: 50px 50px;
+  }
+
+  .v-note-wrapper {
+    z-index: 5;
   }
 </style>

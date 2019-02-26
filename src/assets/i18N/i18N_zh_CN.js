@@ -1,6 +1,142 @@
 const i18N = {
   // domain: 'http://localhost:8085', // 请求地址
   domain: 'https://zb.sbx0.cn', // 请求地址
+  table: {
+    user: '用户表',
+    tag: '标签表',
+    category: '分类表',
+    certification: '申请表',
+    demand: '需求表',
+    role: '角色表',
+    permission: '权限表',
+    file: '文件表',
+    log: '日志表',
+    article: '文章表',
+    comment: '评论表'
+  },
+  attribute: {
+    user: {
+      id: '编号',
+      name: '用户名称',
+      nickname: '昵称',
+      password: '密码',
+      introduction: '简介',
+      registerTime: '注册时间',
+      banned: '是否封禁',
+      phone: '手机',
+      email: '邮箱',
+      avatar: '头像',
+      sex: '性别',
+      role: '角色',
+      birthday: '生日',
+      integral: '积分',
+      level: '等级',
+      exp: '经验',
+      exp_max: '经验上限'
+    },
+    role: {
+      id: '编号',
+      name: '角色名称',
+      introduction: '简介',
+      registerTime: '注册时间',
+      available: '是否可用',
+      father: '父亲',
+      permissions: '权限'
+    },
+    permission: {
+      id: '编号',
+      name: '权限名称',
+      introduction: '简介',
+      url: '权限链接',
+      str: '权限字符串',
+      available: '是否可用',
+      father: '父亲'
+    },
+    certification: {
+      id: '编号',
+      info: '认证信息',
+      type: '认证类型',
+      passed: '是否通过',
+      start_time: '开始时间',
+      end_time: '结束时间',
+      user: '申请者',
+      license: '相关证件号',
+      img: '相关证件扫描件'
+    },
+    file: {
+      id: '编号',
+      name: '文件名',
+      originalName: '原始文件名',
+      ext: '文件后缀',
+      type: '文件类型',
+      md5: '唯一识别码',
+      size: '大小',
+      time: '上传时间',
+      banned: '是否封禁'
+    },
+    log: {
+      id: '编号',
+      ip: 'IP地址',
+      user: '操作者',
+      time: '操作时间',
+      runTime: '运行时间',
+      args: '参数',
+      method: '方法',
+      className: '类名',
+      url: '链接'
+    },
+    article: {
+      id: '编号',
+      title: '标题',
+      time: '发表时间',
+      introduction: '简介',
+      content: '内容',
+      lastChangeTime: '上次修改时间',
+      password: '密码',
+      views: '查看数',
+      comments: '评论数',
+      likes: '喜欢数',
+      dislikes: '不喜欢数',
+      top: '置顶排序指数',
+      author: '作者',
+      tags: '标签'
+    },
+    comment: {
+      id: '编号',
+      path: '路径',
+      time: '发表时间',
+      floor: '楼层',
+      content: '评论内容',
+      likes: '喜欢数',
+      dislikes: '不喜欢数',
+      top: '置顶排序指数',
+      father: '父亲',
+      poster: '作者'
+    },
+    category: {
+      id: '编号',
+      name: '名称',
+      introduction: '简介',
+      cover: '封面',
+      father: '父亲'
+    },
+    demand: {
+      id: '编号',
+      title: '标题',
+      time: '发布时间',
+      cover: '封面',
+      content: '内容',
+      endTime: '截止时间',
+      budget: '预算',
+      category: '分类'
+    },
+    tag: {
+      id: '编号',
+      name: '名称',
+      introduction: '简介',
+      cover: '封面'
+    }
+  },
   user: '用户',
   website_name: '智贝',
   admin_management_system: '后台管理系统',
@@ -117,111 +253,6 @@ const i18N = {
     }
   ],
   foot_html: '智贝科技有限公司 2019',
-  table: {
-    user: '用户表',
-    role: '角色表',
-    permission: '权限表',
-    certification: '申请表',
-    file: '文件表',
-    log: '日志表',
-    article: '文章表'
-  },
-  attribute: {
-    user: {
-      id: '编号',
-      name: '用户名称',
-      nickname: '昵称',
-      password: '密码',
-      introduction: '简介',
-      registerTime: '注册时间',
-      banned: '是否封禁',
-      phone: '手机',
-      email: '邮箱',
-      avatar: '头像',
-      sex: '性别',
-      role: '角色',
-      birthday: '生日',
-      integral: '积分',
-      level: '等级',
-      exp: '经验',
-      exp_max: '经验上限'
-    },
-    role: {
-      id: '编号',
-      name: '角色名称',
-      introduction: '简介',
-      registerTime: '注册时间',
-      available: '是否可用',
-      father: '父亲',
-      permissions: '权限'
-    },
-    permission: {
-      id: '编号',
-      name: '权限名称',
-      introduction: '简介',
-      url: '权限链接',
-      str: '权限字符串',
-      available: '是否可用',
-      father: '父亲'
-    },
-    certification: {
-      id: '编号',
-      info: '认证信息',
-      type: '认证类型',
-      passed: '是否通过',
-      start_time: '开始时间',
-      end_time: '结束时间',
-      user: '申请者',
-      license: '相关证件号',
-      img: '相关证件扫描件'
-    },
-    file: {
-      id: '编号',
-      name: '文件名',
-      originalName: '原始文件名',
-      ext: '文件后缀',
-      type: '文件类型',
-      md5: '唯一识别码',
-      size: '大小',
-      time: '上传时间',
-      banned: '是否封禁'
-    },
-    log: {
-      id: '编号',
-      ip: 'IP地址',
-      user: '操作者',
-      time: '操作时间',
-      runTime: '运行时间',
-      args: '参数',
-      method: '方法',
-      className: '类名',
-      url: '链接'
-    },
-    article: {
-      id: '编号',
-      title: '标题',
-      time: '发表时间',
-      introduction: '简介',
-      content: '内容',
-      lastChangeTime: '上次修改时间',
-      password: '密码',
-      views: '查看数',
-      comments: '评论数',
-      likes: '喜欢数',
-      dislikes: '不喜欢数',
-      top: '置顶排序指数',
-      author: '作者'
-    },
-    comment: {
-      id: '编号',
-      time: '发表时间',
-      content: '评论内容',
-      likes: '喜欢数',
-      dislikes: '不喜欢数',
-      top: '置顶排序指数',
-      poster: '作者'
-    }
-  },
   alert: {
     empty: '为空',
     illegal: '不合法',

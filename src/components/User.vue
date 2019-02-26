@@ -102,7 +102,7 @@ export default {
         return false
       }
       _this.loading = true
-      let url = i18N.domain + '/user/id/' + _id
+      let url = i18N.domain + '/user/normal?id=' + _id
       $.ajax({
         type: 'get',
         url: url,

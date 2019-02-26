@@ -1,6 +1,142 @@
 const i18N = {
   // domain: 'http://localhost:8085', // 請求地址
   domain: 'https://zb.sbx0.cn', // 請求地址
+  table: {
+    user: '用戶表',
+    tag: '標籤表',
+    category: '分類表',
+    certification: '申請表',
+    demand: '需求表',
+    role: '角色表',
+    permission: '權限表',
+    file: '文件表',
+    log: '日誌表',
+    article: '文章表',
+    comment: '評論表'
+  },
+  attribute: {
+    user: {
+      id: '編號',
+      name: '用戶名稱',
+      nickname: '暱稱',
+      password: '密碼',
+      introduction: '簡介',
+      registerTime: '註冊時間',
+      banned: '是否封禁',
+      phone: '手機',
+      email: '郵箱',
+      avatar: '頭像',
+      sex: '性別',
+      role: '角色',
+      birthday: '生日',
+      integral: '積分',
+      level: '等級',
+      exp: '經驗',
+      exp_max: '經驗上限'
+    },
+    role: {
+      id: '編號',
+      name: '角色名稱',
+      introduction: '簡介',
+      registerTime: '註冊時間',
+      available: '是否可用',
+      father: '父親',
+      permissions: '權限'
+    },
+    permission: {
+      id: '編號',
+      name: '權限名稱',
+      introduction: '簡介',
+      url: '權限鏈接',
+      str: '權限字符串',
+      available: '是否可用',
+      father: '父親'
+    },
+    certification: {
+      id: '編號',
+      info: '認證信息',
+      type: '認證類型',
+      passed: '是否通過',
+      start_time: '開始時間',
+      end_time: '結束時間',
+      user: '申請者',
+      license: '相關證件號',
+      img: '相關證件掃描件'
+    },
+    file: {
+      id: '編號',
+      name: '文件名',
+      originalName: '原始文件名',
+      ext: '文件後綴',
+      type: '文件類型',
+      md5: '唯一識別碼',
+      size: '大小',
+      time: '上傳時間',
+      banned: '是否封禁'
+    },
+    log: {
+      id: '編號',
+      ip: 'IP地址',
+      user: '操作者',
+      time: '操作時間',
+      runTime: '運行時間',
+      args: '參數',
+      method: '方法',
+      className: '類名',
+      url: '鏈接'
+    },
+    article: {
+      id: '編號',
+      title: '標題',
+      time: '發表時間',
+      introduction: '簡介',
+      content: '內容',
+      lastChangeTime: '上次修改時間',
+      password: '密碼',
+      views: '查看數',
+      comments: '評論數',
+      likes: '喜歡數',
+      dislikes: '不喜歡數',
+      top: '置頂排序指數',
+      author: '作者',
+      tags: '標籤'
+    },
+    comment: {
+      id: '編號',
+      path: '路徑',
+      time: '發表時間',
+      floor: '樓層',
+      content: '評論內容',
+      likes: '喜歡數',
+      dislikes: '不喜歡數',
+      top: '置頂排序指數',
+      father: '父親',
+      poster: '作者'
+    },
+    category: {
+      id: '編號',
+      name: '名稱',
+      introduction: '簡介',
+      cover: '封面',
+      father: '父親'
+    },
+    demand: {
+      id: '編號',
+      title: '標題',
+      time: '發佈時間',
+      cover: '封面',
+      content: '內容',
+      endTime: '截止時間',
+      budget: '預算',
+      category: '分類'
+    },
+    tag: {
+      id: '編號',
+      name: '名稱',
+      introduction: '簡介',
+      cover: '封面'
+    }
+  },
   user: '用戶',
   website_name: '智貝',
   admin_management_system: '後台管理系統',
@@ -117,111 +253,6 @@ const i18N = {
     }
   ],
   foot_html: '智貝科技有限公司 2019',
-  table: {
-    user: '用戶表',
-    role: '角色表',
-    permission: '權限表',
-    certification: '申請表',
-    file: '文件表',
-    log: '日誌表',
-    article: '文章表'
-  },
-  attribute: {
-    user: {
-      id: '編號',
-      name: '用戶名稱',
-      nickname: '暱稱',
-      password: '密碼',
-      introduction: '簡介',
-      registerTime: '註冊時間',
-      banned: '是否封禁',
-      phone: '手機',
-      email: '郵箱',
-      avatar: '頭像',
-      sex: '性別',
-      role: '角色',
-      birthday: '生日',
-      integral: '積分',
-      level: '等級',
-      exp: '經驗',
-      exp_max: '經驗上限'
-    },
-    role: {
-      id: '編號',
-      name: '角色名稱',
-      introduction: '簡介',
-      registerTime: '註冊時間',
-      available: '是否可用',
-      father: '父親',
-      permissions: '權限'
-    },
-    permission: {
-      id: '編號',
-      name: '權限名稱',
-      introduction: '簡介',
-      url: '權限鏈接',
-      str: '權限字符串',
-      available: '是否可用',
-      father: '父親'
-    },
-    certification: {
-      id: '編號',
-      info: '認證信息',
-      type: '認證類型',
-      passed: '是否通過',
-      start_time: '開始時間',
-      end_time: '結束時間',
-      user: '申請者',
-      license: '相關證件號',
-      img: '相關證件掃描件'
-    },
-    file: {
-      id: '編號',
-      name: '文件名',
-      originalName: '原始文件名',
-      ext: '文件後綴',
-      type: '文件類型',
-      md5: '唯一識別碼',
-      size: '大小',
-      time: '上傳時間',
-      banned: '是否封禁'
-    },
-    log: {
-      id: '編號',
-      ip: 'IP地址',
-      user: '操作者',
-      time: '操作時間',
-      runTime: '運行時間',
-      args: '參數',
-      method: '方法',
-      className: '類名',
-      url: '鏈接'
-    },
-    article: {
-      id: '編號',
-      title: '標題',
-      time: '發表時間',
-      introduction: '簡介',
-      content: '內容',
-      lastChangeTime: '上次修改時間',
-      password: '密碼',
-      views: '查看數',
-      comments: '評論數',
-      likes: '喜歡數',
-      dislikes: '不喜歡數',
-      top: '置頂排序指數',
-      author: '作者'
-    },
-    comment: {
-      id: '編號',
-      time: '發表時間',
-      content: '評論內容',
-      likes: '喜歡數',
-      dislikes: '不喜歡數',
-      top: '置頂排序指數',
-      poster: '作者'
-    }
-  },
   alert: {
     empty: '為空',
     illegal: '不合法',

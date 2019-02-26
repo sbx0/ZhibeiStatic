@@ -70,7 +70,7 @@ export default {
     readMore: function () {
       let _this = this
       let url = i18N.domain +
-          '/article/index?page=' + (_this.page + 1) +
+          '/article/normal/list?page=' + (_this.page + 1) +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
@@ -129,7 +129,7 @@ export default {
     getArticleData: function () {
       let _this = this
       _this.loading = true
-      let url = i18N.domain + '/article/index?page=' + _this.page +
+      let url = i18N.domain + '/article/normal/list?page=' + _this.page +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
