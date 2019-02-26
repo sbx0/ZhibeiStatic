@@ -52,12 +52,8 @@ export default {
       data: {
         title: i18N.loading,
         content: ''
-      }
-    }
-  },
-  computed: {
-    markdown () {
-      return markdownEditor.markdownIt.render(this.data.content)
+      },
+      markdown: ''
     }
   },
   methods: {
@@ -71,9 +67,9 @@ export default {
       _this.loading = true
       $.ajax({
         type: 'get',
-        url: i18N.domain + '/article/id/' + _id,
+        url: i18N.domain + '/article/normal?id=' + _id,
         dataType: 'json',
-        async: false,
+        async: true,
         crossDomain: true,
         xhrFields: {
           withCredentials: true
@@ -82,6 +78,8 @@ export default {
           let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             _this.data = json.object
+            let content = _this.data.content
+            _this.markdown = markdownEditor.markdownIt.render(content.toString())
           } else {
             alert(_this.tools.statusCodeToAlert(status))
           }
@@ -104,8 +102,12 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
   .loading-control {
     margin: 50px 50px;
+  }
+  .markdown-body img {
+    max-width: 100%;
+    max-height: 250px;
   }
 </style>
