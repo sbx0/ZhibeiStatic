@@ -40,10 +40,8 @@
             <v-chip
               label
               small
-              v-for="tag in data.tags"
-              v-bind:key="tag.id"
             >
-              {{tag.name}}
+              {{data.category.name}}
             </v-chip>
           </div>
         </div>
