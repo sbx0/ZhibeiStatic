@@ -2,17 +2,17 @@ const i18N = {
   // domain: 'http://localhost:8085', // 请求地址
   domain: 'https://zb.sbx0.cn', // 请求地址
   table: {
-    user: '用户表',
-    tag: '标签表',
-    category: '分类表',
-    certification: '申请表',
-    demand: '需求表',
-    role: '角色表',
-    permission: '权限表',
-    file: '文件表',
-    log: '日志表',
-    article: '文章表',
-    comment: '评论表'
+    user: '用户',
+    tag: '标签',
+    category: '分类',
+    certification: '申请',
+    demand: '需求',
+    role: '角色',
+    permission: '权限',
+    file: '文件',
+    log: '日志',
+    article: '文章',
+    comment: '评论'
   },
   attribute: {
     user: {

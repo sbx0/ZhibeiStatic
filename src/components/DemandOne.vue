@@ -10,12 +10,20 @@
       </div>
       <v-card-text v-else>
         <v-layout align-center mb-3>
-          <router-link :to="'/user/'+data.author.id+'/article'">
-            <v-avatar color="grey" class="mr-3">
-              <img :src="i18N.domain+data.author.avatar" alt="avatar">
-            </v-avatar>
+          <router-link :to="'/user/'+data.poster.id+'/article'">
+            <v-list-tile-avatar>
+              <img v-if="data.poster.avatar !== undefined" :src="i18N.domain+data.poster.avatar">
+            </v-list-tile-avatar>
           </router-link>
-          <strong class="title">{{data.title}}</strong>
+          <v-list-tile-content>
+            <router-link :to="'/demand/'+data.id">
+              <v-list-tile-title v-html="data.title"></v-list-tile-title>
+            </router-link>
+            <v-list-tile-sub-title>{{i18N.attribute.demand.budget+' '+data.budget}}￥</v-list-tile-sub-title>
+            <v-list-tile-sub-title>
+              {{tools.timeClick(data.time,data.endTime)}}
+            </v-list-tile-sub-title>
+          </v-list-tile-content>
           <v-spacer></v-spacer>
           <v-btn icon>
             <v-icon>mdi-account</v-icon>
@@ -29,7 +37,6 @@
           </blockquote>
           <div v-html="markdown" v-viewer></div>
           <div class="text-xs-center">
-            <label>{{i18N.attribute.article.tags}}:</label>
             <v-chip
               label
               small
@@ -55,7 +62,7 @@ import CommentList from '../components/CommentList'
 import 'viewerjs/dist/viewer.css'
 
 export default {
-  name: 'Article',
+  name: 'DemandOne',
   components: {CommentList},
   data () {
     return {
@@ -79,7 +86,7 @@ export default {
       _this.loading = true
       $.ajax({
         type: 'get',
-        url: i18N.domain + '/article/normal?id=' + _id,
+        url: i18N.domain + '/demand/normal?id=' + _id,
         dataType: 'json',
         async: true,
         crossDomain: true,
@@ -115,6 +122,11 @@ export default {
 </script>
 
 <style>
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+
   .loading-control {
     margin: 50px 50px;
   }

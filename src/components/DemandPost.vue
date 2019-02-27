@@ -19,32 +19,55 @@
           name="title"
           v-model="title"
           :rules="titleRules"
-          :label="i18N.attribute.article.title"
+          :label="i18N.attribute.demand.title"
           required
         ></v-text-field>
         <v-text-field
-          name="introduction"
-          v-model="introduction"
-          :rules="introductionRules"
-          :label="i18N.attribute.article.introduction"
+          name="budget"
+          type="number"
+          prefix="￥"
+          v-model="budget"
+          :rules="budgetRules"
+          :label="i18N.attribute.demand.budget"
           required
         ></v-text-field>
         <textarea name="content" :value="content" hidden></textarea>
-        <select name="tags" multiple style="display: none;">
-          <option v-for="(tag,key) in tagsSelected" v-bind:key="key" :value="tag" selected>
+        <input name="cover" value="test" hidden/>
+        <select name="category" multiple style="display: none;">
+          <option v-for="(tag,key) in categoriesSelected" v-bind:key="key" :value="tag" selected>
             {{tag}}
           </option>
         </select>
         <v-select
-          :label="i18N.attribute.article.tags"
-          :items="tags"
-          v-model="tagsSelected"
+          :label="i18N.attribute.demand.category"
+          :items="categories"
+          v-model="categoriesSelected"
           item-text="name"
           item-value="id"
           attach
           chips
-          multiple
         ></v-select>
+        <v-menu
+          ref="endTimeMenu"
+          v-model="endTimeMenu"
+          :close-on-content-click="false"
+          :nudge-right="40"
+          lazy
+          transition="scale-transition"
+          offset-y
+          full-width
+          max-width="290px"
+          min-width="290px"
+        >
+          <v-text-field
+            :label="i18N.attribute.demand.endTime"
+            name="endTime"
+            v-model="endTime"
+            slot="activator"
+            prepend-icon="event"
+          ></v-text-field>
+          <v-date-picker v-model="endTime" no-title @input="endTimeMenu = false"></v-date-picker>
+        </v-menu>
       </v-form>
       <mavon-editor v-model="content" ref=md @imgAdd="imgAdd"/>
       <v-btn
@@ -54,9 +77,9 @@
       >
         {{i18N.post}}
       </v-btn>
-      <router-link to="/post/demand">
+      <router-link to="/post">
         <v-btn block>
-          {{i18N.table.demand + i18N.post}}
+          {{i18N.table.article + i18N.post}}
         </v-btn>
       </router-link>
     </v-app>
@@ -69,23 +92,27 @@ import axios from 'axios'
 import $ from 'jquery'
 
 export default {
-  name: 'Post',
+  name: 'DemandPost',
   data () {
     return {
       i18N: i18N, // i18N配置文件
       valid: true,
       loading: true,
       title: '',
-      tags: [],
-      tagsSelected: [],
+      categories: [],
+      categoriesSelected: [],
       titleRules: [
-        v => !!v || i18N.attribute.article.title + i18N.is + i18N.empty
+        v => !!v || i18N.attribute.demand.title + i18N.is + i18N.empty
       ],
-      introduction: '',
-      introductionRules: [
-        v => !!v || i18N.attribute.article.introduction + i18N.is + i18N.empty
-      ],
-      content: ''
+      content: '',
+      budget: '10000.00',
+      budgetRules:
+          [
+            v => !!v || i18N.attribute.demand.budget + i18N.is + i18N.empty
+          ],
+      endTimeMenu: false,
+      date: new Date().toISOString().substr(0, 10),
+      endTime: ''
     }
   },
   methods: {
@@ -119,7 +146,7 @@ export default {
       let _this = this
       $.ajax({
         type: 'get',
-        url: i18N.domain + '/tag/normal/list?page=1' +
+        url: i18N.domain + '/category/normal/list?page=1' +
             '&size=9999',
         dataType: 'json',
         async: true,
@@ -131,7 +158,7 @@ export default {
           let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             if (json.objects !== undefined) {
-              _this.tags = json.objects
+              _this.categories = json.objects
             }
           } else {
             alert(_this.tools.statusCodeToAlert(status))
@@ -174,7 +201,7 @@ export default {
       let _this = this
       $.ajax({
         type: 'post',
-        url: i18N.domain + '/article/post',
+        url: i18N.domain + '/demand/post',
         data: $('#postForm').serialize(),
         dataType: 'json',
         async: false,
@@ -185,7 +212,7 @@ export default {
         success: function (json) {
           let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
-            _this.$router.push({path: '/'})
+            _this.$router.push({path: '/demand'})
           } else {
             alert(_this.tools.statusCodeToAlert(status))
           }
@@ -205,7 +232,6 @@ export default {
 </script>
 
 <style scoped>
-
   a {
     text-decoration: none;
   }

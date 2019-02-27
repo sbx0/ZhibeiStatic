@@ -12,18 +12,18 @@
         :key="item.id"
         avatar
       >
-        <router-link :to="'/user/'+item.author.id+'/article'">
+        <router-link :to="'/user/'+item.poster.id+'/demand'">
           <v-list-tile-avatar>
-            <img v-if="item.author.avatar !== undefined" :src="i18N.domain+item.author.avatar">
+            <img v-if="item.poster.avatar !== undefined" :src="i18N.domain+item.poster.avatar">
           </v-list-tile-avatar>
         </router-link>
         <v-list-tile-content>
-          <router-link :to="'/article/'+item.id">
+          <router-link :to="'/demand/'+item.id">
             <v-list-tile-title v-html="item.title"></v-list-tile-title>
           </router-link>
-          <v-list-tile-sub-title v-html="item.introduction"></v-list-tile-sub-title>
+          <v-list-tile-sub-title>{{item.budget}}￥</v-list-tile-sub-title>
           <v-list-tile-sub-title>
-            {{tools.timeShow(item.time)}}
+            {{tools.timeClick(item.time,item.endTime)}}
           </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
@@ -38,7 +38,7 @@ import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
 
 export default {
-  name: 'ArticleList',
+  name: 'DemandList',
   data () {
     return {
       i18N: i18N, // i18N配置文件
@@ -70,7 +70,7 @@ export default {
     readMore: function () {
       let _this = this
       let url = i18N.domain +
-          '/article/normal/list?page=' + (_this.page + 1) +
+          '/demand/normal/list?page=' + (_this.page + 1) +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
@@ -82,7 +82,7 @@ export default {
         let word2 = pathM[2]
         path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
       }
-      if (path === '/user/article') {
+      if (path === '/user/demand') {
         let id = '-1'
         let idRegExp = new RegExp('.*?(\\d+)')
         let idM = idRegExp.exec(_this.$router.currentRoute.path)
@@ -90,7 +90,7 @@ export default {
           id = idM[1].replace(/</, '&lt;')
         }
         url = i18N.domain +
-            '/article/user?id=' + id +
+            '/demand/user?id=' + id +
             '&page=' + (_this.page + 1) +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
@@ -129,7 +129,7 @@ export default {
     getData: function () {
       let _this = this
       _this.loading = true
-      let url = i18N.domain + '/article/normal/list?page=' + _this.page +
+      let url = i18N.domain + '/demand/normal/list?page=' + _this.page +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
@@ -141,14 +141,14 @@ export default {
         let word2 = pathM[2]
         path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
       }
-      if (path === '/user/article') {
+      if (path === '/user/demand') {
         let id = '-1'
         let idRegExp = new RegExp('.*?(\\d+)')
         let idM = idRegExp.exec(_this.$router.currentRoute.path)
         if (idM != null) {
           id = idM[1].replace(/</, '&lt;')
         }
-        url = i18N.domain + '/article/user?id=' + id +
+        url = i18N.domain + '/demand/user?id=' + id +
             '&page=' + _this.page +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
@@ -175,7 +175,7 @@ export default {
     }
   },
   created () {
-    // 初始化文章数据
+    // 初始化数据
     this.getData()
   }
 }

@@ -61,11 +61,15 @@ export default {
       currentItem: 'tab-Article',
       items: [
         {
-          title: i18N.article,
+          title: i18N.table.article,
           index: 'Article'
         },
         {
-          title: i18N.comment,
+          title: i18N.table.demand,
+          index: 'Demand'
+        },
+        {
+          title: i18N.table.comment,
           index: 'Comment'
         },
         {
@@ -82,6 +86,9 @@ export default {
       switch (index) {
         case 'Article':
           this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/article'})
+          break
+        case 'Demand':
+          this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/demand'})
           break
         case 'Comment':
           this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/comment'})
@@ -138,6 +145,9 @@ export default {
     switch (char[3]) {
       case 'article':
         this.currentItem = 'tab-Article'
+        break
+      case 'demand':
+        this.currentItem = 'tab-Demand'
         break
       case 'comment':
         this.currentItem = 'tab-Comment'

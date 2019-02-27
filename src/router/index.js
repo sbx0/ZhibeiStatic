@@ -3,7 +3,7 @@ import Router from 'vue-router'
 import Index from '@/components/Index'
 import My from '@/components/My'
 import Login from '@/components/Login'
-import Article from '@/components/Article'
+import ArticleOne from '@/components/ArticleOne'
 import Post from '@/components/Post'
 import User from '@/components/User'
 import NotFound from '@/components/NotFound'
@@ -12,6 +12,9 @@ import ArticleList from '@/components/ArticleList'
 import UserData from '@/components/UserData'
 import CommentList from '@/components/CommentList'
 import CertificationData from '@/components/CertificationData'
+import DemandPost from '@/components/DemandPost'
+import DemandList from '@/components/DemandList'
+import DemandOne from '@/components/DemandOne'
 
 Vue.use(Router)
 
@@ -20,7 +23,17 @@ export default new Router({
     {
       path: '/',
       name: 'Index',
-      component: Index
+      component: Index,
+      children: [
+        {
+          path: 'article',
+          component: ArticleList
+        },
+        {
+          path: 'demand',
+          component: DemandList
+        }
+      ]
     },
     {
       path: '/my',
@@ -48,8 +61,13 @@ export default new Router({
     },
     {
       path: '/article/:id',
-      name: 'Article',
-      component: Article
+      name: 'ArticleOne',
+      component: ArticleOne
+    },
+    {
+      path: '/demand/:id',
+      name: 'DemandOne',
+      component: DemandOne
     },
     {
       path: '/user/:id',
@@ -59,6 +77,10 @@ export default new Router({
         {
           path: 'article',
           component: ArticleList
+        },
+        {
+          path: 'demand',
+          component: DemandList
         },
         {
           path: 'comment',
@@ -74,6 +96,11 @@ export default new Router({
       path: '/post',
       name: 'Post',
       component: Post
+    },
+    {
+      path: '/post/demand',
+      name: 'DemandPost',
+      component: DemandPost
     },
     {
       path: '/upload',

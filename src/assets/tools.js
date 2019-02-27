@@ -1,6 +1,67 @@
 import i18N from './i18N/i18N'
 
+let minute = 1000 * 60
+let hour = minute * 60
+let day = hour * 24
+let month = day * 30
+
 const tools = {
+  timeClick: function (beginDateStr, endDateStr) {
+    let beginTimeStamp = Date.parse(beginDateStr.replace(/-/gi, '/'))
+    let endTimeStamp = Date.parse(endDateStr.replace(/-/gi, '/'))
+    let diffValue = endTimeStamp - beginTimeStamp
+    if (diffValue < 0) {
+      return '已结束'
+    }
+    let monthC = diffValue / month
+    let weekC = diffValue / (7 * day)
+    let dayC = diffValue / day
+    let hourC = diffValue / hour
+    let minC = diffValue / minute
+    let result
+    if (monthC >= 1) {
+      result = '还有 ' + parseInt(monthC) + ' 个月'
+    } else if (weekC >= 1) {
+      result = '还有 ' + parseInt(weekC) + ' 周'
+    } else if (dayC >= 1) {
+      result = '还有 ' + parseInt(dayC) + ' 天'
+    } else if (hourC >= 1) {
+      result = '还有 ' + parseInt(hourC) + ' 小时'
+    } else if (minC >= 1) {
+      result = '还有 ' + parseInt(minC) + ' 分钟'
+    } else {
+      result = '刚刚结束'
+    }
+    return result
+  },
+  timeShow: function (dateStr) {
+    let dateTimeStamp = Date.parse(dateStr.replace(/-/gi, '/'))
+    let now = new Date().getTime()
+    let diffValue = now - dateTimeStamp
+    if (diffValue < 0) {
+      return dateStr
+    }
+    let monthC = diffValue / month
+    let weekC = diffValue / (7 * day)
+    let dayC = diffValue / day
+    let hourC = diffValue / hour
+    let minC = diffValue / minute
+    let result
+    if (monthC >= 1) {
+      result = '发表于 ' + parseInt(monthC) + ' 个月前'
+    } else if (weekC >= 1) {
+      result = '发表于 ' + parseInt(weekC) + ' 周前'
+    } else if (dayC >= 1) {
+      result = '发表于 ' + parseInt(dayC) + ' 天前'
+    } else if (hourC >= 1) {
+      result = '发表于 ' + parseInt(hourC) + ' 个小时前'
+    } else if (minC >= 1) {
+      result = '发表于 ' + parseInt(minC) + ' 分钟前'
+    } else {
+      result = '刚刚发表'
+    }
+    return result
+  },
   setCookie: function (cName, cValue, exDays) {
     let d = new Date()
     d.setTime(d.getTime() + (exDays * 24 * 60 * 60 * 1000))

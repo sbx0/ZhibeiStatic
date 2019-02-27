@@ -1,14 +1,31 @@
 <template>
   <div>
     <v-carousel
-      height="200">
+      height="200"
+    >
       <v-carousel-item
-        v-for="(item,i) in items"
+        v-for="(img,i) in imgs"
         :key="i"
-        :src="item.src"
+        :src="img.src"
       ></v-carousel-item>
     </v-carousel>
-    <article-list></article-list>
+    <v-tabs
+      slot="extension"
+      v-model="currentItem"
+      color="transparent"
+      fixed-tabs
+      slider-color="yellow"
+    >
+      <v-tab
+        v-for="(item,key) in items"
+        :key="key"
+        :href="'#tab-' + item.index"
+        @click="tabChange(item.index)"
+      >
+        {{ item.title }}
+      </v-tab>
+    </v-tabs>
+    <router-view></router-view>
   </div>
 </template>
 
@@ -22,7 +39,7 @@ export default {
   data () {
     return {
       i18N: i18N, // i18N配置文件
-      items: [
+      imgs: [
         {
           src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
         },
@@ -35,7 +52,51 @@ export default {
         {
           src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
         }
-      ]
+      ],
+      currentItem: 'tab-Article',
+      items: [
+        {
+          title: i18N.table.article,
+          index: 'Article'
+        },
+        {
+          title: i18N.table.demand,
+          index: 'Demand'
+        }
+      ],
+      tabChange (index) {
+        switch (index) {
+          case 'Article':
+            this.$router.push({path: '/article'})
+            break
+          case 'Demand':
+            this.$router.push({path: '/demand'})
+            break
+          default:
+            this.$router.push({path: '/'})
+            break
+        }
+      }
+    }
+  },
+  created () {
+    let path = this.$router.currentRoute.path
+    if (path === '/') {
+      this.$router.push({path: '/article'})
+    }
+    switch (path) {
+      case '/':
+        this.currentItem = 'tab-Article'
+        break
+      case '/article':
+        this.currentItem = 'tab-Article'
+        break
+      case '/demand':
+        this.currentItem = 'tab-Demand'
+        break
+      default:
+        this.currentItem = 'tab-Article'
+        break
     }
   }
 }

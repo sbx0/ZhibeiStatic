@@ -43,7 +43,7 @@
             <router-link :to="item.path">{{item.path}}</router-link>
           </v-list-tile-sub-title>
           <v-list-tile-sub-title v-else>
-            {{item.time}}
+            {{tools.timeShow(item.time)}}
           </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
