@@ -70,6 +70,7 @@
 
 <script>
 import i18N from './assets/i18N/i18N'
+import 'material-design-icons-iconfont'
 
 export default {
   name: 'App',
