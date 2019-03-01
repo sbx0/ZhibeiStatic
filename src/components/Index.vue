@@ -73,7 +73,7 @@ export default {
             this.$router.push({path: '/demand'})
             break
           default:
-            this.$router.push({path: '/'})
+            this.$router.push({path: '/article'})
             break
         }
       }

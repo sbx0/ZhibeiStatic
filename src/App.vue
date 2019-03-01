@@ -114,7 +114,7 @@ export default {
     clickButton: function (data) {
       switch (data) {
         case 0:
-          this.$router.push({path: '/'})
+          this.$router.push({path: '/article'})
           break
         case 1:
           this.$router.push({path: '/post'})
