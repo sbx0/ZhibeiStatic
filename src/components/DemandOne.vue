@@ -1,6 +1,7 @@
 <template>
   <div>
     <v-card flat>
+      <v-img :src="data.cover" aspect-ratio="1.7"></v-img>
       <div class="text-xs-center" v-if="loading">
         <v-progress-circular
           indeterminate

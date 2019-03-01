@@ -15,6 +15,13 @@
         lazy-validation
         class="form-control"
       >
+        <input type="text" name="cover" :value="img" style="display: none;">
+        <label>{{i18N.attribute.demand.cover}}</label>
+        <v-img
+          v-if="img !== ''"
+          :src="img"
+        ></v-img>
+        <upload @return-data="getChildData" v-if="img === ''"></upload>
         <v-text-field
           name="title"
           v-model="title"
@@ -32,7 +39,6 @@
           required
         ></v-text-field>
         <textarea name="content" :value="content" hidden></textarea>
-        <input name="cover" value="test" hidden/>
         <select name="category" multiple style="display: none;">
           <option v-for="(tag,key) in categoriesSelected" v-bind:key="key" :value="tag" selected>
             {{tag}}
@@ -88,17 +94,20 @@
 
 <script>
 import i18N from '../assets/i18N/i18N'
+import Upload from '@/components/Upload'
 import axios from 'axios'
 import $ from 'jquery'
 
 export default {
   name: 'DemandPost',
+  components: {Upload},
   data () {
     return {
       i18N: i18N, // i18N配置文件
       valid: true,
       loading: true,
       title: '',
+      img: '',
       categories: [],
       categoriesSelected: [],
       titleRules: [
@@ -116,6 +125,9 @@ export default {
     }
   },
   methods: {
+    getChildData (data) {
+      this.img = data
+    },
     // 绑定@imgAdd event
     imgAdd (pos, $file) {
       let _this = this

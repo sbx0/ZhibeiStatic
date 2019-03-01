@@ -73,7 +73,8 @@ export default {
                 alert(i18N.network + i18N.alert.error)
               }
             })
-          } else if (this.$router.currentRoute.path === '/my/certification') {
+          } else if (this.$router.currentRoute.path === '/my/certification' ||
+              this.$router.currentRoute.path === '/post/demand') {
             this.$emit('return-data', i18N.domain + '/upload/' + json.type + '/' + json.name)
           }
         } else {
