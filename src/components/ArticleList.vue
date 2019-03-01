@@ -29,6 +29,22 @@
       </v-list-tile>
       <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
     </template>
+    <router-link to="/search/article">
+      <v-parallax
+        dark
+        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+        height="50"
+        class="mb-3 mt-3"
+      >
+        <v-layout
+          align-center
+          column
+          justify-center
+        >
+          <span class="display-1 font-weight-thin">{{i18N.search+i18N.table.article}}</span>
+        </v-layout>
+      </v-parallax>
+    </router-link>
     <v-btn block @click="readMore()">{{i18N.read_more}}</v-btn>
   </v-list>
 </template>

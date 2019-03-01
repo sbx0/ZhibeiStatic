@@ -30,7 +30,7 @@
           </v-btn>
         </v-layout>
         <div class="markdown-body">
-          <div v-html="markdown" v-highlight></div>
+          <div v-html="markdown" v-viewer v-highlight></div>
           <div class="text-xs-center">
             <v-chip
               label

@@ -153,6 +153,11 @@ export default {
 </script>
 
 <style>
+  a {
+    text-decoration: none;
+    color: #000;
+  }
+
   .higher_foot {
     margin-bottom: 54px;
   }

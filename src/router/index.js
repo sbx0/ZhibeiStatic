@@ -16,6 +16,7 @@ import DemandPost from '@/components/DemandPost'
 import DemandList from '@/components/DemandList'
 import DemandOne from '@/components/DemandOne'
 import AvatarUpload from '@/components/AvatarUpload'
+import ArticleSearch from '@/components/ArticleSearch'
 
 Vue.use(Router)
 
@@ -42,10 +43,6 @@ export default new Router({
       component: My,
       children: [
         {
-          path: 'upload',
-          component: AvatarUpload
-        },
-        {
           path: 'data',
           component: UserData
         },
@@ -64,6 +61,11 @@ export default new Router({
       path: '/article/:id',
       name: 'ArticleOne',
       component: ArticleOne
+    },
+    {
+      path: '/search/article',
+      name: 'ArticleSearch',
+      component: ArticleSearch
     },
     {
       path: '/demand/:id',
@@ -119,7 +121,7 @@ export default new Router({
     },
     {
       path: '/upload/cover',
-      name: 'AvatarUpload',
+      name: 'CoverUpload',
       component: AvatarUpload,
       props: {
         w: 16,
