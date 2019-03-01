@@ -8,6 +8,7 @@
       ></v-progress-circular>
     </div>
     <template v-for="(item,index) in data" v-else>
+      <v-img :src="item.cover" aspect-ratio="3" :key="item.id"></v-img>
       <v-list-tile
         :key="item.id"
         avatar
