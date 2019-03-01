@@ -6,8 +6,8 @@ let day = hour * 24
 let month = day * 30
 
 const tools = {
-  timeClick: function (beginDateStr, endDateStr) {
-    let beginTimeStamp = Date.parse(beginDateStr.replace(/-/gi, '/'))
+  timeClick: function (endDateStr) {
+    let beginTimeStamp = new Date().getTime()
     let endTimeStamp = Date.parse(endDateStr.replace(/-/gi, '/'))
     let diffValue = endTimeStamp - beginTimeStamp
     if (diffValue < 0) {

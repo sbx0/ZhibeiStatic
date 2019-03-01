@@ -22,7 +22,7 @@
             </router-link>
             <v-list-tile-sub-title>{{i18N.attribute.demand.budget+' '+data.budget}}￥</v-list-tile-sub-title>
             <v-list-tile-sub-title>
-              {{tools.timeClick(data.time,data.endTime)}}
+              {{tools.timeClick(data.endTime)}}
             </v-list-tile-sub-title>
           </v-list-tile-content>
           <v-spacer></v-spacer>

@@ -8,7 +8,7 @@
       ></v-progress-circular>
     </div>
     <template v-for="(item,index) in data" v-else>
-      <v-img :src="item.cover" aspect-ratio="3" :key="item.id"></v-img>
+      <v-img :src="item.cover" aspect-ratio="3" :key="item.id+'img'"></v-img>
       <v-list-tile
         :key="item.id"
         avatar
@@ -24,7 +24,7 @@
           </router-link>
           <v-list-tile-sub-title>{{item.budget}}￥</v-list-tile-sub-title>
           <v-list-tile-sub-title>
-            {{tools.timeClick(item.time,item.endTime)}}
+            {{tools.timeClick(item.endTime)}}
           </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
