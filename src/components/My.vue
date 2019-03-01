@@ -230,8 +230,7 @@ export default {
       this.$router.push({path: '/my'})
     },
     upload () {
-      this.uploadDialog = true
-      this.$router.push({path: '/my/upload'})
+      this.$router.push({path: '/upload/avatar'})
     },
     getInfo () {
       let _this = this

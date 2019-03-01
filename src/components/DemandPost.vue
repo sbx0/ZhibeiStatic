@@ -21,7 +21,7 @@
           v-if="img !== ''"
           :src="img"
         ></v-img>
-        <upload @return-data="getChildData" v-if="img === ''"></upload>
+        <upload @uploadUrl="getChildData" v-if="img === ''"></upload>
         <v-text-field
           name="title"
           v-model="title"

@@ -15,6 +15,7 @@ import CertificationData from '@/components/CertificationData'
 import DemandPost from '@/components/DemandPost'
 import DemandList from '@/components/DemandList'
 import DemandOne from '@/components/DemandOne'
+import AvatarUpload from '@/components/AvatarUpload'
 
 Vue.use(Router)
 
@@ -42,7 +43,7 @@ export default new Router({
       children: [
         {
           path: 'upload',
-          component: Upload
+          component: AvatarUpload
         },
         {
           path: 'data',
@@ -106,6 +107,11 @@ export default new Router({
       path: '/upload',
       name: 'Upload',
       component: Upload
+    },
+    {
+      path: '/upload/avatar',
+      name: 'AvatarUpload',
+      component: AvatarUpload
     },
     {
       path: '/*',
