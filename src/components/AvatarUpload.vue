@@ -5,15 +5,11 @@
       <div>
         <img id="image" :src="url" alt="Picture">
       </div>
-      <button type="button" id="button" @click="crop">确定</button>
+      <button type="button" id="button" @click="crop">{{i18N.upload}}</button>
     </div>
-
     <div style="padding:20px;">
-      <div class="show">
-        <div class="picture" :style="'backgroundImage:url('+headerImage+')'">
-        </div>
-      </div>
       <div style="margin-top:20px;">
+        <label>{{title}}</label>
         <input
           type="file"
           id="change"
@@ -30,14 +26,14 @@
 import i18N from '../assets/i18N/i18N'
 import Cropper from 'cropperjs'
 import axios from 'axios'
-import $ from 'jquery'
 
-let VueUploadComponent = require('vue-upload-component')
 export default {
   name: 'UploadAvatar',
-  components: {
-    FileUpload: VueUploadComponent
-  },
+  props: [
+    'w',
+    'h',
+    't'
+  ],
   data () {
     return {
       i18N: i18N,
@@ -48,8 +44,9 @@ export default {
       croppable: false,
       panel: false,
       url: '',
-      widthRatio: 1,
-      heightRatio: 1,
+      widthRatio: this.w,
+      heightRatio: this.h,
+      title: this.t,
       rate: 250
     }
   },
@@ -151,27 +148,10 @@ export default {
             let status = response.data.status
             if (_this.tools.statusCodeToBool(status) || status === 7) {
               let url = i18N.domain + '/upload/' + response.data.type + '/' + response.data.name
-              $.ajax({
-                type: 'GET',
-                url: i18N.domain + '/file/avatar?md5=' + response.data.md5,
-                async: false,
-                dataType: 'json',
-                crossDomain: true,
-                xhrFields: {
-                  withCredentials: true
-                },
-                success: function (json) {
-                  let status = json.status
-                  if (_this.tools.statusCodeToBool(status)) {
-                    _this.$router.push({path: '/my'})
-                  }
-                  alert(_this.tools.statusCodeToAlert(status))
-                },
-                error: function () {
-                  alert(i18N.network + i18N.alert.error)
-                }
+              _this.$emit('uploadData', {
+                url: url,
+                md5: response.data.md5
               })
-              this.$emit('uploadUrl', url)
             }
           })
         })
@@ -199,11 +179,10 @@ export default {
   }
 
   #demo .show {
-    width: 100px;
-    height: 100px;
+    min-width: 100px;
+    min-height: 100px;
     overflow: hidden;
     position: relative;
-    border-radius: 50%;
     border: 1px solid #d5d5d5;
   }
 

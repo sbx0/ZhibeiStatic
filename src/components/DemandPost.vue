@@ -21,7 +21,14 @@
           v-if="img !== ''"
           :src="img"
         ></v-img>
-        <upload @uploadUrl="getChildData" v-if="img === ''"></upload>
+        <!--<upload @uploadUrl="getChildData" v-if="img === ''"></upload>-->
+        <upload-avatar
+          @uploadData="getChildData"
+          v-if="img === ''"
+          w="16"
+          h="9"
+          :t="i18N.upload+i18N.attribute.demand.cover"
+        ></upload-avatar>
         <v-text-field
           name="title"
           v-model="title"
@@ -97,10 +104,11 @@ import i18N from '../assets/i18N/i18N'
 import Upload from '@/components/Upload'
 import axios from 'axios'
 import $ from 'jquery'
+import UploadAvatar from '@/components/AvatarUpload'
 
 export default {
   name: 'DemandPost',
-  components: {Upload},
+  components: {UploadAvatar, Upload},
   data () {
     return {
       i18N: i18N, // i18N配置文件
@@ -126,7 +134,7 @@ export default {
   },
   methods: {
     getChildData (data) {
-      this.img = data
+      this.img = data.url
     },
     // 绑定@imgAdd event
     imgAdd (pos, $file) {

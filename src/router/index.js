@@ -111,7 +111,20 @@ export default new Router({
     {
       path: '/upload/avatar',
       name: 'AvatarUpload',
-      component: AvatarUpload
+      component: AvatarUpload,
+      props: {
+        w: 1,
+        h: 1
+      }
+    },
+    {
+      path: '/upload/cover',
+      name: 'AvatarUpload',
+      component: AvatarUpload,
+      props: {
+        w: 16,
+        h: 9
+      }
     },
     {
       path: '/*',

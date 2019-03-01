@@ -124,6 +124,7 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <upload-avatar @uploadData="getChildData" w="1" h="1" :t="i18N.upload + i18N.attribute.user.avatar"></upload-avatar>
           <v-img
             :src="i18N.domain+user.avatar"
           ></v-img>
@@ -136,9 +137,11 @@
 <script>
 import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
+import UploadAvatar from '@/components/AvatarUpload'
 
 export default {
   name: 'My',
+  components: {UploadAvatar},
   data () {
     return {
       i18N: i18N,
@@ -146,6 +149,7 @@ export default {
       uploadDialog: false,
       dataDialog: false,
       cardTitle: i18N.personal + i18N.information,
+      md5: '',
       user: {
         name: i18N.not + i18N.login,
         nickname: i18N.not + i18N.login,
@@ -158,6 +162,30 @@ export default {
     }
   },
   methods: {
+    getChildData (data) {
+      this.md5 = data.md5
+      let _this = this
+      $.ajax({
+        type: 'GET',
+        url: i18N.domain + '/file/avatar?md5=' + _this.md5,
+        async: false,
+        dataType: 'json',
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            _this.$router.push({path: '/my'})
+          }
+          alert(_this.tools.statusCodeToAlert(status))
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
     certification () {
       this.cardTitle = i18N.certification
       this.dataDialog = true

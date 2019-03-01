@@ -30,7 +30,7 @@
           </v-btn>
         </v-layout>
         <div class="markdown-body">
-          <div v-html="markdown" v-viewer></div>
+          <div v-html="markdown" v-highlight></div>
           <div class="text-xs-center">
             <v-chip
               label
@@ -52,9 +52,11 @@
 import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
 import markdownEditor from 'mavon-editor'
-import 'github-markdown-css'
 import CommentList from '../components/CommentList'
 import 'viewerjs/dist/viewer.css'
+import 'github-markdown-css'
+import 'highlight.js'
+import 'highlight.js/styles/googlecode.css'
 
 export default {
   name: 'Article',
@@ -117,6 +119,10 @@ export default {
 </script>
 
 <style>
+  code {
+    box-shadow: 0 0px 0px 0px rgba(0,0,0,.2);
+  }
+
   a {
     text-decoration: none;
     color: #000;
