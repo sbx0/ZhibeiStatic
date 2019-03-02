@@ -8,12 +8,14 @@
       ></v-progress-circular>
     </div>
     <template v-for="(item,index) in data" v-else>
-      <v-img
+      <v-parallax
+        dark
         :src="item.cover"
         :key="item.id+'img'"
+        height="150"
         @click="tools.go('/demand/'+item.id)"
-        aspect-ratio="2"
-      ></v-img>
+      >
+      </v-parallax>
       <v-list-tile
         :key="item.id"
         avatar
@@ -129,8 +131,7 @@ export default {
           alert(i18N.network + i18N.alert.error)
           return false
         }
-      }
-      )
+      })
     },
     getData: function () {
       let _this = this

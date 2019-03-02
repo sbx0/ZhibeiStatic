@@ -4,9 +4,10 @@
       height="200"
     >
       <v-carousel-item
-        v-for="(img,i) in imgs"
+        v-for="(img,i) in images"
         :key="i"
-        :src="img.src"
+        :src="img.cover"
+        @click="tools.go('/demand/'+img.id)"
       ></v-carousel-item>
     </v-carousel>
     <v-tabs
@@ -32,6 +33,7 @@
 <script>
 import i18N from '../assets/i18N/i18N'
 import ArticleList from './ArticleList'
+import $ from 'jquery'
 
 export default {
   name: 'Index',
@@ -39,20 +41,7 @@ export default {
   data () {
     return {
       i18N: i18N, // i18N配置文件
-      imgs: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-        }
-      ],
+      images: [],
       currentItem: 'tab-Article',
       items: [
         {
@@ -63,19 +52,46 @@ export default {
           title: i18N.table.demand,
           index: 'Demand'
         }
-      ],
-      tabChange (index) {
-        switch (index) {
-          case 'Article':
-            this.$router.push({path: '/article'})
-            break
-          case 'Demand':
-            this.$router.push({path: '/demand'})
-            break
-          default:
-            this.$router.push({path: '/article'})
-            break
+      ]
+    }
+  },
+  methods: {
+    getImg () {
+      let _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/demand/normal/list?page=1' +
+            '&size=4' +
+            '&attribute=budget' +
+            '&direction=DESC',
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          if (json.objects != null) {
+            _this.images = json.objects
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+          return false
         }
+      })
+    },
+    tabChange (index) {
+      switch (index) {
+        case 'Article':
+          this.$router.push({path: '/article'})
+          break
+        case 'Demand':
+          this.$router.push({path: '/demand'})
+          break
+        default:
+          this.$router.push({path: '/article'})
+          break
       }
     }
   },
@@ -98,6 +114,7 @@ export default {
         this.currentItem = 'tab-Article'
         break
     }
+    this.getImg()
   }
 }
 </script>
