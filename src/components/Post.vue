@@ -219,6 +219,6 @@ export default {
   }
 
   .v-note-wrapper {
-    z-index: 5;
+    z-index: 0;
   }
 </style>

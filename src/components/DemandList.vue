@@ -8,20 +8,25 @@
       ></v-progress-circular>
     </div>
     <template v-for="(item,index) in data" v-else>
-      <v-img :src="item.cover" aspect-ratio="3" :key="item.id+'img'"></v-img>
+      <v-img
+        :src="item.cover"
+        :key="item.id+'img'"
+        @click="tools.go('/demand/'+item.id)"
+        aspect-ratio="2"
+      ></v-img>
       <v-list-tile
         :key="item.id"
         avatar
       >
-        <router-link :to="'/user/'+item.poster.id+'/demand'">
-          <v-list-tile-avatar>
-            <img v-if="item.poster.avatar !== undefined" :src="i18N.domain+item.poster.avatar">
-          </v-list-tile-avatar>
-        </router-link>
-        <v-list-tile-content>
-          <router-link :to="'/demand/'+item.id">
-            <v-list-tile-title v-html="item.title"></v-list-tile-title>
-          </router-link>
+        <v-list-tile-avatar
+          @click="tools.go('/user/'+item.poster.id+'/demand')"
+        >
+          <img v-if="item.poster.avatar !== undefined" :src="i18N.domain+item.poster.avatar">
+        </v-list-tile-avatar>
+        <v-list-tile-content
+          @click="tools.go('/demand/'+item.id)"
+        >
+          <v-list-tile-title v-html="item.title"></v-list-tile-title>
           <v-list-tile-sub-title>{{item.budget}}￥</v-list-tile-sub-title>
           <v-list-tile-sub-title>
             {{tools.timeClick(item.endTime)}}

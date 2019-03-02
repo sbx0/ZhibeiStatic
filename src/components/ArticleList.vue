@@ -12,15 +12,13 @@
         :key="item.id"
         avatar
       >
-        <router-link :to="'/user/'+item.author.id+'/article'">
-          <v-list-tile-avatar>
-            <img v-if="item.author.avatar !== undefined" :src="i18N.domain+item.author.avatar">
-          </v-list-tile-avatar>
-        </router-link>
-        <v-list-tile-content>
-          <router-link :to="'/article/'+item.id">
-            <v-list-tile-title v-html="item.title"></v-list-tile-title>
-          </router-link>
+        <v-list-tile-avatar
+          @click="tools.go('/user/'+item.author.id+'/article')"
+        >
+          <img v-if="item.author.avatar !== undefined" :src="i18N.domain+item.author.avatar">
+        </v-list-tile-avatar>
+        <v-list-tile-content @click="tools.go('/article/'+item.id)">
+          <v-list-tile-title v-html="item.title"></v-list-tile-title>
           <v-list-tile-sub-title v-html="item.introduction"></v-list-tile-sub-title>
           <v-list-tile-sub-title>
             {{tools.timeShow(item.time)}}
@@ -29,22 +27,21 @@
       </v-list-tile>
       <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
     </template>
-    <router-link to="/search/article">
-      <v-parallax
-        dark
-        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-        height="50"
-        class="mb-3 mt-3"
+    <v-parallax
+      dark
+      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      height="50"
+      class="mb-3 mt-3"
+      @click="tools.go('/search/article')"
+    >
+      <v-layout
+        align-center
+        column
+        justify-center
       >
-        <v-layout
-          align-center
-          column
-          justify-center
-        >
-          <span class="display-1 font-weight-thin">{{i18N.search+i18N.table.article}}</span>
-        </v-layout>
-      </v-parallax>
-    </router-link>
+        <span class="display-1 font-weight-thin">{{i18N.search+i18N.table.article}}</span>
+      </v-layout>
+    </v-parallax>
     <v-btn block @click="readMore()">{{i18N.read_more}}</v-btn>
   </v-list>
 </template>
@@ -198,11 +195,6 @@ export default {
 </script>
 
 <style scoped>
-  a {
-    text-decoration: none;
-    color: #000;
-  }
-
   .loading-control {
     margin: 50px 50px;
   }

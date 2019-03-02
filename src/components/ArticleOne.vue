@@ -1,5 +1,19 @@
 <template>
   <div>
+    <v-toolbar
+      dense
+      scroll-off-screen
+    >
+      <v-btn icon @click="goBack()">
+        <v-icon>arrow_back</v-icon>
+      </v-btn>
+
+      <v-spacer></v-spacer>
+
+      <v-btn icon>
+        <v-icon>more_vert</v-icon>
+      </v-btn>
+    </v-toolbar>
     <v-card flat>
       <div class="text-xs-center" v-if="loading">
         <v-progress-circular
@@ -10,15 +24,15 @@
       </div>
       <v-card-text v-else>
         <v-layout align-center mb-3>
-          <router-link :to="'/user/'+data.author.id+'/article'">
-            <v-list-tile-avatar>
-              <img v-if="data.author.avatar !== undefined" :src="i18N.domain+data.author.avatar">
-            </v-list-tile-avatar>
-          </router-link>
-          <v-list-tile-content>
-            <router-link :to="'/article/'+data.id">
-              <v-list-tile-title v-html="data.title"></v-list-tile-title>
-            </router-link>
+          <v-list-tile-avatar
+            @click="tools.go('/user/'+data.author.id+'/article')"
+          >
+            <img v-if="data.author.avatar !== undefined" :src="i18N.domain+data.author.avatar">
+          </v-list-tile-avatar>
+          <v-list-tile-content
+            @click="tools.go('/article/'+data.id)"
+          >
+            <v-list-tile-title v-html="data.title"></v-list-tile-title>
             <v-list-tile-sub-title v-html="data.introduction"></v-list-tile-sub-title>
             <v-list-tile-sub-title>
               {{tools.timeShow(data.time)}}
@@ -73,6 +87,9 @@ export default {
     }
   },
   methods: {
+    goBack () {
+      this.$router.go(-1)
+    },
     getData () {
       let _this = this
       let _id = this.$route.params.id

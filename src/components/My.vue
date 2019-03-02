@@ -8,7 +8,7 @@
       ></v-progress-circular>
     </div>
     <v-layout justify-center v-else>
-      <v-flex xs12 sm8>
+      <v-flex>
         <v-card>
           <v-card-title class="cyan darken-1">
             <span class="headline white--text">{{user.name}}</span>
@@ -31,11 +31,6 @@
                 <v-list-tile>
                   <v-list-tile-title @click="logout">
                     {{ i18N.logout }}
-                  </v-list-tile-title>
-                </v-list-tile>
-                <v-list-tile>
-                  <v-list-tile-title @click="upload">
-                    {{ i18N.avatar }}
                   </v-list-tile-title>
                 </v-list-tile>
               </v-list>

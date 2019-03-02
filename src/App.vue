@@ -1,5 +1,5 @@
 <template>
-  <v-app id="inspire">
+  <v-app id="inspire" class="this_is_mobile">
     <router-view></router-view>
     <v-footer
       height="auto"
@@ -153,9 +153,10 @@ export default {
 </script>
 
 <style>
-  a {
-    text-decoration: none;
-    color: #000;
+
+  .this_is_mobile {
+    max-width: 540px;
+    margin: auto auto;
   }
 
   .higher_foot {

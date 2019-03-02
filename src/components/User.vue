@@ -3,6 +3,8 @@
     <div>
       <v-toolbar
         tabs
+        dense
+        scroll-off-screen
       >
         <v-avatar class="mr-3">
           <img v-if="userData.avatar !== undefined" :src="i18N.domain+userData.avatar" alt="avatar">

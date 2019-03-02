@@ -90,11 +90,12 @@
       >
         {{i18N.post}}
       </v-btn>
-      <router-link to="/post">
-        <v-btn block>
-          {{i18N.table.article + i18N.post}}
-        </v-btn>
-      </router-link>
+      <v-btn
+        block
+        @click="tools.go('/post')"
+      >
+        {{i18N.table.article + i18N.post}}
+      </v-btn>
     </v-app>
   </div>
 </template>
@@ -265,6 +266,6 @@ export default {
   }
 
   .v-note-wrapper {
-    z-index: 5;
+    z-index: 0;
   }
 </style>

@@ -32,15 +32,18 @@
         :key="item.id"
         avatar
       >
-        <router-link :to="'/user/'+item.poster.id+'/article'">
-          <v-list-tile-avatar>
-            <img :src="i18N.domain+item.poster.avatar">
-          </v-list-tile-avatar>
-        </router-link>
+        <v-list-tile-avatar
+          @click="tools.go('/user/'+item.poster.id+'/article')"
+        >
+          <img :src="i18N.domain+item.poster.avatar">
+        </v-list-tile-avatar>
         <v-list-tile-content>
           <v-list-tile-title v-html="item.content"></v-list-tile-title>
-          <v-list-tile-sub-title v-if="!canPost">
-            <router-link :to="item.path">{{item.path}}</router-link>
+          <v-list-tile-sub-title
+            v-if="!canPost"
+            @click="tools.go(item.path)"
+          >
+            {{item.path}}
           </v-list-tile-sub-title>
           <v-list-tile-sub-title v-else>
             {{tools.timeShow(item.time)}}

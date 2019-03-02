@@ -1,4 +1,5 @@
 import i18N from './i18N/i18N'
+import router from '@/router/index'
 
 let minute = 1000 * 60
 let hour = minute * 60
@@ -6,6 +7,9 @@ let day = hour * 24
 let month = day * 30
 
 const tools = {
+  go: function (url) {
+    router.push({path: url})
+  },
   timeClick: function (endDateStr) {
     let beginTimeStamp = new Date().getTime()
     let endTimeStamp = Date.parse(endDateStr.replace(/-/gi, '/'))
@@ -54,7 +58,7 @@ const tools = {
     } else if (dayC >= 1) {
       result = '发表于 ' + parseInt(dayC) + ' 天前'
     } else if (hourC >= 1) {
-      result = '发表于 ' + parseInt(hourC) + ' 个小时前'
+      result = '发表于 ' + parseInt(hourC) + ' 小时前'
     } else if (minC >= 1) {
       result = '发表于 ' + parseInt(minC) + ' 分钟前'
     } else {
