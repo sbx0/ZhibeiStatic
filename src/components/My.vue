@@ -90,7 +90,10 @@
               >
                 {{i18N.upload + i18N.attribute.user.avatar}}
               </v-card-title>
-              <router-view></router-view>
+              <keep-alive>
+                <router-view v-if="$route.meta.keepAlive"></router-view>
+              </keep-alive>
+              <router-view v-if="!$route.meta.keepAlive"></router-view>
               <v-divider></v-divider>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -110,7 +113,10 @@
                 <span class="headline">{{cardTitle}}</span>
               </v-card-title>
               <v-card-text>
-                <router-view></router-view>
+                <keep-alive>
+                  <router-view v-if="$route.meta.keepAlive"></router-view>
+                </keep-alive>
+                <router-view v-if="!$route.meta.keepAlive"></router-view>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
@@ -119,7 +125,12 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <upload-avatar @uploadData="getChildData" w="1" h="1" :t="i18N.upload + i18N.attribute.user.avatar"></upload-avatar>
+          <upload-avatar
+            @uploadData="getChildData"
+            w="1"
+            h="1"
+            :t="i18N.upload + i18N.attribute.user.avatar"
+          ></upload-avatar>
           <v-img
             :src="i18N.domain+user.avatar"
           ></v-img>

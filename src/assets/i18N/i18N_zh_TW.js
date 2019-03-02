@@ -1,6 +1,6 @@
 const i18N = {
   // domain: 'http://localhost:8085', // 請求地址
-  domain: 'https://zb.sbx0.cn', // 請求地址
+  domain: 'http://zb.sbx0.cn', // 請求地址
   table: {
     user: '用戶表',
     tag: '標籤表',

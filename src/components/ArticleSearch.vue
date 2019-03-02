@@ -1,6 +1,6 @@
 <template>
   <div>
-    <v-form class="form-control">
+    <div class="form-control">
       <v-text-field
         id="search"
         v-model="keyword"
@@ -18,7 +18,7 @@
       >
         {{s}}
       </v-chip>
-    </v-form>
+    </div>
     <v-list two-line v-if="data.length > 0">
       <div class="text-xs-center" v-if="loading">
         <v-progress-circular

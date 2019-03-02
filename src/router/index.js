@@ -18,9 +18,8 @@ import DemandOne from '@/components/DemandOne'
 import AvatarUpload from '@/components/AvatarUpload'
 import ArticleSearch from '@/components/ArticleSearch'
 
-Vue.use(Router)
-
 export default new Router({
+  mode: 'hash',
   routes: [
     {
       path: '/',
@@ -29,11 +28,17 @@ export default new Router({
       children: [
         {
           path: 'article',
-          component: ArticleList
+          component: ArticleList,
+          meta: {
+            keepAlive: true
+          }
         },
         {
           path: 'demand',
-          component: DemandList
+          component: DemandList,
+          meta: {
+            keepAlive: true
+          }
         }
       ]
     },
@@ -65,7 +70,10 @@ export default new Router({
     {
       path: '/search/article',
       name: 'ArticleSearch',
-      component: ArticleSearch
+      component: ArticleSearch,
+      meta: {
+        keepAlive: true
+      }
     },
     {
       path: '/demand/:id',
@@ -129,7 +137,7 @@ export default new Router({
       }
     },
     {
-      path: '/*',
+      path: '/NotFound',
       name: 'NotFound',
       component: NotFound
     }
@@ -142,3 +150,5 @@ export default new Router({
     }
   }
 })
+
+Vue.use(Router)
