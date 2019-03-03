@@ -9,7 +9,7 @@
       v-if="loginOrRegister"
     >
       <v-alert
-        :value="true"
+        value="true"
         type="info"
         @click="loginOrRegister = false"
       >
@@ -43,6 +43,11 @@
       >
         {{i18N.reset}}
       </v-btn>
+      <v-alert
+        value="true"
+        @click="tools.go('/lostPassword')"
+        type="info"
+      >{{i18N.lost_password}}</v-alert>
     </v-form>
     <v-form
       id="registerForm"

@@ -17,6 +17,8 @@ import DemandList from '@/components/DemandList'
 import DemandOne from '@/components/DemandOne'
 import AvatarUpload from '@/components/AvatarUpload'
 import ArticleSearch from '@/components/ArticleSearch'
+import LostPassword from '@/components/LostPassword'
+import ChangePassword from '@/components/ChangePassword'
 
 export default new Router({
   mode: 'hash',
@@ -135,6 +137,16 @@ export default new Router({
         w: 16,
         h: 9
       }
+    },
+    {
+      path: '/lostPassword',
+      name: 'LostPassword',
+      component: LostPassword
+    },
+    {
+      path: '/verify/:md5',
+      name: 'verify',
+      component: ChangePassword
     },
     {
       path: '/NotFound',
