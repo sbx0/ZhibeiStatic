@@ -113,10 +113,7 @@
                 <span class="headline">{{cardTitle}}</span>
               </v-card-title>
               <v-card-text>
-                <keep-alive>
-                  <router-view v-if="$route.meta.keepAlive"></router-view>
-                </keep-alive>
-                <router-view v-if="!$route.meta.keepAlive"></router-view>
+                <router-view></router-view>
               </v-card-text>
               <v-card-actions>
                 <v-spacer></v-spacer>
