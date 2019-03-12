@@ -55,7 +55,6 @@
 </template>
 <script>
 import i18N from '../assets/i18N/i18N'
-import $ from 'jquery'
 
 export default {
   name: 'MessageList',
