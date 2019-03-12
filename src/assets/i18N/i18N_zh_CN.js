@@ -12,7 +12,9 @@ const i18N = {
     file: '文件',
     log: '日志',
     article: '文章',
-    comment: '评论'
+    comment: '评论',
+    verify: '验证',
+    message: '消息'
   },
   attribute: {
     user: {
@@ -111,7 +113,7 @@ const i18N = {
       dislikes: '不喜欢数',
       top: '置顶排序指数',
       father: '父亲',
-      poster: '作者'
+      poster: '发布者'
     },
     category: {
       id: '编号',
@@ -128,13 +130,32 @@ const i18N = {
       content: '内容',
       endTime: '截止时间',
       budget: '预算',
-      category: '分类'
+      category: '分类',
+      poster: '发布者'
     },
     tag: {
       id: '编号',
       name: '名称',
       introduction: '简介',
       cover: '封面'
+    },
+    verify: {
+      id: '编号',
+      type: '种类',
+      md5: '验证地址',
+      used: '是否使用过',
+      parameter: '参数',
+      time: '发布时间'
+    },
+    message: {
+      id: '编号',
+      content: '内容',
+      ip: 'IP地址',
+      sendUser: '发送者',
+      receiveUser: '接收者',
+      sendTime: '发送时间',
+      receiveTime: '接收时间',
+      type: '种类'
     }
   },
   user: '用户',
@@ -231,7 +252,6 @@ const i18N = {
   before_can_use: '前有效',
   lost_password_title: '提交成功，请检测您的邮箱收件箱。',
   lost_password: '忘记密码',
-
   certification_type: [
     {
       text: '个人认证',

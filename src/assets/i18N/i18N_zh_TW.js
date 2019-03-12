@@ -2,17 +2,19 @@ const i18N = {
   // domain: 'http://localhost:8085', // 請求地址
   domain: 'http://zb.sbx0.cn', // 請求地址
   table: {
-    user: '用戶表',
-    tag: '標籤表',
-    category: '分類表',
-    certification: '申請表',
-    demand: '需求表',
-    role: '角色表',
-    permission: '權限表',
-    file: '文件表',
-    log: '日誌表',
-    article: '文章表',
-    comment: '評論表'
+    user: '用戶',
+    tag: '標籤',
+    category: '分類',
+    certification: '申請',
+    demand: '需求',
+    role: '角色',
+    permission: '權限',
+    file: '文件',
+    log: '日誌',
+    article: '文章',
+    comment: '評論',
+    verify: '驗證',
+    message: '消息'
   },
   attribute: {
     user: {
@@ -111,7 +113,7 @@ const i18N = {
       dislikes: '不喜歡數',
       top: '置頂排序指數',
       father: '父親',
-      poster: '作者'
+      poster: '發布者'
     },
     category: {
       id: '編號',
@@ -128,13 +130,32 @@ const i18N = {
       content: '內容',
       endTime: '截止時間',
       budget: '預算',
-      category: '分類'
+      category: '分類',
+      poster: '發布者'
     },
     tag: {
       id: '編號',
       name: '名稱',
       introduction: '簡介',
       cover: '封面'
+    },
+    verify: {
+      id: '編號',
+      type: '種類',
+      md5: '驗證地址',
+      used: '是否使用過',
+      parameter: '參數',
+      time: '發佈時間'
+    },
+    message: {
+      id: '編號',
+      content: '內容',
+      ip: 'IP地址',
+      sendUser: '發送者',
+      receiveUser: '接收者',
+      sendTime: '發送時間',
+      receiveTime: '接收時間',
+      type: '種類'
     }
   },
   user: '用戶',
@@ -229,8 +250,8 @@ const i18N = {
   not: '未',
   message_board: '留言板',
   before_can_use: '前有效',
-  lost_password_title: '提交成功，请检测您的邮箱收件箱。',
-
+  lost_password_title: '提交成功，請檢測您的郵箱收件箱。 ',
+  lost_password: '忘記密碼',
   certification_type: [
     {
       text: '個人認證',

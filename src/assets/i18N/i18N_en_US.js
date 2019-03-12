@@ -2,17 +2,19 @@ const i18N = {
   // domain: 'http://localhost:8085', // 请求地址
   domain: 'http://zb.sbx0.cn', // 请求地址
   table: {
-    user: 'User Table',
-    tag: 'Tag Table',
-    category: 'Category Table',
-    certification: 'Certification Table',
-    demand: 'Demand Table',
-    role: 'Role Table',
-    permission: 'Permission Table',
-    file: 'File Table',
-    log: 'Log Table',
-    article: 'Article Table',
-    comment: 'Comment Table'
+    user: 'User',
+    tag: 'Tag',
+    category: 'Category',
+    certification: 'Certification',
+    demand: 'Demand',
+    role: 'Role',
+    permission: 'Permission',
+    file: 'File',
+    log: 'Log',
+    article: 'Article',
+    comment: 'Comment',
+    verify: 'Verify',
+    message: 'Message'
   },
   attribute: {
     user: {
@@ -114,27 +116,46 @@ const i18N = {
       poster: 'Poster'
     },
     category: {
-      id: '编号',
-      name: '名称',
-      introduction: '简介',
-      cover: '封面',
-      father: '父亲'
+      id: 'ID',
+      name: 'Name',
+      introduction: 'Introduction',
+      cover: 'Cover',
+      father: 'Father'
     },
     demand: {
-      id: '编号',
-      title: '标题',
-      time: '发布时间',
-      cover: '封面',
-      content: '内容',
-      endTime: '截止时间',
-      budget: '预算',
-      category: '分类'
+      id: 'ID',
+      title: 'Time',
+      time: 'Time',
+      cover: 'Cover',
+      content: 'Content',
+      endTime: 'endTime',
+      budget: 'Budget',
+      category: 'Category',
+      poster: 'poster'
     },
     tag: {
-      id: '编号',
-      name: '名称',
-      introduction: '简介',
-      cover: '封面'
+      id: 'ID',
+      name: 'Name',
+      introduction: 'Introduction',
+      cover: 'Cover'
+    },
+    verify: {
+      id: 'ID',
+      type: 'Type',
+      md5: 'MD5',
+      used: 'Used',
+      parameter: 'Parameter',
+      time: 'Time'
+    },
+    message: {
+      id: 'ID',
+      content: 'Content',
+      ip: 'IP',
+      sendUser: 'Sender',
+      receiveUser: 'Receiver',
+      sendTime: 'SendTime',
+      receiveTime: 'ReceiveTime',
+      type: 'Type'
     }
   },
   user: 'User',
@@ -229,8 +250,8 @@ const i18N = {
   not: 'Not',
   message_board: 'Message Board',
   before_can_use: 'Before Can Use',
-  lost_password_title: '提交成功，请检测您的邮箱收件箱。',
-
+  lost_password_title: 'Send Success,please check your email box.',
+  lost_password: 'Lost Password',
   certification_type: [
     {
       text: 'Personal Certification',
