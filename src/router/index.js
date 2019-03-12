@@ -19,6 +19,8 @@ import AvatarUpload from '@/components/AvatarUpload'
 import ArticleSearch from '@/components/ArticleSearch'
 import LostPassword from '@/components/LostPassword'
 import ChangePassword from '@/components/ChangePassword'
+import MessageSend from '@/components/MessageSend'
+import MessageList from '@/components/MessageList'
 
 export default new Router({
   mode: 'hash',
@@ -145,8 +147,18 @@ export default new Router({
     },
     {
       path: '/verify/:md5',
-      name: 'verify',
+      name: 'Verify',
       component: ChangePassword
+    },
+    {
+      path: '/message/send/:id',
+      name: 'MessageSend',
+      component: MessageSend
+    },
+    {
+      path: '/message/list',
+      name: 'MessageList',
+      component: MessageList
     },
     {
       path: '/NotFound',

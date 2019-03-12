@@ -252,6 +252,7 @@ const i18N = {
   before_can_use: 'Before Can Use',
   lost_password_title: 'Send Success,please check your email box.',
   lost_password: 'Lost Password',
+  send: '发送',
   certification_type: [
     {
       text: 'Personal Certification',

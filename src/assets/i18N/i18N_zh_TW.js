@@ -252,6 +252,7 @@ const i18N = {
   before_can_use: '前有效',
   lost_password_title: '提交成功，請檢測您的郵箱收件箱。 ',
   lost_password: '忘記密碼',
+  send: '发送',
   certification_type: [
     {
       text: '個人認證',

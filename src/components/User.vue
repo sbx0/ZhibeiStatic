@@ -35,6 +35,20 @@
           </v-tab>
         </v-tabs>
       </v-toolbar>
+      <v-parallax
+        dark
+        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+        height="50"
+        @click="tools.go('/message/send/' + userData.id)"
+      >
+        <v-layout
+          align-center
+          column
+          justify-center
+        >
+          <span class="font-weight-thin">{{i18N.send + i18N.table.message}}</span>
+        </v-layout>
+      </v-parallax>
       <div class="text-xs-center" v-if="loading">
         <v-progress-circular
           indeterminate

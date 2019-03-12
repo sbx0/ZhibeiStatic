@@ -1,6 +1,6 @@
 const i18N = {
-  // domain: 'http://localhost:8085', // 请求地址
-  domain: 'http://zb.sbx0.cn', // 请求地址
+  domain: 'http://localhost:8085', // 请求地址
+  // domain: 'http://zb.sbx0.cn', // 请求地址
   table: {
     user: '用户',
     tag: '标签',
@@ -252,6 +252,7 @@ const i18N = {
   before_can_use: '前有效',
   lost_password_title: '提交成功，请检测您的邮箱收件箱。',
   lost_password: '忘记密码',
+  send: '发送',
   certification_type: [
     {
       text: '个人认证',
