@@ -85,12 +85,7 @@ export default {
         value: 'zh_CN'
       }, // i18N配置文件
       links: [ // 页脚链接
-        'Home',
-        'About Us',
-        'Team',
-        'Services',
-        'Blog',
-        'Contact Us'
+        i18N.website_name
       ]
     }
   },
@@ -155,7 +150,6 @@ export default {
 </script>
 
 <style>
-
   .this_is_mobile {
     max-width: 540px;
     margin: auto auto;

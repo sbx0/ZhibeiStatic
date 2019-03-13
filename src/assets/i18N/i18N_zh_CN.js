@@ -1,5 +1,5 @@
 const i18N = {
-  // domain: 'http://localhost:8085', // 请求地址
+  // domain: 'http://192.168.3.2:8085', // 请求地址
   domain: 'http://zb.sbx0.cn', // 请求地址
   table: {
     user: '用户',
