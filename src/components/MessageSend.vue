@@ -8,6 +8,17 @@
         <v-icon>arrow_back</v-icon>
       </v-btn>
 
+      <v-avatar
+        size="28"
+      >
+        <img
+          :src="i18N.domain+toUser.avatar"
+          :alt="toUser.name"
+        >
+      </v-avatar>
+
+      <v-toolbar-title>{{toUser.name}}</v-toolbar-title>
+
       <v-spacer></v-spacer>
 
       <v-btn icon>
@@ -91,11 +102,35 @@ export default {
       i18N: i18N,
       message_data: [],
       user_id: -1,
+      toUser: {},
       content: '',
       timer: null
     }
   },
   created () {
+    let _this = this
+    let url = i18N.domain + '/user/normal?id=' + _this.$route.params.id
+    $.ajax({
+      type: 'get',
+      url: url,
+      dataType: 'json',
+      async: false,
+      crossDomain: true,
+      xhrFields: {
+        withCredentials: true
+      },
+      success: function (json) {
+        let status = json.status
+        if (_this.tools.statusCodeToBool(status)) {
+          _this.toUser = json.object
+        } else {
+          alert(_this.tools.statusCodeToAlert(status))
+        }
+      },
+      error: function () {
+        alert(i18N.network + i18N.alert.error)
+      }
+    })
     this.receive()
     this.setTimer()
   },
@@ -103,10 +138,16 @@ export default {
     clearInterval(this.timer)
   },
   methods: {
+    goBack: function () {
+      this.$router.go(-1)
+    },
     setTimer: function () {
       this.timer = setInterval(() => {
         this.receive()
       }, 3000)
+      this.$nextTick(function () {
+        this.scrollToBottom()
+      })
     },
     receive: function () {
       let _this = this
@@ -128,9 +169,6 @@ export default {
         error: function () {
           alert(i18N.network + i18N.alert.error)
         }
-      })
-      this.$nextTick(function () {
-        this.scrollToBottom()
       })
     },
     send: function () {
@@ -157,6 +195,9 @@ export default {
         error: function () {
           alert(i18N.network + i18N.alert.error)
         }
+      })
+      this.$nextTick(function () {
+        this.scrollToBottom()
       })
     },
     // 滚到底部
@@ -186,7 +227,7 @@ export default {
     margin: 5px 5px 5px 5px;
     padding: 5px 5px 5px 5px;
     overflow: auto;
-    min-height: 450px;
+    min-height: 150px;
     max-height: 600px;
   }
 
