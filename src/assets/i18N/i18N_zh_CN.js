@@ -253,6 +253,7 @@ const i18N = {
   lost_password_title: '提交成功，请检测您的邮箱收件箱。',
   lost_password: '忘记密码',
   send: '发送',
+  give_me_power: '充钱',
   certification_type: [
     {
       text: '个人认证',

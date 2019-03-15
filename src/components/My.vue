@@ -36,49 +36,6 @@
               </v-list>
             </v-menu>
           </v-card-title>
-          <v-list>
-            <v-list-tile>
-              <v-list-tile-action>
-                <v-icon>phone</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>(650) 555-1234</v-list-tile-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-icon>chat</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-            <v-divider inset></v-divider>
-            <v-list-tile>
-              <v-list-tile-action>
-                <v-icon>phone</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>(323) 555-6789</v-list-tile-title>
-              </v-list-tile-content>
-              <v-list-tile-action>
-                <v-icon>chat</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-            <v-divider inset></v-divider>
-            <v-list-tile>
-              <v-list-tile-action>
-                <v-icon>mail</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>mcbeal@example.com</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-            <v-divider inset></v-divider>
-            <v-list-tile>
-              <v-list-tile-action>
-                <v-icon>location_on</v-icon>
-              </v-list-tile-action>
-              <v-list-tile-content>
-                <v-list-tile-title>Orlando, FL 79938</v-list-tile-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </v-list>
           <v-dialog
             v-model="uploadDialog"
             width="500"
@@ -107,6 +64,21 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
+          <v-parallax
+            dark
+            src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+            height="50"
+            class="mb-3 mt-3"
+            @click="tools.go('/alipay')"
+          >
+            <v-layout
+              align-center
+              column
+              justify-center
+            >
+              <span class="display-1 font-weight-thin">{{i18N.give_me_power}}</span>
+            </v-layout>
+          </v-parallax>
           <v-dialog v-model="dataDialog" persistent max-width="600px">
             <v-card>
               <v-card-title>

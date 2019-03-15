@@ -7,35 +7,47 @@
         class="loading-control"
       ></v-progress-circular>
     </div>
-    <template v-for="(item,index) in data" v-else>
-      <v-parallax
-        dark
-        :src="item.cover"
-        :key="item.id+'img'"
-        height="150"
-        @click="tools.go('/demand/'+item.id)"
+    <template v-for="(item) in data" v-else>
+      <v-card
+        v-bind:key="item.id"
+        class="mb-3"
       >
-      </v-parallax>
-      <v-list-tile
-        :key="item.id"
-        avatar
-      >
-        <v-list-tile-avatar
-          @click="tools.go('/user/'+item.poster.id+'/demand')"
-        >
-          <img v-if="item.poster.avatar !== undefined" :src="i18N.domain+item.poster.avatar">
-        </v-list-tile-avatar>
-        <v-list-tile-content
+        <v-img
+          :src="item.cover"
+          aspect-ratio="2.75"
+        ></v-img>
+        <v-card-title
+          primary-title
           @click="tools.go('/demand/'+item.id)"
         >
-          <v-list-tile-title v-html="item.title"></v-list-tile-title>
-          <v-list-tile-sub-title>{{item.budget}}￥</v-list-tile-sub-title>
-          <v-list-tile-sub-title>
-            {{tools.timeClick(item.endTime)}}
-          </v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
+          <div>
+            <h3>{{item.title}}</h3>
+            <div>
+              {{tools.timeClick(item.endTime)}}
+            </div>
+          </div>
+        </v-card-title>
+        <v-card-actions>
+          <v-list-tile class="grow">
+            <v-list-tile-avatar color="grey darken-3">
+              <v-img
+                class="elevation-6"
+                :src="i18N.domain+item.poster.avatar"
+              ></v-img>
+            </v-list-tile-avatar>
+            <v-list-tile-content>
+              <v-list-tile-title>{{item.poster.nickname}}@{{item.poster.name}}</v-list-tile-title>
+            </v-list-tile-content>
+            <v-layout
+              align-center
+              justify-end
+            >
+              <span class="subheading">{{item.budget}}</span>
+              <v-icon>attach_money</v-icon>
+            </v-layout>
+          </v-list-tile>
+        </v-card-actions>
+      </v-card>
     </template>
     <v-btn block @click="readMore()">{{i18N.read_more}}</v-btn>
   </v-list>
@@ -58,6 +70,7 @@ export default {
       attribute: 'time', // 按什么排序
       direction: 'DESC', // 倒序
       data: [], // 文章数据
+      show: false,
       items: [
         {
           src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'

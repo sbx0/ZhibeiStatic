@@ -2,6 +2,7 @@
   <div>
     <v-carousel
       height="200"
+      hide-delimiters
     >
       <v-carousel-item
         v-for="(img,i) in images"
@@ -27,60 +28,84 @@
       </v-tab>
     </v-tabs>
     <router-view></router-view>
+    <div class="text-xs-center">
+      <v-dialog
+        v-model="dialog"
+        width="500"
+      >
+        <template>
+          <v-btn
+            color="red lighten-2"
+            dark
+            v-on="on"
+          >
+            Click Me
+          </v-btn>
+        </template>
+
+        <v-card>
+          <v-card-title
+            class="headline grey lighten-2"
+            primary-title
+          >
+            Privacy Policy
+          </v-card-title>
+
+          <v-card-text>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et
+            dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex
+            ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+            nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit
+            anim id est laborum.
+          </v-card-text>
+
+          <v-divider></v-divider>
+
+          <v-card-actions>
+            <v-spacer></v-spacer>
+            <v-btn
+              color="primary"
+              flat
+              @click="dialog = false"
+            >
+              I accept
+            </v-btn>
+          </v-card-actions>
+        </v-card>
+      </v-dialog>
+    </div>
   </div>
 </template>
 
 <script>
 import i18N from '../assets/i18N/i18N'
-import ArticleList from './ArticleList'
-import $ from 'jquery'
 
 export default {
   name: 'Index',
-  components: {ArticleList},
   data () {
     return {
       i18N: i18N, // i18N配置文件
-      images: [],
-      currentItem: 'tab-Article',
+      images: [
+        {id: 13, cover: 'http://zb.sbx0.cn/upload/image/20190314135052392.jpg'},
+        {id: 14, cover: 'http://zb.sbx0.cn/upload/image/20190314133156400.jpg'},
+        {id: 15, cover: 'http://zb.sbx0.cn/upload/image/20190314133502162.jpg'},
+        {id: 16, cover: 'http://zb.sbx0.cn/upload/image/20190314133850762.jpg'}
+      ],
+      currentItem: 'tab-Demand',
+      dialog: false,
       items: [
-        {
-          title: i18N.table.article,
-          index: 'Article'
-        },
         {
           title: i18N.table.demand,
           index: 'Demand'
+        },
+        {
+          title: i18N.table.article,
+          index: 'Article'
         }
       ]
     }
   },
   methods: {
-    getImg () {
-      let _this = this
-      $.ajax({
-        type: 'get',
-        url: i18N.domain + '/demand/normal/list?page=1' +
-            '&size=4' +
-            '&attribute=budget' +
-            '&direction=DESC',
-        dataType: 'json',
-        async: true,
-        crossDomain: true,
-        xhrFields: {
-          withCredentials: true
-        },
-        success: function (json) {
-          if (json.objects != null) {
-            _this.images = json.objects
-          }
-        },
-        error: function () {
-          alert(i18N.network + i18N.alert.error)
-          return false
-        }
-      })
-    },
     tabChange (index) {
       switch (index) {
         case 'Article':
@@ -98,11 +123,11 @@ export default {
   created () {
     let path = this.$router.currentRoute.path
     if (path === '/') {
-      this.$router.push({path: '/article'})
+      this.$router.push({path: '/demand'})
     }
     switch (path) {
       case '/':
-        this.currentItem = 'tab-Article'
+        this.currentItem = 'tab-Demand'
         break
       case '/article':
         this.currentItem = 'tab-Article'

@@ -21,6 +21,7 @@ import LostPassword from '@/components/LostPassword'
 import ChangePassword from '@/components/ChangePassword'
 import MessageSend from '@/components/MessageSend'
 import MessageList from '@/components/MessageList'
+import Alipay from '@/components/Alipay'
 
 export default new Router({
   mode: 'hash',
@@ -159,6 +160,11 @@ export default new Router({
       path: '/message/list',
       name: 'MessageList',
       component: MessageList
+    },
+    {
+      path: '/alipay',
+      name: 'Alipay',
+      component: Alipay
     },
     {
       path: '/NotFound',

@@ -136,8 +136,7 @@ export default {
           alert(i18N.network + i18N.alert.error)
           return false
         }
-      }
-      )
+      })
     },
     getData: function () {
       let _this = this
