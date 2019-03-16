@@ -30,7 +30,8 @@
           round
           color="primary"
           dark
-        >{{i18N.give_me_power}}</v-btn>
+        >{{i18N.give_me_power}}
+        </v-btn>
       </div>
     </form>
   </v-app>
@@ -71,7 +72,13 @@ export default {
         },
         success: function (json) {
           if (json.objects != null) {
-            _this.products = json.objects
+            let products = json.objects
+            for (let i = 0; i < products.length; i++) {
+              if (products[i].discount != null) {
+                products[i].price = products[i].price * products[i].discount
+              }
+            }
+            _this.products = products
           }
         },
         error: function () {
