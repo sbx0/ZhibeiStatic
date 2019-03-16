@@ -1,5 +1,5 @@
 <template>
-  <div>
+  <v-app>
     <div class="text-xs-center" v-if="loading">
       <v-progress-circular
         indeterminate
@@ -10,7 +10,7 @@
     <v-layout justify-center v-else>
       <v-flex>
         <v-card>
-          <v-card-title class="cyan darken-1">
+          <v-card-title class="blue darken-1">
             <span class="headline white--text">{{user.name}}</span>
             <v-spacer></v-spacer>
             <v-btn dark icon @click="certification">
@@ -64,21 +64,46 @@
               </v-card-actions>
             </v-card>
           </v-dialog>
-          <v-parallax
-            dark
-            src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-            height="50"
-            class="mb-3 mt-3"
-            @click="tools.go('/alipay')"
+          <v-card
+            class="mx-auto"
+            color="grey lighten-4"
+            max-width="600"
           >
-            <v-layout
-              align-center
-              column
-              justify-center
-            >
-              <span class="display-1 font-weight-thin">{{i18N.give_me_power}}</span>
-            </v-layout>
-          </v-parallax>
+            <v-card-title>
+              <v-layout
+                column
+                align-start
+              >
+                <div class="caption grey--text text-uppercase">
+                  {{i18N.attribute.wallet.money}}
+                </div>
+                <div>
+                  <span
+                    class="display-2 font-weight-black"
+                  >
+                    {{money}}
+                  </span>
+                  <strong>￥</strong>
+                </div>
+              </v-layout>
+            </v-card-title>
+          </v-card>
+          <v-list class="blue darken-2" dark>
+            <template v-for="(item, index) in items">
+              <v-list-tile v-if="item.action" :key="item.title" @click="tools.go(item.page)">
+                <v-list-tile-action>
+                  <v-icon>{{ item.action }}</v-icon>
+                </v-list-tile-action>
+                <v-list-tile-content class="white--text">
+                  <v-list-tile-title>{{ item.title }}</v-list-tile-title>
+                </v-list-tile-content>
+              </v-list-tile>
+              <v-divider v-else-if="item.divider" :key="index"></v-divider>
+              <v-subheader v-else-if="item.header" :key="item.header" class="grey--text text--lighten-4">
+                {{ item.header }}
+              </v-subheader>
+            </template>
+          </v-list>
           <v-dialog v-model="dataDialog" persistent max-width="600px">
             <v-card>
               <v-card-title>
@@ -106,7 +131,7 @@
         </v-card>
       </v-flex>
     </v-layout>
-  </div>
+  </v-app>
 </template>
 
 <script>
@@ -125,6 +150,8 @@ export default {
       dataDialog: false,
       cardTitle: i18N.personal + i18N.information,
       md5: '',
+      checking: false,
+      heartbeats: [],
       user: {
         name: i18N.not + i18N.login,
         nickname: i18N.not + i18N.login,
@@ -133,10 +160,51 @@ export default {
         sex: i18N.not + i18N.login,
         introduction: i18N.not + i18N.login,
         birthday: i18N.not + i18N.login
-      }
+      },
+      money: 0,
+      items: [
+        {
+          action: 'money',
+          title: i18N.give_me_power,
+          page: '/alipay'
+        },
+        {
+          action: 'move_to_inbox',
+          title: i18N.message
+        },
+        {
+          action: 'send',
+          title: i18N.send + i18N.message
+        }
+        // {divider: true},
+        // {header: i18N.others},
+        // {
+        //   action: 'label',
+        //   title: i18N.upload + i18N.avatar
+        // }
+      ]
     }
   },
   methods: {
+    howManyPowerIHave () {
+      let _this = this
+      $.ajax({
+        type: 'GET',
+        url: i18N.domain + '/wallet/my',
+        async: false,
+        dataType: 'json',
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          _this.money = json.money
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
     getChildData (data) {
       this.md5 = data.md5
       let _this = this
@@ -284,6 +352,7 @@ export default {
     }
   },
   created () {
+    this.howManyPowerIHave()
     this.getInfo()
   }
 }

@@ -1,5 +1,36 @@
 <template>
-  <transition>
+  <v-app>
+    <v-jumbotron
+      height="200"
+      src="https://github.githubassets.com/images/modules/site/heroes/simple-codelines.svg"
+      light
+    >
+      <v-container fill-height>
+        <v-layout align-center>
+          <v-img
+            src="http://zb.sbx0.cn/upload/image/20190311131606581.png"
+            lazy-src="http://zb.sbx0.cn/upload/image/20190311131606581.png"
+            aspect-ratio="1"
+            class="lighten-2"
+          >
+            <template v-slot:placeholder>
+              <v-layout
+                fill-height
+                align-center
+                justify-center
+                ma-0
+              >
+                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
+              </v-layout>
+            </template>
+          </v-img>
+          <v-flex text-xs-center>
+            <h3 class="display-3">{{i18N.website_name}}</h3>
+            <h4>{{i18N.website_slogan}}</h4>
+          </v-flex>
+        </v-layout>
+      </v-container>
+    </v-jumbotron>
     <v-form
       id="loginForm"
       ref="form"
@@ -8,13 +39,6 @@
       class="form-control"
       v-if="loginOrRegister"
     >
-      <v-alert
-        value="true"
-        type="info"
-        @click="loginOrRegister = false"
-      >
-        {{i18N.login_title}}
-      </v-alert>
       <v-text-field
         name="name"
         v-model="name"
@@ -32,22 +56,29 @@
       ></v-text-field>
       <v-btn
         :disabled="!valid"
+        round
         color="success"
+        dark
         @click="validateLogin"
+        block
+        class="mb-5"
       >
         {{i18N.login}}
       </v-btn>
       <v-btn
-        color="error"
-        @click="reset"
+        color="primary"
+        @click="loginOrRegister = false"
+        round
       >
-        {{i18N.reset}}
+        {{i18N.register}}
       </v-btn>
-      <v-alert
-        value="true"
+      <v-btn
+        color="error"
+        round
         @click="tools.go('/lostPassword')"
-        type="info"
-      >{{i18N.lost_password}}</v-alert>
+      >
+        {{i18N.lost_password}}
+      </v-btn>
     </v-form>
     <v-form
       id="registerForm"
@@ -57,13 +88,6 @@
       class="form-control"
       v-else
     >
-      <v-alert
-        :value="true"
-        type="info"
-        @click="loginOrRegister = true"
-      >
-        {{i18N.register_title}}
-      </v-alert>
       <v-text-field
         name="name"
         v-model="name"
@@ -88,19 +112,31 @@
       ></v-text-field>
       <v-btn
         :disabled="!valid"
+        round
         color="success"
+        dark
         @click="validateRegister"
+        block
+        class="mb-5"
       >
         {{i18N.register}}
       </v-btn>
       <v-btn
-        color="error"
-        @click="reset"
+        color="primary"
+        round
+        @click="loginOrRegister = true"
       >
-        {{i18N.reset}}
+        {{i18N.login}}
+      </v-btn>
+      <v-btn
+        color="error"
+        round
+        @click="tools.go('/lostPassword')"
+      >
+        {{i18N.lost_password}}
       </v-btn>
     </v-form>
-  </transition>
+  </v-app>
 </template>
 
 <script>

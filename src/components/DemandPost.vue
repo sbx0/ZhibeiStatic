@@ -91,7 +91,6 @@
         {{i18N.post}}
       </v-btn>
       <v-btn
-        block
         @click="tools.go('/post')"
       >
         {{i18N.table.article + i18N.post}}

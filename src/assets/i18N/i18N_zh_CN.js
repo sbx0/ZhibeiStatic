@@ -156,10 +156,35 @@ const i18N = {
       sendTime: '发送时间',
       receiveTime: '接收时间',
       type: '种类'
+    },
+    alipay: {
+      id: '编号',
+      outTradeNo: '平台订单号',
+      tradeNo: '支付宝订单号',
+      createTime: '创建时间',
+      endTime: '结束时间',
+      buyer: '购买者',
+      type: '种类',
+      products: '商品列表',
+      amount: '实付金额'
+    },
+    product: {
+      id: '编号',
+      name: '名称',
+      price: '金额',
+      startTime: '开卖时间',
+      endTime: '结束时间',
+      seller: '买家'
+    },
+    wallet: {
+      id: '编号',
+      money: '余额',
+      owner: '谁的'
     }
   },
   user: '用户',
   website_name: '智贝',
+  website_slogan: '工业技术类从业者与领域专家的交流平台',
   admin_management_system: '后台管理系统',
   logout: '退出登录',
   search: '搜索',
@@ -254,6 +279,7 @@ const i18N = {
   lost_password: '忘记密码',
   send: '发送',
   give_me_power: '充钱',
+  others: '其他',
   certification_type: [
     {
       text: '个人认证',

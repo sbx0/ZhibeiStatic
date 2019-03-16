@@ -54,11 +54,11 @@
       >
         {{i18N.post}}
       </v-btn>
-      <router-link to="/post/demand">
-        <v-btn block>
-          {{i18N.table.demand + i18N.post}}
-        </v-btn>
-      </router-link>
+      <v-btn
+        @click="tools.go('/post/demand')"
+      >
+        {{i18N.table.demand + i18N.post}}
+      </v-btn>
     </v-app>
   </div>
 </template>
