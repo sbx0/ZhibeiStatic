@@ -1,6 +1,6 @@
-<template xmlns:v-touch="">
+<template>
   <div id="app">
-    <v-app id="inspire" v-touch:left="onSwipeLeft">
+    <v-app id="inspire">
       <v-navigation-drawer
         fixed
         :clipped="$vuetify.breakpoint.mdAndUp"
@@ -126,12 +126,7 @@
             @click="sheet = false;tools.go(tile.url)"
           >
             <v-list-tile-avatar>
-              <v-avatar size="32px" tile>
-                <img
-                  :src="`https://cdn.vuetifyjs.com/images/bottom-sheets/${tile.img}`"
-                  :alt="tile.title"
-                >
-              </v-avatar>
+              <v-icon>{{tile.icon}}</v-icon>
             </v-list-tile-avatar>
             <v-list-tile-title>{{ tile.title }}</v-list-tile-title>
           </v-list-tile>
@@ -165,8 +160,8 @@ export default {
       },
       sheet: false,
       tiles: [
-        {img: 'keep.png', title: i18N.table.article, url: '/post'},
-        {img: 'inbox.png', title: i18N.table.demand, url: '/post/demand'}
+        {icon: 'book', title: i18N.table.article, url: '/post'},
+        {icon: 'assignment', title: i18N.table.demand, url: '/post/demand'}
       ],
       dialog: false,
       drawer: null,

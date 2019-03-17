@@ -1,4 +1,4 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
   <div>
     <v-card flat>
       <div class="text-xs-center" v-if="loading">
@@ -9,42 +9,27 @@
         ></v-progress-circular>
       </div>
       <v-card-text v-else>
+        <h2>{{data.title}}</h2>
+        <v-divider class="mt-3 mb-3"></v-divider>
         <v-layout align-center mb-3>
-          <v-list-tile
-            avatar
-          >
-            <v-list-tile-avatar
-              @click="tools.go('/user/'+data.author.id+'/article')"
-            >
-              <img v-if="data.author.avatar !== undefined" :src="i18N.domain+data.author.avatar">
-            </v-list-tile-avatar>
-            <v-list-tile-content @click="tools.go('/article/'+data.id)">
-              <v-list-tile-title v-html="data.title"></v-list-tile-title>
-              <v-list-tile-sub-title v-html="data.introduction"></v-list-tile-sub-title>
-              <v-list-tile-sub-title>
-                {{tools.timeShow(data.time)}}
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
+          <v-flex sm6 text-xs-center>
+            <v-avatar size="32px" @click="tools.go('/user/'+data.author.id+'/article')">
+              <img
+                v-if="data.author.avatar !== undefined"
+                :src="i18N.domain+data.author.avatar"
+              >
+            </v-avatar>
+            <span v-if="data.author.nickname != ''">{{data.author.nickname}}</span>
+            <span v-else>{{data.author.name}}</span>
+          </v-flex>
+          <v-flex sm6 text-xs-center>{{tools.timeShow(data.time)}}</v-flex>
         </v-layout>
+        <v-divider class="mt-3 mb-3"></v-divider>
         <div class="markdown-body">
           <div v-html="markdown" v-viewer v-highlight></div>
-          <div class="text-xs-center">
-            <v-chip
-              label
-              small
-              v-for="tag in data.tags"
-              v-bind:key="tag.id"
-            >
-              {{tag.name}}
-            </v-chip>
-          </div>
         </div>
-      </v-card-text>
-    </v-card>
-    <v-card flat>
-      <v-card-text>
-        <v-container fluid class="pa-0">
+        <v-divider class="mt-3 mb-3"></v-divider>
+        <v-container fluid class="mt-0 pa-0">
           <v-layout align-center>
             <v-flex sm3 text-xs-center>
               <v-btn flat icon>
@@ -68,11 +53,21 @@
             </v-flex>
           </v-layout>
         </v-container>
+        <v-divider class="mt-3 mb-3"></v-divider>
+        <div class="text-xs-center">
+          <v-chip
+            label
+            small
+            v-for="tag in data.tags"
+            v-bind:key="tag.id"
+          >
+            {{tag.name}}
+          </v-chip>
+        </div>
       </v-card-text>
     </v-card>
     <v-dialog
       v-model="dialog"
-      width="500"
     >
       <v-card>
         <v-card-title
@@ -97,6 +92,7 @@
         </v-container>
       </v-card>
     </v-dialog>
+    <v-divider class="mt-3 mb-3"></v-divider>
     <CommentList></CommentList>
   </div>
 </template>

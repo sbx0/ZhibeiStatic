@@ -1,7 +1,7 @@
 <template>
   <div>
     <v-card flat>
-      <v-img :src="data.cover" aspect-ratio="1.7"></v-img>
+      <v-img :src="data.cover" aspect-ratio="2.75"></v-img>
       <div class="text-xs-center" v-if="loading">
         <v-progress-circular
           indeterminate
@@ -10,26 +10,23 @@
         ></v-progress-circular>
       </div>
       <v-card-text v-else>
+        <h2>{{data.title}}</h2>
+        <v-divider class="mt-3 mb-3"></v-divider>
         <v-layout align-center mb-3>
-          <v-list-tile-avatar
-            @click="tools.go('/user/'+data.poster.id+'/article')"
-          >
-            <img v-if="data.poster.avatar !== undefined" :src="i18N.domain+data.poster.avatar">
-          </v-list-tile-avatar>
-          <v-list-tile-content
-            @click="tools.go('/demand/'+data.id)"
-          >
-            <v-list-tile-title v-html="data.title"></v-list-tile-title>
-            <v-list-tile-sub-title>{{i18N.attribute.demand.budget+' '+data.budget}}￥</v-list-tile-sub-title>
-            <v-list-tile-sub-title>
-              {{tools.timeClick(data.endTime)}}
-            </v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>mdi-account</v-icon>
-          </v-btn>
+          <v-flex sm4 text-xs-center>
+            <v-avatar size="32px" @click="tools.go('/user/'+data.poster.id+'/article')">
+              <img
+                v-if="data.poster.avatar !== undefined"
+                :src="i18N.domain+data.poster.avatar"
+              >
+            </v-avatar>
+            <span v-if="data.poster.nickname != ''">{{data.poster.nickname}}</span>
+            <span v-else>{{data.poster.name}}</span>
+          </v-flex>
+          <v-flex sm4 text-xs-center>{{i18N.attribute.demand.budget+' '+data.budget}}￥</v-flex>
+          <v-flex sm4 text-xs-center>{{tools.timeClick(data.endTime)}}</v-flex>
         </v-layout>
+        <v-divider class="mt-3 mb-3"></v-divider>
         <div class="markdown-body">
           <blockquote>
             <p>
@@ -37,17 +34,19 @@
             </p>
           </blockquote>
           <div v-html="markdown" v-viewer></div>
-          <div class="text-xs-center">
-            <v-chip
-              label
-              small
-            >
-              {{data.category.name}}
-            </v-chip>
-          </div>
+        </div>
+        <v-divider class="mt-3 mb-3"></v-divider>
+        <div class="text-xs-center">
+          <v-chip
+            label
+            small
+          >
+            {{data.category.name}}
+          </v-chip>
         </div>
       </v-card-text>
     </v-card>
+    <v-divider class="mt-3 mb-3"></v-divider>
     <CommentList></CommentList>
   </div>
 </template>

@@ -7,52 +7,55 @@
     >
       <input name="path" v-model="path" style="display: none;">
       <v-textarea
+        name="content"
         :value="content"
         v-model="content"
-        name="content"
         :label="i18N.attribute.comment.content"
+        box
+        auto-grow
       >
       </v-textarea>
       <v-btn
+        class="primary"
         @click="post"
         block
       >
         {{i18N.post}}
       </v-btn>
-    </v-form>
-    <div class="text-xs-center" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        class="loading-control"
-      ></v-progress-circular>
-    </div>
-    <template v-for="(item,index) in data" v-else>
-      <v-list-tile
-        :key="item.id"
-        avatar
-      >
-        <v-list-tile-avatar
-          @click="tools.go('/user/'+item.poster.id+'/article')"
+      <div class="text-xs-center" v-if="loading">
+        <v-progress-circular
+          indeterminate
+          color="primary"
+          class="loading-control"
+        ></v-progress-circular>
+      </div>
+      <template v-for="(item,index) in data" v-else>
+        <v-list-tile
+          :key="item.id"
+          avatar
         >
-          <img :src="i18N.domain+item.poster.avatar">
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title v-html="item.content"></v-list-tile-title>
-          <v-list-tile-sub-title
-            v-if="!canPost"
-            @click="tools.go(item.path)"
+          <v-list-tile-avatar
+            @click="tools.go('/user/'+item.poster.id+'/article')"
           >
-            {{item.path}}
-          </v-list-tile-sub-title>
-          <v-list-tile-sub-title v-else>
-            {{tools.timeShow(item.time)}}
-          </v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
-      <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
-    </template>
-    <v-btn block @click="readMore()">{{i18N.read_more}}</v-btn>
+            <img :src="i18N.domain+item.poster.avatar">
+          </v-list-tile-avatar>
+          <v-list-tile-content>
+            <v-list-tile-title v-html="item.content"></v-list-tile-title>
+            <v-list-tile-sub-title
+              v-if="!canPost"
+              @click="tools.go(item.path)"
+            >
+              {{item.path}}
+            </v-list-tile-sub-title>
+            <v-list-tile-sub-title v-else>
+              {{tools.timeShow(item.time)}}
+            </v-list-tile-sub-title>
+          </v-list-tile-content>
+        </v-list-tile>
+        <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
+      </template>
+      <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
+    </v-form>
   </v-list>
 </template>
 
@@ -75,7 +78,8 @@ export default {
       totalElements: 0, // 总条数
       attribute: 'time', // 按什么排序
       direction: 'DESC', // 倒序
-      content: ''
+      content: '',
+      more: false
     }
   },
   methods: {
@@ -120,6 +124,9 @@ export default {
           withCredentials: true
         },
         success: function (json) {
+          if (json.objects != null && json.objects.length < _this.size) {
+            _this.more = false
+          }
           if (json.objects != null) {
             let data = []
             for (let i = 0; i < _this.data.length; i++) {
@@ -180,6 +187,9 @@ export default {
           withCredentials: true
         },
         success: function (json) {
+          if (json.objects != null && json.objects.length === _this.size) {
+            _this.more = true
+          }
           _this.data = json.objects
           _this.loading = false
         },
@@ -227,5 +237,9 @@ export default {
 <style scoped>
   .form-control {
     margin: 25px 25px;
+  }
+
+  .v-input__slot {
+    margin-bottom: 0px !important;
   }
 </style>

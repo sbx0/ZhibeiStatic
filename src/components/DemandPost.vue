@@ -25,7 +25,7 @@
         <upload-avatar
           @uploadData="getChildData"
           v-if="img === ''"
-          w="16"
+          w="24.75"
           h="9"
           :t="i18N.upload+i18N.attribute.demand.cover"
         ></upload-avatar>

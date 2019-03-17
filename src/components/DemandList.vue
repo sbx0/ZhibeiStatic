@@ -1,5 +1,5 @@
 <template>
-  <v-list two-line>
+  <v-list two-line class="pt-0">
     <div class="text-xs-center" v-if="loading">
       <v-progress-circular
         indeterminate
@@ -10,7 +10,6 @@
     <template v-for="(item) in data" v-else>
       <v-card
         v-bind:key="item.id"
-        class="mb-3"
       >
         <v-img
           :src="item.cover"
@@ -18,6 +17,7 @@
           @click="tools.go('/demand/'+item.id)"
         ></v-img>
         <v-card-title
+          class="pt-1 pb-0"
           primary-title
           @click="tools.go('/demand/'+item.id)"
         >
@@ -28,16 +28,12 @@
             </div>
           </div>
         </v-card-title>
-        <v-card-actions>
-          <v-list-tile
-            class="grow"
-          >
+        <v-card-actions class="pt-0 pb-0">
+          <v-list-tile class="grow">
             <v-list-tile-avatar
-              color="grey darken-3"
               @click="tools.go('/user/'+item.poster.id+'/demand')"
             >
               <v-img
-                class="elevation-6"
                 :src="i18N.domain+item.poster.avatar"
               ></v-img>
             </v-list-tile-avatar>
@@ -52,14 +48,14 @@
               justify-end
               @click="tools.go('/demand/'+item.id)"
             >
-              <span class="subheading">{{item.budget}}</span>
-              <v-icon>attach_money</v-icon>
+              <span class="subheading">{{item.budget}}￥</span>
             </v-layout>
           </v-list-tile>
         </v-card-actions>
       </v-card>
+      <v-divider class="mt-1 mb-1" v-bind:key="item.id +'d'"></v-divider>
     </template>
-    <v-btn block @click="readMore()">{{i18N.read_more}}</v-btn>
+    <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
   </v-list>
 </template>
 
@@ -94,7 +90,8 @@ export default {
         {
           src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
         }
-      ]
+      ],
+      more: false
     }
   },
   methods: {
@@ -137,6 +134,9 @@ export default {
           withCredentials: true
         },
         success: function (json) {
+          if (json.objects != null && json.objects.length < _this.size) {
+            _this.more = false
+          }
           if (json.objects != null) {
             let data = []
             for (let i = 0; i < _this.data.length; i++) {
@@ -194,6 +194,9 @@ export default {
           withCredentials: true
         },
         success: function (json) {
+          if (json.objects != null && json.objects.length === _this.size) {
+            _this.more = true
+          }
           _this.data = json.objects
           _this.loading = false
         },

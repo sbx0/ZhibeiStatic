@@ -13,6 +13,7 @@
         ></v-carousel-item>
       </v-carousel>
       <v-tabs
+        centered
         slot="extension"
         v-model="currentItem"
         color="transparent"
@@ -25,6 +26,8 @@
           :href="'#tab-' + item.index"
           @click="tabChange(item.index)"
         >
+          <v-icon>{{item.icon}}</v-icon>
+          &nbsp;
           {{ item.title }}
         </v-tab>
       </v-tabs>
@@ -52,11 +55,13 @@ export default {
       items: [
         {
           title: i18N.table.demand,
-          index: 'Demand'
+          index: 'Demand',
+          icon: 'assignment'
         },
         {
           title: i18N.table.article,
-          index: 'Article'
+          index: 'Article',
+          icon: 'book'
         }
       ]
     }

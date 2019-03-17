@@ -332,7 +332,6 @@ export default {
       })
     },
     logout () {
-      let _this = this
       $.ajax({
         type: 'get',
         url: i18N.domain + '/user/logout',
