@@ -1,92 +1,65 @@
 <template>
-  <div>
-    <v-toolbar
-      dense
-      scroll-off-screen
-    >
-      <v-btn icon @click="goBack()">
-        <v-icon>arrow_back</v-icon>
-      </v-btn>
-
-      <v-avatar
-        size="28"
-      >
-        <img
-          :src="i18N.domain+toUser.avatar"
-          :alt="toUser.name"
+  <div class="chat">
+    <div id="chat_content" class="chat-body">
+      <v-container>
+        <div
+          row
+          wrap
+          v-for="msg in message_data"
+          v-bind:key="msg.id"
         >
-      </v-avatar>
-
-      <v-toolbar-title>{{toUser.name}}</v-toolbar-title>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-    </v-toolbar>
-    <div class="chat">
-      <div id="chat_content" class="chat-body">
-        <v-container>
-          <div
-            row
-            wrap
-            v-for="msg in message_data"
-            v-bind:key="msg.id"
+          <v-layout v-if="msg.sendUser.id == user_id">
+            <v-flex d-flex xs11>
+              <div class="sender-card">
+                {{ msg.content }}
+              </div>
+            </v-flex>
+            <v-flex d-flex xs1>
+              <v-avatar
+                size="28"
+              >
+                <img
+                  :src="i18N.domain+msg.sendUser.avatar"
+                  :alt="msg.sendUser.name"
+                >
+              </v-avatar>
+            </v-flex>
+          </v-layout>
+          <v-layout v-else>
+            <v-flex d-flex xs1>
+              <v-avatar
+                size="28"
+              >
+                <img
+                  :src="i18N.domain+msg.sendUser.avatar"
+                  :alt="msg.sendUser.name"
+                >
+              </v-avatar>
+            </v-flex>
+            <v-flex d-flex xs11>
+              <div class="receiver-card">
+                {{ msg.content }}
+              </div>
+            </v-flex>
+          </v-layout>
+        </div>
+        <v-form id="sendForm">
+          <input name="receiveUser.id" :value="this.$route.params.id" style="display: none;">
+          <v-text-field
+            name="content"
+            :label="i18N.attribute.message.content"
+            v-model="content"
+            v-on:keyup.enter="send()"
+          ></v-text-field>
+          <v-btn
+            block
+            color="success"
+            @click="send()"
           >
-            <v-layout v-if="msg.sendUser.id == user_id">
-              <v-flex d-flex xs11>
-                <div class="sender-card">
-                  {{ msg.content }}
-                </div>
-              </v-flex>
-              <v-flex d-flex xs1>
-                <v-avatar
-                  size="28"
-                >
-                  <img
-                    :src="i18N.domain+msg.sendUser.avatar"
-                    :alt="msg.sendUser.name"
-                  >
-                </v-avatar>
-              </v-flex>
-            </v-layout>
-            <v-layout v-else>
-              <v-flex d-flex xs1>
-                <v-avatar
-                  size="28"
-                >
-                  <img
-                    :src="i18N.domain+msg.sendUser.avatar"
-                    :alt="msg.sendUser.name"
-                  >
-                </v-avatar>
-              </v-flex>
-              <v-flex d-flex xs11>
-                <div class="receiver-card">
-                  {{ msg.content }}
-                </div>
-              </v-flex>
-            </v-layout>
-          </div>
-          <v-form id="sendForm">
-            <input name="receiveUser.id" :value="this.$route.params.id" style="display: none;">
-            <v-text-field
-              name="content"
-              :label="i18N.attribute.message.content"
-              v-model="content"
-              v-on:keyup.enter="send()"
-            ></v-text-field>
-            <v-btn
-              block
-              color="success"
-              @click="send()"
-            >
-              {{i18N.send}}
-            </v-btn>
-          </v-form>
-        </v-container>
-      </div>
+            {{i18N.send}}
+          </v-btn>
+        </v-form>
+      </v-container>
     </div>
   </div>
 </template>
@@ -109,7 +82,25 @@ export default {
   },
   created () {
     let _this = this
-    let url = i18N.domain + '/user/normal?id=' + _this.$route.params.id
+    let url = ''
+    let path = _this.$router.currentRoute.path
+    let pathRegExp = new RegExp('.*?((?:[a-z][a-z]+)).*?((?:[a-z][a-z]+))')
+    let pathM = pathRegExp.exec(path)
+    if (pathM != null) {
+      let word1 = pathM[1]
+      let word2 = pathM[2]
+      path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
+    }
+    if (path === '/user/message') {
+      _this.canPost = false
+      let id = '-1'
+      let idRegExp = new RegExp('.*?(\\d+)')
+      let idM = idRegExp.exec(_this.$router.currentRoute.path)
+      if (idM != null) {
+        id = idM[1].replace(/</, '&lt;')
+      }
+      url = i18N.domain + '/user/normal?id=' + id
+    }
     $.ajax({
       type: 'get',
       url: url,
@@ -151,9 +142,28 @@ export default {
     },
     receive: function () {
       let _this = this
+      let url = ''
+      let path = _this.$router.currentRoute.path
+      let pathRegExp = new RegExp('.*?((?:[a-z][a-z]+)).*?((?:[a-z][a-z]+))')
+      let pathM = pathRegExp.exec(path)
+      if (pathM != null) {
+        let word1 = pathM[1]
+        let word2 = pathM[2]
+        path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
+      }
+      if (path === '/user/message') {
+        _this.canPost = false
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain + '/message/receive?id=' + id
+      }
       $.ajax({
         type: 'get',
-        url: i18N.domain + '/message/receive?id=' + _this.$route.params.id,
+        url: url,
         dataType: 'json',
         async: false,
         crossDomain: true,
@@ -232,10 +242,10 @@ export default {
   }
 
   .sender-card {
-    text-align: right;
+    text-align: left;
     vertical-align: middle;
     font-size: 15px;
-    padding-right: 10px;
+    padding-left: 10px;
     border-radius: 10px;
     margin-left: 50px;
     margin-bottom: 10px;

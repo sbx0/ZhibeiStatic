@@ -1,57 +1,84 @@
-<template>
-  <v-layout justify-center>
-    <v-flex>
-      <v-card>
-        <v-toolbar
-          dense
-          scroll-off-screen
-        >
-          <v-btn icon @click="goBack()">
-            <v-icon>arrow_back</v-icon>
-          </v-btn>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+  <div id="app">
+    <v-app id="inspire">
+      <v-layout
+        column
+      >
+        <v-subheader>今天</v-subheader>
 
-          <v-spacer></v-spacer>
+        <v-expansion-panel popout>
+          <v-expansion-panel-content
+            v-for="(message, i) in messages"
+            :key="i"
+            hide-actions
+          >
+            <template v-slot:header>
+              <v-layout
+                align-center
+                row
+                spacer
+              >
+                <v-flex xs4 sm2 md1>
+                  <v-avatar
+                    size="36px"
+                  >
+                    <img
+                      v-if="message.avatar"
+                      src="https://avatars0.githubusercontent.com/u/9064066?v=4&s=460"
+                      alt="Avatar"
+                    >
+                    <v-icon
+                      v-else
+                      :color="message.color"
+                      v-text="message.icon"
+                    ></v-icon>
+                  </v-avatar>
+                </v-flex>
 
-          <v-btn icon>
-            <v-icon>more_vert</v-icon>
-          </v-btn>
-        </v-toolbar>
+                <v-flex sm5 md3 hidden-xs-only>
+                  <strong v-html="message.name"></strong>
+                  <span
+                    v-if="message.total"
+                    class="grey--text"
+                  >
+                  &nbsp;({{ message.total }})
+                </span>
+                </v-flex>
 
-        <v-list two-line>
-          <template v-for="(item, index) in items">
-            <v-subheader
-              v-if="item.header"
-              :key="item.header"
-              inset
-            >
-              {{ item.header }}
-            </v-subheader>
+                <v-flex no-wrap xs5 sm3>
+                  <v-chip
+                    v-if="message.new"
+                    :color="`${message.color} lighten-4`"
+                    class="ml-0"
+                    label
+                    small
+                  >
+                    {{ message.new }} new
+                  </v-chip>
+                  <strong v-html="message.title"></strong>
+                </v-flex>
 
-            <v-divider
-              v-else-if="item.divider"
-              :key="index"
-              inset
-            ></v-divider>
+                <v-flex
+                  v-if="message.excerpt"
+                  class="grey--text"
+                  ellipsis
+                  hidden-sm-and-down
+                >
+                  &mdash;
+                  {{ message.excerpt }}
+                </v-flex>
+              </v-layout>
+            </template>
 
-            <v-list-tile
-              v-else
-              :key="item.title"
-              avatar
-              ripple
-            >
-              <v-list-tile-avatar>
-                <img :src="item.avatar">
-              </v-list-tile-avatar>
-              <v-list-tile-content>
-                <v-list-tile-title v-html="item.title"></v-list-tile-title>
-                <v-list-tile-sub-title v-html="item.subtitle"></v-list-tile-sub-title>
-              </v-list-tile-content>
-            </v-list-tile>
-          </template>
-        </v-list>
-      </v-card>
-    </v-flex>
-  </v-layout>
+            <v-card>
+              <v-divider></v-divider>
+              <v-card-text v-text="lorem"></v-card-text>
+            </v-card>
+          </v-expansion-panel-content>
+        </v-expansion-panel>
+      </v-layout>
+    </v-app>
+  </div>
 </template>
 <script>
 import i18N from '../assets/i18N/i18N'
@@ -61,69 +88,32 @@ export default {
   data () {
     return {
       i18N: i18N,
-      items: [
+      messages: [
         {
-          header: 'Today'
-        },
-        {divider: true},
-        {
-          avatar: 'https://picsum.photos/250/300?image=660',
-          title: 'Meeting @ Noon',
-          subtitle:
-              "<span class='text--primary'>Spike Lee</span> &mdash; I'll be in your neighborhood"
+          avatar: 'https://avatars0.githubusercontent.com/u/9064066?v=4&s=460',
+          name: 'sbx0',
+          title: '开发中，别急',
+          excerpt: 'Thank you for joining our community...'
         },
         {
-          avatar: 'https://picsum.photos/250/300?image=821',
-          title: 'Summer BBQ <span class="grey--text text--lighten-1"></span>',
-          subtitle:
-              "<span class='text--primary'>to Operations support</span> &mdash; Wish I could come."
+          color: 'red',
+          icon: 'people',
+          name: 'Social',
+          new: 1,
+          total: 3,
+          title: 'Twitter'
         },
         {
-          avatar: 'https://picsum.photos/250/300?image=783',
-          title: 'Yes yes',
-          subtitle:
-              "<span class='text--primary'>Bella</span> &mdash; Do you have Paris recommendations"
-        },
-        {
-          header: 'Yesterday'
-        },
-        {divider: true},
-        {
-          avatar: 'https://picsum.photos/250/300?image=1006',
-          title: 'Dinner tonight?',
-          subtitle:
-              "<span class='text--primary'>LaToya</span> &mdash; Do you want to hang out?"
-        },
-        {
-          avatar: 'https://picsum.photos/250/300?image=146',
-          title: 'So long',
-          subtitle:
-              "<span class='text--primary'>Nancy</span> &mdash; Do you see what time it is?"
-        },
-        {
-          header: 'Last Week'
-        },
-        {divider: true},
-        {
-          avatar: 'https://picsum.photos/250/300?image=1008',
-          title: 'Breakfast?',
-          subtitle:
-              "<span class='text--primary'>LaToya</span> &mdash; Do you want to hang out?"
-        },
-        {
-          avatar: 'https://picsum.photos/250/300?image=839',
-          title:
-              'Winter Porridge <span class="grey--text text--lighten-1"></span>',
-          subtitle:
-              "<span class='text--primary'>cc: Daniel</span> &mdash; Tell me more..."
-        },
-        {
-          avatar: 'https://picsum.photos/250/300?image=145',
-          title: 'Oui oui',
-          subtitle:
-              "<span class='text--primary'>Nancy</span> &mdash; Do you see what time it is?"
+          color: 'teal',
+          icon: 'local_offer',
+          name: 'Promos',
+          new: 2,
+          total: 4,
+          title: 'Shop your way',
+          exceprt: 'New deals available, Join Today'
         }
-      ]
+      ],
+      lorem: 'Lorem ipsum dolor sit amet, at aliquam vivendum vel, everti delicatissimi cu eos. Dico iuvaret debitis mel an, et cum zril menandri. Eum in consul legimus accusam. Ea dico abhorreant duo, quo illum minimum incorrupte no, nostro voluptaria sea eu. Suas eligendi ius at, at nemore equidem est. Sed in error hendrerit, in consul constituam cum.'
     }
   }
 }

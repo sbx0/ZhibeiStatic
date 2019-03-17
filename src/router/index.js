@@ -105,6 +105,11 @@ export default new Router({
         {
           path: 'message_board',
           component: CommentList
+        },
+        {
+          path: 'message',
+          name: 'MessageSend',
+          component: MessageSend
         }
       ]
     },
@@ -150,11 +155,6 @@ export default new Router({
       path: '/verify/:md5',
       name: 'Verify',
       component: ChangePassword
-    },
-    {
-      path: '/message/send/:id',
-      name: 'MessageSend',
-      component: MessageSend
     },
     {
       path: '/message/list',

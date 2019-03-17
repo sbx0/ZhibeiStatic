@@ -92,7 +92,7 @@
         <v-btn icon @click="tools.go('/demand')">
           <v-icon>home</v-icon>
         </v-btn>
-        <v-btn icon>
+        <v-btn icon @click="tools.go('/message/list')">
           <v-icon>notifications</v-icon>
         </v-btn>
         <v-btn icon large>

@@ -1,63 +1,45 @@
 <template>
   <div>
-    <div>
-      <v-toolbar
-        tabs
-        dense
-        scroll-off-screen
+    <v-container>
+      <v-layout align-center mt-3 mb-3>
+        <v-flex sm12 text-xs-center>
+          <v-avatar class="mb-3">
+            <img v-if="userData.avatar !== undefined" :src="i18N.domain+userData.avatar" alt="avatar">
+          </v-avatar>
+          <h2 v-if="userData.nickname != ''">{{userData.nickname}}#{{userData.name}}</h2>
+          <h2 v-else>{{userData.name}}</h2>
+          <p v-if="userData.introduction != undefined">{{userData.introduction}}</p>
+        </v-flex>
+      </v-layout>
+    </v-container>
+    <v-divider></v-divider>
+    <v-tabs
+      slot="extension"
+      v-model="currentItem"
+      color="transparent"
+      fixed-tabs
+      slider-color="yellow"
+    >
+      <v-tab
+        v-for="(item,key) in items"
+        :key="key"
+        :href="'#tab-' + item.index"
+        @click="tabChange(item.index)"
       >
-        <v-avatar class="mr-3">
-          <img v-if="userData.avatar !== undefined" :src="i18N.domain+userData.avatar" alt="avatar">
-        </v-avatar>
-        <v-toolbar-title v-if="userData.nickname != null">{{userData.nickname}}@{{userData.name}}</v-toolbar-title>
-        <v-toolbar-title v-else>@{{userData.name}}</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <v-btn icon>
-          <v-icon>search</v-icon>
-        </v-btn>
-        <v-btn icon>
-          <v-icon>more_vert</v-icon>
-        </v-btn>
-        <v-tabs
-          slot="extension"
-          v-model="currentItem"
-          color="transparent"
-          fixed-tabs
-          slider-color="yellow"
-        >
-          <v-tab
-            v-for="(item,key) in items"
-            :key="key"
-            :href="'#tab-' + item.index"
-            @click="tabChange(item.index)"
-          >
-            {{ item.title }}
-          </v-tab>
-        </v-tabs>
-      </v-toolbar>
-      <v-parallax
-        dark
-        src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
-        height="50"
-        @click="tools.go('/message/send/' + userData.id)"
-      >
-        <v-layout
-          align-center
-          column
-          justify-center
-        >
-          <span class="font-weight-thin">{{i18N.send + i18N.table.message}}</span>
-        </v-layout>
-      </v-parallax>
-      <div class="text-xs-center" v-if="loading">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-          class="loading-control"
-        ></v-progress-circular>
-      </div>
-      <router-view v-else></router-view>
+        <v-icon>{{item.icon}}</v-icon>
+        &nbsp;
+        {{ item.title }}
+      </v-tab>
+    </v-tabs>
+    <v-divider></v-divider>
+    <div class="text-xs-center" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        class="loading-control"
+      ></v-progress-circular>
     </div>
+    <router-view v-else></router-view>
   </div>
 </template>
 
@@ -77,20 +59,29 @@ export default {
       currentItem: 'tab-Article',
       items: [
         {
-          title: i18N.table.article,
-          index: 'Article'
+          title: i18N.table.demand,
+          index: 'Demand',
+          icon: 'assignment'
         },
         {
-          title: i18N.table.demand,
-          index: 'Demand'
+          title: i18N.table.article,
+          index: 'Article',
+          icon: 'book'
+        },
+        {
+          title: i18N.message,
+          index: 'MessageSend',
+          icon: 'send'
         },
         {
           title: i18N.table.comment,
-          index: 'Comment'
+          index: 'Comment',
+          icon: 'comment'
         },
         {
           title: i18N.message_board,
-          index: 'MessageBoard'
+          index: 'MessageBoard',
+          icon: 'weekend'
         }
       ]
     }
@@ -111,6 +102,9 @@ export default {
           break
         case 'MessageBoard':
           this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/message_board'})
+          break
+        case 'MessageSend':
+          this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/message'})
           break
         default:
           this.$router.push({path: '/'})
