@@ -238,6 +238,6 @@ export default {
 
 <style>
   .container {
-    padding: 0px;
+    padding: 0px !important;
   }
 </style>

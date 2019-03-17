@@ -343,7 +343,7 @@ export default {
           withCredentials: true
         },
         success: function () {
-          _this.getInfo()
+          location.reload()
         },
         error: function () {
           alert(i18N.network + i18N.alert.error)

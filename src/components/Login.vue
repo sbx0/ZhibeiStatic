@@ -203,7 +203,7 @@ export default {
           success: function (json) {
             let status = json.status
             if (_this.tools.statusCodeToBool(status)) {
-              _this.$router.push({path: '/'})
+              location.reload()
             } else {
               alert(_this.tools.statusCodeToAlert(status))
             }

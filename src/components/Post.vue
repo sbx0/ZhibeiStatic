@@ -54,11 +54,6 @@
       >
         {{i18N.post}}
       </v-btn>
-      <v-btn
-        @click="tools.go('/post/demand')"
-      >
-        {{i18N.table.demand + i18N.post}}
-      </v-btn>
     </v-app>
   </div>
 </template>

@@ -282,6 +282,7 @@ const i18N = {
   others: '其他',
   download: '下载',
   help: '帮助',
+  support: '支持',
   certification_type: [
     {
       text: '个人认证',
