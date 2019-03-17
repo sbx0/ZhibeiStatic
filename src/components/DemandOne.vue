@@ -1,19 +1,5 @@
 <template>
   <div>
-    <v-toolbar
-      dense
-      scroll-off-screen
-    >
-      <v-btn icon @click="goBack()">
-        <v-icon>arrow_back</v-icon>
-      </v-btn>
-
-      <v-spacer></v-spacer>
-
-      <v-btn icon>
-        <v-icon>more_vert</v-icon>
-      </v-btn>
-    </v-toolbar>
     <v-card flat>
       <v-img :src="data.cover" aspect-ratio="1.7"></v-img>
       <div class="text-xs-center" v-if="loading">
@@ -89,9 +75,6 @@ export default {
     }
   },
   methods: {
-    goBack () {
-      this.$router.go(-1)
-    },
     getData () {
       let _this = this
       let _id = this.$route.params.id

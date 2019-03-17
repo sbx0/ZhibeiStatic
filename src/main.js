@@ -11,6 +11,8 @@ import tools from './assets/tools'
 import Viewer from 'v-viewer'
 import hljs from 'highlight.js'
 import 'highlight.js/styles/googlecode.css'
+import touch from 'vue-directive-touch'
+
 Vue.directive('highlight', function (el) {
   let blocks = el.querySelectorAll('pre code')
   blocks.forEach((block) => {
@@ -23,6 +25,7 @@ Vue.use(Vuetify)
 Vue.use(markdownEditor)
 Vue.use(Viewer)
 Vue.prototype.tools = tools
+Vue.use(touch)
 
 /* eslint-disable no-new */
 new Vue({

@@ -1,34 +1,36 @@
 <template>
-  <div>
-    <v-carousel
-      height="200"
-      hide-delimiters
-    >
-      <v-carousel-item
-        v-for="(img,i) in images"
-        :key="i"
-        :src="img.cover"
-        @click="tools.go('/demand/'+img.id)"
-      ></v-carousel-item>
-    </v-carousel>
-    <v-tabs
-      slot="extension"
-      v-model="currentItem"
-      color="transparent"
-      fixed-tabs
-      slider-color="yellow"
-    >
-      <v-tab
-        v-for="(item,key) in items"
-        :key="key"
-        :href="'#tab-' + item.index"
-        @click="tabChange(item.index)"
+  <v-container fluid fill-height>
+    <v-layout column>
+      <v-carousel
+        hide-delimiters
+        height="200"
       >
-        {{ item.title }}
-      </v-tab>
-    </v-tabs>
-    <router-view></router-view>
-  </div>
+        <v-carousel-item
+          v-for="(img,i) in images"
+          :key="i"
+          :src="img.cover"
+          @click="tools.go('/demand/'+img.id)"
+        ></v-carousel-item>
+      </v-carousel>
+      <v-tabs
+        slot="extension"
+        v-model="currentItem"
+        color="transparent"
+        fixed-tabs
+        slider-color="yellow"
+      >
+        <v-tab
+          v-for="(item,key) in items"
+          :key="key"
+          :href="'#tab-' + item.index"
+          @click="tabChange(item.index)"
+        >
+          {{ item.title }}
+        </v-tab>
+      </v-tabs>
+      <router-view></router-view>
+    </v-layout>
+  </v-container>
 </template>
 
 <script>

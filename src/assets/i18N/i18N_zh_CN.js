@@ -280,6 +280,8 @@ const i18N = {
   send: '发送',
   give_me_power: '充钱',
   others: '其他',
+  download: '下载',
+  help: '帮助',
   certification_type: [
     {
       text: '个人认证',

@@ -4,9 +4,9 @@ import enUS from '@/assets/i18N/i18N_en_US'
 import tools from '@/assets/tools'
 
 let lib = [
-  {name: 'zh_CN', value: '简体中文'},
-  {name: 'zh_TW', value: '繁體中文'},
-  {name: 'en_US', value: 'English'}
+  {name: 'zh_CN', text: '简体中文'},
+  {name: 'zh_TW', text: '繁體中文'},
+  {name: 'en_US', text: 'English'}
 ]
 
 let i18NConfig = tools.getCookie('i18N_config')
