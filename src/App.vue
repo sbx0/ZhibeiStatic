@@ -1,4 +1,4 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div id="app">
     <v-app id="inspire">
       <v-navigation-drawer
@@ -92,9 +92,19 @@
         <v-btn icon @click="tools.go('/demand')">
           <v-icon>home</v-icon>
         </v-btn>
-        <v-btn icon @click="tools.go('/message/list')">
-          <v-icon>notifications</v-icon>
-        </v-btn>
+        <v-badge
+          overlap
+          bottom
+          v-model="message_show"
+          color="red"
+        >
+          <template v-slot:badge>
+            <span>{{message_count}}</span>
+          </template>
+          <v-btn icon @click="tools.go('/message/list')">
+            <v-icon dark>notifications</v-icon>
+          </v-btn>
+        </v-badge>
         <v-btn icon large>
           <v-avatar size="32px" @click="tools.go('/my')">
             <img
@@ -149,6 +159,9 @@ export default {
       i18NConfig: {
         value: 'zh_CN'
       }, // i18N配置文件
+      message_count: 0,
+      message_show: false,
+      time: null,
       user: {
         name: i18N.not + i18N.login,
         nickname: i18N.not + i18N.login,
@@ -189,7 +202,15 @@ export default {
       ]
     }
   },
+  destroyed: function () {
+    clearInterval(this.timer)
+  },
   methods: {
+    setTimer: function () {
+      this.timer = setInterval(() => {
+        this.getMsg()
+      }, 3000)
+    },
     onSwipeLeft () {
       this.$router.go(-1)
     },
@@ -222,11 +243,38 @@ export default {
           alert(i18N.network + i18N.alert.error)
         }
       })
+    },
+    getMsg () {
+      let _this = this
+      _this.loading = true
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/message/count',
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          _this.message_count = json.count
+          if (_this.message_count > 0) {
+            _this.message_show = true
+          } else {
+            _this.message_show = false
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
     }
   },
   created () {
     this.i18NConfig = this.tools.getCookie('i18N_config')
     this.getInfo()
+    this.getMsg()
+    this.setTimer()
   }
 }
 </script>

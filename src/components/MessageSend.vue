@@ -129,9 +129,6 @@ export default {
     clearInterval(this.timer)
   },
   methods: {
-    goBack: function () {
-      this.$router.go(-1)
-    },
     setTimer: function () {
       this.timer = setInterval(() => {
         this.receive()
