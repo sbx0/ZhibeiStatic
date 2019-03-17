@@ -15,6 +15,7 @@
         <v-img
           :src="item.cover"
           aspect-ratio="2.75"
+          @click="tools.go('/demand/'+item.id)"
         ></v-img>
         <v-card-title
           primary-title
@@ -28,19 +29,28 @@
           </div>
         </v-card-title>
         <v-card-actions>
-          <v-list-tile class="grow">
-            <v-list-tile-avatar color="grey darken-3">
+          <v-list-tile
+            class="grow"
+          >
+            <v-list-tile-avatar
+              color="grey darken-3"
+              @click="tools.go('/user/'+item.poster.id+'/demand')"
+            >
               <v-img
                 class="elevation-6"
                 :src="i18N.domain+item.poster.avatar"
               ></v-img>
             </v-list-tile-avatar>
-            <v-list-tile-content>
-              <v-list-tile-title>{{item.poster.nickname}}@{{item.poster.name}}</v-list-tile-title>
+            <v-list-tile-content
+              @click="tools.go('/user/'+item.poster.id+'/demand')"
+            >
+              <v-list-tile-title v-if="item.poster.nickname != ''">{{item.poster.nickname}}</v-list-tile-title>
+              <v-list-tile-title v-else>{{item.poster.name}}</v-list-tile-title>
             </v-list-tile-content>
             <v-layout
               align-center
               justify-end
+              @click="tools.go('/demand/'+item.id)"
             >
               <span class="subheading">{{item.budget}}</span>
               <v-icon>attach_money</v-icon>

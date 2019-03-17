@@ -24,24 +24,22 @@
       </div>
       <v-card-text v-else>
         <v-layout align-center mb-3>
-          <v-list-tile-avatar
-            @click="tools.go('/user/'+data.author.id+'/article')"
+          <v-list-tile
+            avatar
           >
-            <img v-if="data.author.avatar !== undefined" :src="i18N.domain+data.author.avatar">
-          </v-list-tile-avatar>
-          <v-list-tile-content
-            @click="tools.go('/article/'+data.id)"
-          >
-            <v-list-tile-title v-html="data.title"></v-list-tile-title>
-            <v-list-tile-sub-title v-html="data.introduction"></v-list-tile-sub-title>
-            <v-list-tile-sub-title>
-              {{tools.timeShow(data.time)}}
-            </v-list-tile-sub-title>
-          </v-list-tile-content>
-          <v-spacer></v-spacer>
-          <v-btn icon>
-            <v-icon>mdi-account</v-icon>
-          </v-btn>
+            <v-list-tile-avatar
+              @click="tools.go('/user/'+data.author.id+'/article')"
+            >
+              <img v-if="data.author.avatar !== undefined" :src="i18N.domain+data.author.avatar">
+            </v-list-tile-avatar>
+            <v-list-tile-content @click="tools.go('/article/'+data.id)">
+              <v-list-tile-title v-html="data.title"></v-list-tile-title>
+              <v-list-tile-sub-title v-html="data.introduction"></v-list-tile-sub-title>
+              <v-list-tile-sub-title>
+                {{tools.timeShow(data.time)}}
+              </v-list-tile-sub-title>
+            </v-list-tile-content>
+          </v-list-tile>
         </v-layout>
         <div class="markdown-body">
           <div v-html="markdown" v-viewer v-highlight></div>

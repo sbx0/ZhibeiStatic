@@ -1,8 +1,6 @@
 <template>
   <v-app id="inspire" class="this_is_mobile">
-
     <router-view></router-view>
-
     <v-footer
       height="auto"
       color="primary lighten-1"
