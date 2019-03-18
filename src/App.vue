@@ -214,7 +214,7 @@ export default {
     setTimer: function () {
       this.timer = setInterval(() => {
         this.getMsg()
-      }, 3000)
+      }, 6000)
     },
     onSwipeLeft () {
       this.$router.go(-1)

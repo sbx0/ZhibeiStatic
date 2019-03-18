@@ -283,6 +283,9 @@ const i18N = {
   download: '下载',
   help: '帮助',
   support: '支持',
+  have_read: '已阅',
+  have_read_user: '已阅其所有私信',
+  refresh: '刷新',
   certification_type: [
     {
       text: '个人认证',

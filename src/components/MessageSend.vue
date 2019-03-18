@@ -137,6 +137,28 @@ export default {
         this.scrollToBottom()
       })
     },
+    haveRead (id, type) {
+      let _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/message/read?id=' + id + '&type=' + type,
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (!_this.tools.statusCodeToBool(status)) {
+            alert(_this.tools.statusCodeToAlert(status))
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
     receive: function () {
       let _this = this
       let url = ''
@@ -148,9 +170,9 @@ export default {
         let word2 = pathM[2]
         path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
       }
+      let id = '-1'
       if (path === '/user/message') {
         _this.canPost = false
-        let id = '-1'
         let idRegExp = new RegExp('.*?(\\d+)')
         let idM = idRegExp.exec(_this.$router.currentRoute.path)
         if (idM != null) {
@@ -171,6 +193,7 @@ export default {
           if (json.objects !== undefined) {
             _this.message_data = json.objects
             _this.user_id = json.user_id
+            _this.haveRead(id, 'user')
           }
         },
         error: function () {
