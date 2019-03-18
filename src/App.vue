@@ -1,5 +1,5 @@
 <template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
-  <div id="app">
+  <div id="app" class="this_is_mobile">
     <v-app id="inspire">
       <v-navigation-drawer
         fixed
@@ -143,6 +143,10 @@
         </v-list>
       </v-bottom-sheet>
     </v-app>
+    <v-footer class="pa-3">
+      <v-spacer></v-spacer>
+      <div>{{i18N.website_name}} &copy; 2018 - {{ new Date().getFullYear() }}</div>
+    </v-footer>
   </div>
 </template>
 
@@ -150,6 +154,7 @@
 import i18N from './assets/i18N/i18N'
 import $ from 'jquery'
 import 'material-design-icons-iconfont'
+import tools from '@/assets/tools'
 
 export default {
   name: 'App',
@@ -271,6 +276,7 @@ export default {
     }
   },
   created () {
+    tools.device()
     this.i18NConfig = this.tools.getCookie('i18N_config')
     this.getInfo()
     this.getMsg()
@@ -282,5 +288,10 @@ export default {
 <style>
   .container {
     padding: 0px !important;
+  }
+
+  .this_is_mobile {
+    max-width: 756px;
+    margin: 0 auto;
   }
 </style>

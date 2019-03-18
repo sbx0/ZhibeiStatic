@@ -11,23 +11,27 @@ let lib = [
 
 let i18NConfig = tools.getCookie('i18N_config')
 if (i18NConfig === '') {
-  tools.setCookie('i18N_config', lib[0].name, 30)
-  i18NConfig = lib[0].name
+  let browser = tools.device()
+  i18NConfig = browser.language
 }
 
 let i18N = ''
 switch (i18NConfig) {
   case 'zh_CN':
     i18N = zhCN
+    tools.setCookie('i18N_config', 'zh_CN', 365)
     break
   case 'zh_TW':
     i18N = zhTW
+    tools.setCookie('i18N_config', 'zh_TW', 365)
     break
   case 'en_US':
     i18N = enUS
+    tools.setCookie('i18N_config', 'en_US', 365)
     break
   default:
     i18N = zhCN
+    tools.setCookie('i18N_config', 'zh_CN', 365)
 }
 
 i18N.lib = lib
