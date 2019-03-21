@@ -1,59 +1,45 @@
 <template>
-  <v-list two-line class="pt-0">
-    <div class="text-xs-center" v-if="loading">
-      <v-progress-circular
-        indeterminate
-        color="primary"
-        class="loading-control"
-      ></v-progress-circular>
-    </div>
-    <template v-for="(item) in data" v-else>
-      <v-card
-        v-bind:key="item.id"
+  <v-list two-line class="pb-0 pt-0">
+    <template v-for="(item, index) in data">
+      <v-list-tile
+        :key="item.title"
+        avatar
+        ripple
       >
-        <v-img
-          :src="item.cover"
-          aspect-ratio="2.75"
-          @click="tools.go('/demand/'+item.id)"
-        ></v-img>
-        <v-card-title
-          class="pt-1 pb-0"
-          primary-title
-          @click="tools.go('/demand/'+item.id)"
-        >
-          <div>
-            <h3>{{item.title}}</h3>
-            <div>
-              {{tools.timeClick(item.endTime)}}
-            </div>
-          </div>
-        </v-card-title>
-        <v-card-actions class="pt-0 pb-0">
-          <v-list-tile class="grow">
-            <v-list-tile-avatar
-              @click="tools.go('/user/'+item.poster.id+'/demand')"
+        <v-list-tile-content>
+          <v-list-tile-title @click="tools.go('/question/'+item.id)">
+            {{ item.title }}
+          </v-list-tile-title>
+          <v-list-tile-sub-title class="text--primary" @click="tools.go('/question/'+item.id)">
+            {{tools.timeShow(item.time)}}
+          </v-list-tile-sub-title>
+          <v-list-tile-sub-title @click="tools.go('/user/'+item.quizzer.id)">
+            <v-avatar
+              size="20"
+              @click="tools.go('/user/'+item.quizzer.id+'/article')"
             >
-              <v-img
-                :src="i18N.domain+item.poster.avatar"
-              ></v-img>
-            </v-list-tile-avatar>
-            <v-list-tile-content
-              @click="tools.go('/user/'+item.poster.id+'/demand')"
-            >
-              <v-list-tile-title v-if="item.poster.nickname != ''">{{item.poster.nickname}}</v-list-tile-title>
-              <v-list-tile-title v-else>{{item.poster.name}}</v-list-tile-title>
-            </v-list-tile-content>
-            <v-layout
-              align-center
-              justify-end
-              @click="tools.go('/demand/'+item.id)"
-            >
-              <span class="subheading">{{item.budget}}￥</span>
-            </v-layout>
-          </v-list-tile>
-        </v-card-actions>
-      </v-card>
-      <v-divider class="mt-1 mb-1" v-bind:key="item.id +'d'"></v-divider>
+              <img v-if="item.quizzer.avatar !== undefined" :src="i18N.domain+item.quizzer.avatar">
+            </v-avatar>
+            <span v-if="item.quizzer.nickname != ''">{{item.quizzer.nickname}}</span>
+            <span v-else>{{item.quizzer.name}}</span>
+          </v-list-tile-sub-title>
+        </v-list-tile-content>
+        <v-list-tile-action>
+          <v-list-tile-action-text v-if="item.price != '0'">{{ item.price }} ￥</v-list-tile-action-text>
+          <v-list-tile-action-text v-if="item.tags.length > 0">
+            <v-chip small outline label>{{item.tags[0].name}}</v-chip>
+          </v-list-tile-action-text>
+          <!--<v-icon-->
+          <!--color="grey lighten-1"-->
+          <!--&gt;-->
+          <!--star_border-->
+          <!--</v-icon>-->
+        </v-list-tile-action>
+      </v-list-tile>
+      <v-divider
+        v-if="index < data.length"
+        :key="index"
+      ></v-divider>
     </template>
     <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
   </v-list>
@@ -64,10 +50,10 @@ import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
 
 export default {
-  name: 'DemandList',
+  name: 'QuestionList',
   data () {
     return {
-      i18N: i18N, // i18N配置文件
+      i18N: i18N,
       loading: true, // 是否加载中
       page: 1, // 当前页数
       size: 10, // 每页条数
@@ -75,30 +61,16 @@ export default {
       totalElements: 0, // 总条数
       attribute: 'time', // 按什么排序
       direction: 'DESC', // 倒序
-      data: [], // 文章数据
+      data: [], // 数据
       show: false,
-      more: false,
-      items: [
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/squirrel.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/sky.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/bird.jpg'
-        },
-        {
-          src: 'https://cdn.vuetifyjs.com/images/carousel/planet.jpg'
-        }
-      ]
+      more: false
     }
   },
   methods: {
     readMore: function () {
       let _this = this
       let url = i18N.domain +
-          '/demand/normal/list?page=' + (_this.page + 1) +
+          '/question/normal/list?page=' + (_this.page + 1) +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
@@ -110,7 +82,7 @@ export default {
         let word2 = pathM[2]
         path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
       }
-      if (path === '/user/demand') {
+      if (path === '/user/question') {
         let id = '-1'
         let idRegExp = new RegExp('.*?(\\d+)')
         let idM = idRegExp.exec(_this.$router.currentRoute.path)
@@ -118,7 +90,7 @@ export default {
           id = idM[1].replace(/</, '&lt;')
         }
         url = i18N.domain +
-            '/demand/user?id=' + id +
+            '/question/user?id=' + id +
             '&page=' + (_this.page + 1) +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
@@ -156,10 +128,10 @@ export default {
         }
       })
     },
-    getData: function () {
+    getData () {
       let _this = this
       _this.loading = true
-      let url = i18N.domain + '/demand/normal/list?page=' + _this.page +
+      let url = i18N.domain + '/question/normal/list?page=' + _this.page +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
@@ -171,14 +143,14 @@ export default {
         let word2 = pathM[2]
         path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
       }
-      if (path === '/user/demand') {
+      if (path === '/user/question') {
         let id = '-1'
         let idRegExp = new RegExp('.*?(\\d+)')
         let idM = idRegExp.exec(_this.$router.currentRoute.path)
         if (idM != null) {
           id = idM[1].replace(/</, '&lt;')
         }
-        url = i18N.domain + '/demand/user?id=' + id +
+        url = i18N.domain + '/question/user?id=' + id +
             '&page=' + _this.page +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
@@ -208,19 +180,10 @@ export default {
     }
   },
   created () {
-    // 初始化数据
     this.getData()
   }
 }
 </script>
 
 <style scoped>
-  a {
-    text-decoration: none;
-    color: #000;
-  }
-
-  .loading-control {
-    margin: 50px 50px;
-  }
 </style>

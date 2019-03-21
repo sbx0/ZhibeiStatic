@@ -14,7 +14,9 @@ const i18N = {
     article: '文章',
     comment: '评论',
     verify: '验证',
-    message: '消息'
+    message: '消息',
+    question: '问题',
+    answer: '回答'
   },
   attribute: {
     user: {
@@ -180,6 +182,25 @@ const i18N = {
       id: '编号',
       money: '余额',
       owner: '谁的'
+    },
+    question: {
+      id: '编号',
+      title: '标题',
+      description: '问题描述',
+      time: '发布时间',
+      price: '赏金',
+      quizzer: '提问者',
+      appoint: '指定回答的人',
+      tags: '标签'
+    },
+    answer: {
+      id: '编号',
+      content: '内容',
+      answerer: '回答者',
+      question: '问题',
+      likes: '赞数',
+      dislikes: '踩数',
+      top: '置顶排序'
     }
   },
   user: '用户',

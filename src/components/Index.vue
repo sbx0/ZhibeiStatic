@@ -50,9 +50,14 @@ export default {
         {id: 15, cover: 'http://zb.sbx0.cn/upload/image/20190314133502162.jpg'},
         {id: 16, cover: 'http://zb.sbx0.cn/upload/image/20190314133850762.jpg'}
       ],
-      currentItem: 'tab-Demand',
+      currentItem: 'tab-Question',
       dialog: false,
       items: [
+        {
+          title: i18N.table.question,
+          index: 'Question',
+          icon: 'question_answer'
+        },
         {
           title: i18N.table.demand,
           index: 'Demand',
@@ -69,6 +74,9 @@ export default {
   methods: {
     tabChange (index) {
       switch (index) {
+        case 'Question':
+          this.$router.push({path: '/question'})
+          break
         case 'Article':
           this.$router.push({path: '/article'})
           break
@@ -76,30 +84,41 @@ export default {
           this.$router.push({path: '/demand'})
           break
         default:
-          this.$router.push({path: '/article'})
+          this.$router.push({path: '/question'})
+          break
+      }
+    },
+    routeChange () {
+      let path = this.$router.currentRoute.path
+      if (path === '/') {
+        this.$router.push({path: '/question'})
+      }
+      switch (path) {
+        case '/':
+          this.currentItem = 'tab-Demand'
+          break
+        case '/question':
+          this.currentItem = 'tab-Question'
+          break
+        case '/article':
+          this.currentItem = 'tab-Article'
+          break
+        case '/demand':
+          this.currentItem = 'tab-Demand'
+          break
+        default:
+          this.currentItem = 'tab-Article'
           break
       }
     }
   },
+  watch: {
+    '$route' () {
+      this.routeChange()
+    }
+  },
   created () {
-    let path = this.$router.currentRoute.path
-    if (path === '/') {
-      this.$router.push({path: '/demand'})
-    }
-    switch (path) {
-      case '/':
-        this.currentItem = 'tab-Demand'
-        break
-      case '/article':
-        this.currentItem = 'tab-Article'
-        break
-      case '/demand':
-        this.currentItem = 'tab-Demand'
-        break
-      default:
-        this.currentItem = 'tab-Article'
-        break
-    }
+    this.routeChange()
   }
 }
 </script>

@@ -15,8 +15,8 @@
         <v-container fill-height>
           <v-layout align-center>
             <v-flex text-xs-center>
-              <v-icon>book</v-icon>
-              <h3>{{i18N.post+i18N.table.article}}</h3>
+              <v-icon>question_answer</v-icon>
+              <h3>{{i18N.post+i18N.table.question}}</h3>
             </v-flex>
           </v-layout>
         </v-container>
@@ -32,24 +32,17 @@
           name="title"
           v-model="title"
           :rules="titleRules"
-          :label="i18N.attribute.article.title"
+          :label="i18N.attribute.question.title"
           required
         ></v-text-field>
-        <v-text-field
-          name="introduction"
-          v-model="introduction"
-          :rules="introductionRules"
-          :label="i18N.attribute.article.introduction"
-          required
-        ></v-text-field>
-        <textarea name="content" :value="content" hidden></textarea>
+        <textarea name="description" :value="description" hidden></textarea>
         <select name="tags" multiple style="display: none;">
           <option v-for="(tag,key) in tagsSelected" v-bind:key="key" :value="tag" selected>
             {{tag}}
           </option>
         </select>
         <v-select
-          :label="i18N.attribute.article.tags"
+          :label="i18N.attribute.question.tags"
           :items="tags"
           v-model="tagsSelected"
           item-text="name"
@@ -58,8 +51,31 @@
           chips
           multiple
         ></v-select>
+        <select name="appoint" style="display: none;">
+          <option v-for="(tag,key) in userSelected" v-bind:key="key" :value="tag" selected>
+            {{tag}}
+          </option>
+        </select>
+        <v-select
+          :label="i18N.attribute.question.appoint"
+          :items="users"
+          v-model="userSelected"
+          item-text="name"
+          item-value="id"
+          attach
+          chips
+        ></v-select>
+        <v-text-field
+          name="price"
+          type="number"
+          prefix="￥"
+          v-model="price"
+          :rules="priceRules"
+          :label="i18N.attribute.question.price"
+          required
+        ></v-text-field>
       </v-form>
-      <mavon-editor v-model="content" ref=md @imgAdd="imgAdd"/>
+      <mavon-editor v-model="description" ref=md @imgAdd="imgAdd"/>
       <v-btn
         :disabled="!valid"
         color="success"
@@ -77,22 +93,29 @@ import axios from 'axios'
 import $ from 'jquery'
 
 export default {
-  name: 'Post',
+  name: 'QuestionPost',
   data () {
     return {
       i18N: i18N, // i18N配置文件
       valid: true,
       loading: true,
       title: '',
+      description: '',
       tags: [],
+      users: [],
       tagsSelected: [],
+      userSelected: [],
       titleRules: [
-        v => !!v || i18N.attribute.article.title + i18N.is + i18N.empty
+        v => !!v || i18N.attribute.question.title + i18N.is + i18N.empty
       ],
       introduction: '',
       introductionRules: [
-        v => !!v || i18N.attribute.article.introduction + i18N.is + i18N.empty
+        v => !!v || i18N.attribute.question.introduction + i18N.is + i18N.empty
       ],
+      priceRules: [
+        v => !!v || i18N.attribute.question.price + i18N.is + i18N.empty
+      ],
+      price: '0.00',
       content: ''
     }
   },
@@ -122,6 +145,33 @@ export default {
       if (this.$refs.form.validate()) {
         this.post()
       }
+    },
+    getUsers () {
+      let _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/user/normal/list?page=1' +
+          '&size=9999',
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            if (json.objects !== undefined) {
+              _this.users = json.objects
+            }
+          } else {
+            alert(_this.tools.statusCodeToAlert(status))
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
     },
     getTags () {
       let _this = this
@@ -182,7 +232,7 @@ export default {
       let _this = this
       $.ajax({
         type: 'post',
-        url: i18N.domain + '/article/post',
+        url: i18N.domain + '/question/post',
         data: $('#postForm').serialize(),
         dataType: 'json',
         async: false,
@@ -208,6 +258,7 @@ export default {
   created () {
     this.getInfo()
     this.getTags()
+    this.getUsers()
   }
 }
 </script>

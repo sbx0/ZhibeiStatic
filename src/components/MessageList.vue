@@ -146,8 +146,6 @@ export default {
           let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             _this.messages = json.objects
-          } else {
-            alert(_this.tools.statusCodeToAlert(status))
           }
           _this.loading = false
         },
@@ -164,4 +162,7 @@ export default {
 </script>
 
 <style scoped>
+  .loading-control {
+    margin: 50px 50px;
+  }
 </style>

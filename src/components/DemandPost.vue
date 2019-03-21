@@ -8,6 +8,19 @@
       ></v-progress-circular>
     </div>
     <v-app v-else>
+      <v-jumbotron
+        color="#9e9e9e47"
+        height="60px"
+      >
+        <v-container fill-height>
+          <v-layout align-center>
+            <v-flex text-xs-center>
+              <v-icon>assignment</v-icon>
+              <h3>{{i18N.post+i18N.table.demand}}</h3>
+            </v-flex>
+          </v-layout>
+        </v-container>
+      </v-jumbotron>
       <v-form
         id="postForm"
         ref="form"

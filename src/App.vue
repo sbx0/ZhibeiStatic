@@ -89,7 +89,7 @@
           class="hidden-sm-and-down"
         ></v-text-field>
         <v-spacer></v-spacer>
-        <v-btn icon @click="tools.go('/demand')">
+        <v-btn icon @click="tools.go('/')">
           <v-icon>home</v-icon>
         </v-btn>
         <v-badge
@@ -178,6 +178,7 @@ export default {
       },
       sheet: false,
       tiles: [
+        {icon: 'question_answer', title: i18N.table.question, url: '/post/question'},
         {icon: 'book', title: i18N.table.article, url: '/post'},
         {icon: 'assignment', title: i18N.table.demand, url: '/post/demand'}
       ],

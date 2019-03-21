@@ -22,6 +22,9 @@ import ChangePassword from '@/components/ChangePassword'
 import MessageSend from '@/components/MessageSend'
 import MessageList from '@/components/MessageList'
 import Alipay from '@/components/Alipay'
+import QuestionList from '@/components/QuestionList'
+import QuestionPost from '@/components/QuestionPost'
+import QuestionOne from '@/components/QuestionOne'
 
 export default new Router({
   mode: 'hash',
@@ -33,17 +36,16 @@ export default new Router({
       children: [
         {
           path: 'article',
-          component: ArticleList,
-          meta: {
-            keepAlive: true
-          }
+          component: ArticleList
         },
         {
           path: 'demand',
-          component: DemandList,
-          meta: {
-            keepAlive: true
-          }
+          component: DemandList
+        },
+        {
+          path: 'question',
+          name: 'QuestionList',
+          component: QuestionList
         }
       ]
     },
@@ -73,12 +75,14 @@ export default new Router({
       component: ArticleOne
     },
     {
+      path: '/question/:id',
+      name: 'QuestionOne',
+      component: QuestionOne
+    },
+    {
       path: '/search/article',
       name: 'ArticleSearch',
-      component: ArticleSearch,
-      meta: {
-        keepAlive: true
-      }
+      component: ArticleSearch
     },
     {
       path: '/demand/:id',
@@ -122,6 +126,11 @@ export default new Router({
       path: '/post/demand',
       name: 'DemandPost',
       component: DemandPost
+    },
+    {
+      path: '/post/question',
+      name: 'QuestionPost',
+      component: QuestionPost
     },
     {
       path: '/upload',
