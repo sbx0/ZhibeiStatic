@@ -22,6 +22,13 @@
       >
         {{i18N.answer}}
       </v-btn>
+      <v-btn
+        class="success"
+        @click="tools.go('/post/answer/'+id)"
+        block
+      >
+        {{i18N.markdown_edit}}
+      </v-btn>
     </v-form>
     <div class="text-xs-center" v-if="loading">
       <v-progress-circular
@@ -31,6 +38,7 @@
       ></v-progress-circular>
     </div>
     <template v-for="(item,index) in data" v-else>
+      <v-divider class="mt-3" :key="index + 'divider_t'"></v-divider>
       <v-list-tile
         :key="item.id"
         avatar
@@ -41,19 +49,20 @@
           <img :src="i18N.domain+item.answerer.avatar">
         </v-list-tile-avatar>
         <v-list-tile-content>
-          <v-list-tile-title v-html="item.content"></v-list-tile-title>
-          <v-list-tile-sub-title
-            v-if="!canPost"
-            @click="tools.go(item.path)"
-          >
-            {{item.path}}
-          </v-list-tile-sub-title>
-          <v-list-tile-sub-title v-else>
+          <v-list-tile-title>
+            <span v-if="item.answerer.nickname != ''">{{item.answerer.nickname}}</span>
+            <span v-else>{{item.answerer.name}}</span>
+          </v-list-tile-title>
+          <v-list-tile-sub-title>
             {{tools.timeShow(item.time)}}
           </v-list-tile-sub-title>
         </v-list-tile-content>
       </v-list-tile>
-      <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
+      <v-divider :key="item.id + 'divider_c'"></v-divider>
+      <div class="markdown-body" :key="item.id + 'content'">
+        <div v-html="item.content" v-viewer v-highlight></div>
+      </div>
+      <v-divider :key="item.id + 'divider_b'"></v-divider>
     </template>
     <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
   </v-list>
@@ -62,6 +71,11 @@
 <script>
 import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
+import markdownEditor from 'mavon-editor'
+import 'viewerjs/dist/viewer.css'
+import 'github-markdown-css'
+import 'highlight.js'
+import 'highlight.js/styles/googlecode.css'
 
 export default {
   name: 'AnswerList',
@@ -130,6 +144,7 @@ export default {
           if (json.objects != null) {
             let data = []
             for (let i = 0; i < _this.data.length; i++) {
+              _this.data[i].content = markdownEditor.markdownIt.render(_this.data[i].content.toString())
               data.push(_this.data[i])
             }
             for (let j = 0; j < json.objects.length; j++) {
@@ -190,7 +205,12 @@ export default {
           if (json.objects != null && json.objects.length === _this.size) {
             _this.more = true
           }
-          _this.data = json.objects
+          let data = []
+          for (let i = 0; i < json.objects.length; i++) {
+            json.objects[i].content = markdownEditor.markdownIt.render(json.objects[i].content.toString())
+            data.push(json.objects[i])
+          }
+          _this.data = data
           _this.loading = false
         },
         error: function () {
@@ -201,7 +221,6 @@ export default {
     },
     post: function () {
       let _this = this
-      _this.content = ''
       $.ajax({
         type: 'post',
         url: i18N.domain + '/answer/post',
@@ -217,6 +236,7 @@ export default {
           if (_this.tools.statusCodeToBool(status)) {
             _this.page = 1
             _this.getData()
+            _this.content = ''
           } else {
             alert(_this.tools.statusCodeToAlert(status))
           }
@@ -241,5 +261,15 @@ export default {
 
   .v-input__slot {
     margin-bottom: 0px !important;
+  }
+
+  .markdown-body {
+    margin-top: 5px;
+    margin-left: 20px;
+    margin-right: 20px;
+  }
+
+  code {
+    box-shadow: 0 0px 0px 0px rgba(0, 0, 0, .2) !important;
   }
 </style>

@@ -308,6 +308,7 @@ const i18N = {
   have_read_user: '已阅其所有私信',
   refresh: '刷新',
   answer: '回答',
+  markdown_edit: '高级回答',
   certification_type: [
     {
       text: '个人认证',

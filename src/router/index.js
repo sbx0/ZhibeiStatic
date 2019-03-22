@@ -26,6 +26,7 @@ import QuestionList from '@/components/QuestionList'
 import QuestionPost from '@/components/QuestionPost'
 import QuestionOne from '@/components/QuestionOne'
 import AnswerList from '@/components/AnswerList'
+import AnswerPost from '@/components/AnswerPost'
 
 export default new Router({
   mode: 'hash',
@@ -140,6 +141,11 @@ export default new Router({
       path: '/post/question',
       name: 'QuestionPost',
       component: QuestionPost
+    },
+    {
+      path: '/post/answer/:id',
+      name: 'AnswerPost',
+      component: AnswerPost
     },
     {
       path: '/upload',

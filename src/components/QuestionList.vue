@@ -8,7 +8,7 @@
         ripple
       >
         <v-list-tile-content>
-          <v-list-tile-title @click="tools.go('/question/'+item.id)" class="question-title">
+          <v-list-tile-title @click="tools.go('/question/'+item.id)">
             {{ item.title }}
           </v-list-tile-title>
           <v-list-tile-sub-title class="text--primary" @click="tools.go('/question/'+item.id)">
@@ -188,7 +188,4 @@ export default {
 </script>
 
 <style scoped>
-  .question-title {
-    font-size: 18px;
-  }
 </style>

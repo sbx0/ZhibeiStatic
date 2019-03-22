@@ -308,6 +308,7 @@ const i18N = {
   have_read_user: 'Read All By User',
   refresh: 'Refresh',
   answer: 'Answer',
+  markdown_edit: 'Markdown Edit',
   certification_type: [
     {
       text: 'Personal Certification',

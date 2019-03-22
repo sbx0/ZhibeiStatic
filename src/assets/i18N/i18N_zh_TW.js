@@ -16,7 +16,8 @@ const i18N = {
     verify: '驗證',
     message: '消息',
     question: '問題',
-    answer: '回答'
+    answer: '回答',
+    markdown_edit: '高級回答'
   },
   attribute: {
     user: {
