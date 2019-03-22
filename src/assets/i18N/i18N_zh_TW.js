@@ -1,5 +1,5 @@
 const i18N = {
-  // domain: 'http://localhost:8085', // 請求地址
+  // domain: 'http://192.168.3.2:8085', // 請求地址
   domain: 'http://zb.sbx0.cn', // 請求地址
   table: {
     user: '用戶',
@@ -14,7 +14,9 @@ const i18N = {
     article: '文章',
     comment: '評論',
     verify: '驗證',
-    message: '消息'
+    message: '消息',
+    question: '問題',
+    answer: '回答'
   },
   attribute: {
     user: {
@@ -156,10 +158,54 @@ const i18N = {
       sendTime: '發送時間',
       receiveTime: '接收時間',
       type: '種類'
+    },
+    alipay: {
+      id: '編號',
+      outTradeNo: '平台訂單號',
+      tradeNo: '支付寶訂單號',
+      createTime: '創建時間',
+      endTime: '結束時間',
+      buyer: '購買者',
+      type: '種類',
+      products: '商品列表',
+      amount: '實付金額'
+    },
+    product: {
+      id: '編號',
+      name: '名稱',
+      price: '金額',
+      startTime: '開賣時間',
+      endTime: '結束時間',
+      seller: '買家'
+    },
+    wallet: {
+      id: '編號',
+      money: '餘額',
+      owner: '誰的'
+    },
+    question: {
+      id: '編號',
+      title: '標題',
+      description: '問題描述',
+      time: '發佈時間',
+      price: '賞金',
+      quizzer: '提問者',
+      appoint: '指定回答的人',
+      tags: '標籤'
+    },
+    answer: {
+      id: '編號',
+      content: '內容',
+      answerer: '回答者',
+      question: '問題',
+      likes: '贊數',
+      dislikes: '踩數',
+      top: '置頂排序'
     }
   },
   user: '用戶',
   website_name: '智貝',
+  website_slogan: '工業技術類從業者與領域專家的交流平台',
   admin_management_system: '後台管理系統',
   logout: '退出登錄',
   search: '搜索',
@@ -252,7 +298,16 @@ const i18N = {
   before_can_use: '前有效',
   lost_password_title: '提交成功，請檢測您的郵箱收件箱。 ',
   lost_password: '忘記密碼',
-  send: '发送',
+  send: '發送',
+  give_me_power: '充錢',
+  others: '其他',
+  download: '下載',
+  help: '幫助',
+  support: '支持',
+  have_read: '已閱',
+  have_read_user: '已閱其所有私信',
+  refresh: '刷新',
+  answer: '回答',
   certification_type: [
     {
       text: '個人認證',

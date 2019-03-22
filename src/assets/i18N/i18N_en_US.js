@@ -14,7 +14,9 @@ const i18N = {
     article: 'Article',
     comment: 'Comment',
     verify: 'Verify',
-    message: 'Message'
+    message: 'Message',
+    question: 'Question',
+    answer: 'Answer'
   },
   attribute: {
     user: {
@@ -156,10 +158,54 @@ const i18N = {
       sendTime: 'SendTime',
       receiveTime: 'ReceiveTime',
       type: 'Type'
+    },
+    alipay: {
+      id: 'id',
+      outTradeNo: 'outTradeNo',
+      tradeNo: 'tradeNo',
+      createTime: 'createTime',
+      endTime: 'endTime',
+      buyer: 'buyer',
+      type: 'type',
+      products: 'products',
+      amount: 'amount'
+    },
+    product: {
+      id: 'id',
+      name: 'name',
+      price: 'price',
+      startTime: 'startTime',
+      endTime: 'endTime',
+      seller: 'seller'
+    },
+    wallet: {
+      id: 'id',
+      money: 'money',
+      owner: 'owner'
+    },
+    question: {
+      id: 'id',
+      title: 'title',
+      description: 'description',
+      time: 'time',
+      price: 'price',
+      quizzer: 'quizzer',
+      appoint: 'appoint',
+      tags: 'tags'
+    },
+    answer: {
+      id: 'id',
+      content: 'content',
+      answerer: 'answerer',
+      question: 'question',
+      likes: 'likes',
+      dislikes: 'dislikes',
+      top: 'top'
     }
   },
   user: 'User',
   website_name: 'ZhiBei',
+  website_slogan: 'Communication platform between industrial technology practitioners and domain experts',
   admin_management_system: 'AMS',
   logout: 'Logout',
   search: 'Search',
@@ -253,6 +299,15 @@ const i18N = {
   lost_password_title: 'Send Success,please check your email box.',
   lost_password: 'Lost Password',
   send: '发送',
+  give_me_power: 'Give Me Power',
+  others: 'Others',
+  download: 'Download',
+  help: 'Help',
+  support: 'Support',
+  have_read: 'Have Read',
+  have_read_user: 'Read All By User',
+  refresh: 'Refresh',
+  answer: 'Answer',
   certification_type: [
     {
       text: 'Personal Certification',
