@@ -1,22 +1,24 @@
 <template>
-  <v-list two-line class="pb-0 pt-0">
+  <v-list two-line>
     <template v-for="(item, index) in data">
       <v-list-tile
-        :key="item.title"
+        :key="item.id+'q'"
+        class="pb-1"
         avatar
         ripple
       >
         <v-list-tile-content>
-          <v-list-tile-title @click="tools.go('/question/'+item.id)">
+          <v-list-tile-title @click="tools.go('/question/'+item.id)" class="question-title">
             {{ item.title }}
           </v-list-tile-title>
           <v-list-tile-sub-title class="text--primary" @click="tools.go('/question/'+item.id)">
             {{tools.timeShow(item.time)}}
           </v-list-tile-sub-title>
-          <v-list-tile-sub-title @click="tools.go('/user/'+item.quizzer.id)">
+          <v-list-tile-sub-title
+            @click="tools.go('/user/'+item.quizzer.id+'/question')"
+          >
             <v-avatar
               size="20"
-              @click="tools.go('/user/'+item.quizzer.id+'/article')"
             >
               <img v-if="item.quizzer.avatar !== undefined" :src="i18N.domain+item.quizzer.avatar">
             </v-avatar>
@@ -186,4 +188,7 @@ export default {
 </script>
 
 <style scoped>
+  .question-title {
+    font-size: 18px;
+  }
 </style>

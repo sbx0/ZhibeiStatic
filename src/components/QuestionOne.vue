@@ -43,7 +43,7 @@
       </v-card-text>
     </v-card>
     <v-divider class="mt-3 mb-3"></v-divider>
-    <CommentList></CommentList>
+    <AnswerList></AnswerList>
   </div>
 </template>
 
@@ -51,7 +51,7 @@
 import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
 import markdownEditor from 'mavon-editor'
-import CommentList from '../components/CommentList'
+import AnswerList from '../components/AnswerList'
 import 'viewerjs/dist/viewer.css'
 import 'github-markdown-css'
 import 'highlight.js'
@@ -59,7 +59,7 @@ import 'highlight.js/styles/googlecode.css'
 
 export default {
   name: 'QuestionOne',
-  components: {CommentList},
+  components: {AnswerList},
   data () {
     return {
       i18N: i18N, // i18N配置文件

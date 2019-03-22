@@ -1,16 +1,16 @@
 <template>
   <v-list two-line>
     <v-form
-      id="commentForm"
+      id="answerForm"
       class="form-control"
       v-if="canPost"
     >
-      <input name="path" v-model="path" style="display: none;">
+      <input name="q_id" v-model="id" style="display: none;">
       <v-textarea
         name="content"
         :value="content"
         v-model="content"
-        :label="i18N.attribute.comment.content"
+        :label="i18N.attribute.answer.content"
         box
         auto-grow
       >
@@ -20,42 +20,42 @@
         @click="post"
         block
       >
-        {{i18N.post}}
+        {{i18N.answer}}
       </v-btn>
-      <div class="text-xs-center" v-if="loading">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-          class="loading-control"
-        ></v-progress-circular>
-      </div>
-      <template v-for="(item,index) in data" v-else>
-        <v-list-tile
-          :key="item.id"
-          avatar
-        >
-          <v-list-tile-avatar
-            @click="tools.go('/user/'+item.poster.id+'/article')"
-          >
-            <img :src="i18N.domain+item.poster.avatar">
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title v-html="item.content"></v-list-tile-title>
-            <v-list-tile-sub-title
-              v-if="!canPost"
-              @click="tools.go(item.path)"
-            >
-              {{item.path}}
-            </v-list-tile-sub-title>
-            <v-list-tile-sub-title v-else>
-              {{tools.timeShow(item.time)}}
-            </v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
-      </template>
-      <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
     </v-form>
+    <div class="text-xs-center" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        class="loading-control"
+      ></v-progress-circular>
+    </div>
+    <template v-for="(item,index) in data" v-else>
+      <v-list-tile
+        :key="item.id"
+        avatar
+      >
+        <v-list-tile-avatar
+          @click="tools.go('/user/'+item.answerer.id+'/article')"
+        >
+          <img :src="i18N.domain+item.answerer.avatar">
+        </v-list-tile-avatar>
+        <v-list-tile-content>
+          <v-list-tile-title v-html="item.content"></v-list-tile-title>
+          <v-list-tile-sub-title
+            v-if="!canPost"
+            @click="tools.go(item.path)"
+          >
+            {{item.path}}
+          </v-list-tile-sub-title>
+          <v-list-tile-sub-title v-else>
+            {{tools.timeShow(item.time)}}
+          </v-list-tile-sub-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
+    </template>
+    <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
   </v-list>
 </template>
 
@@ -64,14 +64,14 @@ import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
 
 export default {
-  name: 'CommentList',
+  name: 'AnswerList',
   data () {
     return {
       i18N: i18N,
       data: [],
       loading: false,
       canPost: true,
-      path: this.$router.currentRoute.path,
+      id: this.$route.params.id,
       page: 1, // 当前页数
       size: 10, // 每页条数
       totalPage: 0, // 总页数
@@ -86,7 +86,7 @@ export default {
     readMore: function () {
       let _this = this
       let url = i18N.domain +
-          '/comment/load?path=' + _this.$router.currentRoute.path +
+          '/answer/load?path=' + _this.$router.currentRoute.path +
           '&page=' + (_this.page + 1) +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
@@ -99,7 +99,7 @@ export default {
         let word2 = pathM[2]
         path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
       }
-      if (path === '/user/comment') {
+      if (path === '/user/answer') {
         _this.canPost = false
         let id = '-1'
         let idRegExp = new RegExp('.*?(\\d+)')
@@ -108,7 +108,7 @@ export default {
           id = idM[1].replace(/</, '&lt;')
         }
         url = i18N.domain +
-            '/comment/load/user/?id=' + id +
+            '/answer/load/user?id=' + id +
             '&page=' + (_this.page + 1) +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
@@ -151,7 +151,7 @@ export default {
       let _this = this
       _this.loading = true
       let url = i18N.domain +
-          '/comment/load?path=' + _this.$router.currentRoute.path + '&page=' + _this.page +
+          '/answer/load?id=' + _this.$route.params.id + '&page=' + _this.page +
           '&size=' + _this.size +
           '&attribute=' + _this.attribute +
           '&direction=' + _this.direction
@@ -163,7 +163,7 @@ export default {
         let word2 = pathM[2]
         path = '/' + word1.replace(/</, '&lt;') + '/' + word2.replace(/</, '&lt;')
       }
-      if (path === '/user/comment') {
+      if (path === '/user/answer') {
         _this.canPost = false
         let id = '-1'
         let idRegExp = new RegExp('.*?(\\d+)')
@@ -171,7 +171,7 @@ export default {
         if (idM != null) {
           id = idM[1].replace(/</, '&lt;')
         }
-        url = i18N.domain + '/comment/load/user?id=' + id +
+        url = i18N.domain + '/answer/load/user?id=' + id +
             '&page=' + _this.page +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
@@ -204,8 +204,8 @@ export default {
       _this.content = ''
       $.ajax({
         type: 'post',
-        url: i18N.domain + '/comment/post',
-        data: $('#commentForm').serialize(),
+        url: i18N.domain + '/answer/post',
+        data: $('#answerForm').serialize(),
         dataType: 'json',
         async: false,
         crossDomain: true,

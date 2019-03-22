@@ -56,8 +56,13 @@ export default {
       userData: {
         name: i18N.loading
       },
-      currentItem: 'tab-Article',
+      currentItem: 'tab-Answer',
       items: [
+        {
+          title: i18N.table.answer,
+          index: 'Answer',
+          icon: 'assignment'
+        },
         {
           title: i18N.table.demand,
           index: 'Demand',
@@ -72,6 +77,11 @@ export default {
           title: i18N.message,
           index: 'MessageSend',
           icon: 'send'
+        },
+        {
+          title: i18N.table.question,
+          index: 'Question',
+          icon: 'assignment'
         },
         {
           title: i18N.table.comment,
@@ -91,6 +101,12 @@ export default {
       let path = this.$router.currentRoute.path
       let char = path.split('/')
       switch (index) {
+        case 'Answer':
+          this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/answer'})
+          break
+        case 'Question':
+          this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/question'})
+          break
         case 'Article':
           this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/article'})
           break
@@ -142,33 +158,43 @@ export default {
           alert(i18N.network + i18N.alert.error)
         }
       })
+    },
+    routeChange () {
+      let path = this.$router.currentRoute.path
+      let char = path.split('/')
+      switch (char[3]) {
+        case 'answer':
+          this.currentItem = 'tab-Answer'
+          break
+        case 'question':
+          this.currentItem = 'tab-Question'
+          break
+        case 'article':
+          this.currentItem = 'tab-Article'
+          break
+        case 'demand':
+          this.currentItem = 'tab-Demand'
+          break
+        case 'comment':
+          this.currentItem = 'tab-Comment'
+          break
+        case 'message_board':
+          this.currentItem = 'tab-MessageBoard'
+          break
+        default:
+          this.currentItem = 'tab-Article'
+          break
+      }
     }
   },
   watch: {
     '$route' () {
+      this.routeChange()
       this.getData()
     }
   },
   created () {
-    let path = this.$router.currentRoute.path
-    let char = path.split('/')
-    switch (char[3]) {
-      case 'article':
-        this.currentItem = 'tab-Article'
-        break
-      case 'demand':
-        this.currentItem = 'tab-Demand'
-        break
-      case 'comment':
-        this.currentItem = 'tab-Comment'
-        break
-      case 'message_board':
-        this.currentItem = 'tab-MessageBoard'
-        break
-      default:
-        this.currentItem = 'tab-Article'
-        break
-    }
+    this.routeChange()
     this.getData()
   }
 }

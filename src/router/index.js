@@ -25,6 +25,7 @@ import Alipay from '@/components/Alipay'
 import QuestionList from '@/components/QuestionList'
 import QuestionPost from '@/components/QuestionPost'
 import QuestionOne from '@/components/QuestionOne'
+import AnswerList from '@/components/AnswerList'
 
 export default new Router({
   mode: 'hash',
@@ -94,6 +95,14 @@ export default new Router({
       name: 'User',
       component: User,
       children: [
+        {
+          path: 'question',
+          component: QuestionList
+        },
+        {
+          path: 'answer',
+          component: AnswerList
+        },
         {
           path: 'article',
           component: ArticleList
