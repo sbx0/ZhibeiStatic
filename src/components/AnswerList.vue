@@ -82,9 +82,6 @@ import MoreFunction from '@/components/MoreFunction'
 export default {
   name: 'AnswerList',
   components: {MoreFunction},
-  comments: {
-    MoreFunction
-  },
   data () {
     return {
       i18N: i18N,

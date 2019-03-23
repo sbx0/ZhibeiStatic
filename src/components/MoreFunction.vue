@@ -4,6 +4,7 @@
       <v-btn
         flat
         icon
+        small
         :color="isLike"
         @click="click('like')"
       >
@@ -14,6 +15,7 @@
       <v-btn
         flat
         icon
+        small
         :color="isDislike"
         @click="click('dislike')"
       >
@@ -24,6 +26,7 @@
       <v-btn
         flat
         icon
+        small
         :color="isCollect"
         @click="click('collect')"
       >

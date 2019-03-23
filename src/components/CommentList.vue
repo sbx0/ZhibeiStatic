@@ -53,7 +53,7 @@
           </v-list-tile-content>
         </v-list-tile>
         <more-function :key="item.id + '_c_more'" :path="'/comment/'+item.id"></more-function>
-        <v-divider class="mb-3" v-bind:key="item.id+'_divider_b'"></v-divider>
+        <v-divider v-bind:key="item.id+'_divider_b'"></v-divider>
       </template>
       <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
     </v-form>

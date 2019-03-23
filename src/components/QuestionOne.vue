@@ -145,7 +145,7 @@ export default {
         },
         success: function (json) {
           let status = json.status
-          if (status === 0 || status === 7) {
+          if (status === 0 || status === 3 || status === 7) {
             _this.show = true
           }
         },
