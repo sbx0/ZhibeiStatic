@@ -202,16 +202,18 @@ export default {
           withCredentials: true
         },
         success: function (json) {
+          _this.loading = false
           if (json.objects != null && json.objects.length === _this.size) {
             _this.more = true
           }
           let data = []
-          for (let i = 0; i < json.objects.length; i++) {
-            json.objects[i].content = markdownEditor.markdownIt.render(json.objects[i].content.toString())
-            data.push(json.objects[i])
+          if (json.objects != null) {
+            for (let i = 0; i < json.objects.length; i++) {
+              json.objects[i].content = markdownEditor.markdownIt.render(json.objects[i].content.toString())
+              data.push(json.objects[i])
+            }
           }
           _this.data = data
-          _this.loading = false
         },
         error: function () {
           alert(i18N.network + i18N.alert.error)

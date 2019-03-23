@@ -30,6 +30,36 @@
           <div v-html="markdown" v-viewer v-highlight></div>
         </div>
         <v-divider class="mt-3 mb-3"></v-divider>
+        <v-container grid-list-md class="mt-0 pa-0" v-if="data.appoint != null && !show">
+          <v-layout row wrap>
+            <v-flex sm12 text-xs-center>
+              <span v-if="data.appoint.nickname != ''">{{data.appoint.nickname}}</span>
+              <span v-else>{{data.appoint.name}}</span>
+              <span>{{i18N.question_appoint_title}}</span>
+            </v-flex>
+            <v-flex sm12 text-xs-center>
+              <span>{{i18N.question_pay_title}}</span>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <v-container grid-list-md class="mt-0 pa-0" v-if="data.appoint != null && !show">
+          <v-layout row wrap>
+            <v-flex sm12 text-xs-center>
+              <v-flex sm12 text-xs-center>
+                <v-btn
+                  block
+                  round
+                  dark
+                  color="success"
+                  @click="pay()"
+                >
+                  {{i18N.pay}}1￥
+                </v-btn>
+              </v-flex>
+            </v-flex>
+          </v-layout>
+        </v-container>
+        <v-divider class="mt-3 mb-3" v-if="data.appoint != null && !show"></v-divider>
         <div class="text-xs-center">
           <v-chip
             label
@@ -43,7 +73,7 @@
       </v-card-text>
     </v-card>
     <v-divider class="mt-3 mb-3"></v-divider>
-    <AnswerList></AnswerList>
+    <AnswerList v-if="show"></AnswerList>
   </div>
 </template>
 
@@ -65,6 +95,7 @@ export default {
       i18N: i18N, // i18N配置文件
       loading: true, // 是否加载中
       dialog: false, // 是否加载中
+      show: false,
       data: {
         title: i18N.loading,
         content: ''
@@ -80,12 +111,11 @@ export default {
     }
   },
   methods: {
-    support (value) {
+    pay () {
       let _this = this
-      let _id = this.data.quizzer.id
       $.ajax({
         type: 'get',
-        url: i18N.domain + '/wallet/support?id=' + _id + '&money=' + value,
+        url: i18N.domain + '/record/pay?url=' + _this.$router.currentRoute.path + '&money=1.0',
         dataType: 'json',
         async: true,
         crossDomain: true,
@@ -95,6 +125,29 @@ export default {
         success: function (json) {
           let status = json.status
           alert(_this.tools.statusCodeToAlert(status))
+          _this.check()
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
+    check () {
+      let _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/record/check?url=' + _this.$router.currentRoute.path,
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (status === 0 || status === 7) {
+            _this.show = true
+          }
         },
         error: function () {
           alert(i18N.network + i18N.alert.error)
@@ -142,6 +195,7 @@ export default {
   },
   created () {
     this.getData()
+    this.check()
   }
 }
 </script>

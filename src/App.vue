@@ -155,9 +155,11 @@ import i18N from './assets/i18N/i18N'
 import $ from 'jquery'
 import 'material-design-icons-iconfont'
 import tools from '@/assets/tools'
+import SnackbarsAlert from '@/components/SnackbarsAlert'
 
 export default {
   name: 'App',
+  components: {SnackbarsAlert},
   data () {
     return {
       i18N: i18N,

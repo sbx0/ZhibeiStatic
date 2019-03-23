@@ -16,8 +16,7 @@ const i18N = {
     verify: '驗證',
     message: '消息',
     question: '問題',
-    answer: '回答',
-    markdown_edit: '高級回答'
+    answer: '回答'
   },
   attribute: {
     user: {
@@ -309,6 +308,10 @@ const i18N = {
   have_read_user: '已閱其所有私信',
   refresh: '刷新',
   answer: '回答',
+  markdown_edit: '高級回答',
+  question_appoint_title: '的專屬問題，付費即可查看回答。',
+  question_pay_title: '付款去向：回答者 50% 提問者 40% 平台 10% 。',
+  pay: '付費',
   certification_type: [
     {
       text: '個人認證',

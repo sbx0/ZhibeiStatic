@@ -309,6 +309,9 @@ const i18N = {
   refresh: '刷新',
   answer: '回答',
   markdown_edit: '高级回答',
+  question_appoint_title: '的专属问题，付费即可查看回答。',
+  question_pay_title: '付款去向：回答者 50% 提问者 40% 平台 10% 。',
+  pay: '付费',
   certification_type: [
     {
       text: '个人认证',

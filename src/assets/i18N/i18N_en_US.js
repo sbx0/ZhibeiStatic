@@ -309,6 +309,9 @@ const i18N = {
   refresh: 'Refresh',
   answer: 'Answer',
   markdown_edit: 'Markdown Edit',
+  question_appoint_title: '\'s exclusive question, pay to see the answer.',
+  question_pay_title: 'Payment destination: Respondent 50% Questioner 40% Platform 10%.',
+  pay: 'Pay',
   certification_type: [
     {
       text: 'Personal Certification',

@@ -181,6 +181,9 @@ export default {
         case 'message_board':
           this.currentItem = 'tab-MessageBoard'
           break
+        case 'message':
+          this.currentItem = 'tab-MessageSend'
+          break
         default:
           this.currentItem = 'tab-Article'
           break
