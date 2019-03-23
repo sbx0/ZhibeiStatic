@@ -1,6 +1,4 @@
 const i18N = {
-  // domain: 'http://192.168.3.2:8085', // 请求地址
-  domain: 'http://zb.sbx0.cn', // 请求地址
   table: {
     user: '用户',
     tag: '标签',
@@ -312,6 +310,31 @@ const i18N = {
   question_appoint_title: '的专属问题，付费即可查看回答。',
   question_pay_title: '付款去向：回答者 50% 提问者 40% 平台 10% 。',
   pay: '付费',
+  not_mobile_alert: '为了您得最佳体验，请使用手机访问本站。',
+  male: '男',
+  female: '女',
+  secret: '秘密',
+  the_best_of_the_game: '全场最佳',
+  date_to_time_click: {
+    already: '已',
+    just: '刚刚',
+    over: '结束',
+    there_are_still: '还有',
+    month: '个月',
+    week: '周',
+    day: '天',
+    hour: '小时',
+    min: '分钟'
+  },
+  date_to_time_show: {
+    just: '刚刚',
+    before: '前',
+    month: '个月',
+    week: '周',
+    day: '天',
+    hour: '小时',
+    min: '分钟'
+  },
   certification_type: [
     {
       text: '个人认证',
@@ -349,7 +372,10 @@ const i18N = {
     '超出限制',
     '查无结果',
     '暂无权限',
-    '重复操作'
+    '重复操作',
+    '操作超时',
+    '参数异常',
+    '余额不足'
   ]
 }
 export default i18N

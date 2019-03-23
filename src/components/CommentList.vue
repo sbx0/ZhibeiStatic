@@ -29,7 +29,7 @@
           class="loading-control"
         ></v-progress-circular>
       </div>
-      <template v-for="(item,index) in data" v-else>
+      <template v-for="item in data" v-else>
         <v-list-tile
           :key="item.id"
           avatar
@@ -52,7 +52,8 @@
             </v-list-tile-sub-title>
           </v-list-tile-content>
         </v-list-tile>
-        <hr v-bind:key="index+'hr'" class="v-divider v-divider--inset theme--light">
+        <more-function :key="item.id + '_c_more'" :path="'/comment/'+item.id"></more-function>
+        <v-divider class="mb-3" v-bind:key="item.id+'_divider_b'"></v-divider>
       </template>
       <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
     </v-form>
@@ -62,9 +63,11 @@
 <script>
 import i18N from '../assets/i18N/i18N'
 import $ from 'jquery'
+import MoreFunction from '@/components/MoreFunction'
 
 export default {
   name: 'CommentList',
+  components: {MoreFunction},
   data () {
     return {
       i18N: i18N,

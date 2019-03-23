@@ -143,6 +143,7 @@ export default {
           withCredentials: true
         },
         success: function (json) {
+          _this.messages = {}
           let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             _this.messages = json.objects

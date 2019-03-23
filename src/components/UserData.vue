@@ -49,9 +49,9 @@
       v-model="user.sex"
       name="sex"
     >
-      <v-radio label="男" value="male"></v-radio>
-      <v-radio label="女" value="female"></v-radio>
-      <v-radio label="保密" value=""></v-radio>
+      <v-radio :label="i18N.male" value="male"></v-radio>
+      <v-radio :label="i18N.female" value="female"></v-radio>
+      <v-radio :label="i18N.secret" value=""></v-radio>
     </v-radio-group>
   </v-form>
 </template>

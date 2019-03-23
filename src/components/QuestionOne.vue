@@ -53,7 +53,7 @@
                   color="success"
                   @click="pay()"
                 >
-                  {{i18N.pay}}1￥
+                  {{i18N.pay}} 1￥
                 </v-btn>
               </v-flex>
             </v-flex>

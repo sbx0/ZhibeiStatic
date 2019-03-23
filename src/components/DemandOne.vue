@@ -35,7 +35,9 @@
           </blockquote>
           <div v-html="markdown" v-viewer></div>
         </div>
-        <v-divider class="mt-3 mb-3"></v-divider>
+        <v-divider class="mt-3"></v-divider>
+        <more-function :key="data.id + '_more'" :path="'/demand/'+data.id"></more-function>
+        <v-divider class="mb-3"></v-divider>
         <div class="text-xs-center">
           <v-chip
             label
@@ -58,10 +60,11 @@ import markdownEditor from 'mavon-editor'
 import 'github-markdown-css'
 import CommentList from '../components/CommentList'
 import 'viewerjs/dist/viewer.css'
+import MoreFunction from '@/components/MoreFunction'
 
 export default {
   name: 'DemandOne',
-  components: {CommentList},
+  components: {CommentList, MoreFunction},
   data () {
     return {
       i18N: i18N, // i18N配置文件

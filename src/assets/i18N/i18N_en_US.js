@@ -1,6 +1,4 @@
 const i18N = {
-  // domain: 'http://localhost:8085', // 请求地址
-  domain: 'http://zb.sbx0.cn', // 请求地址
   table: {
     user: 'User',
     tag: 'Tag',
@@ -298,7 +296,7 @@ const i18N = {
   before_can_use: 'Before Can Use',
   lost_password_title: 'Send Success,please check your email box.',
   lost_password: 'Lost Password',
-  send: '发送',
+  send: 'Send',
   give_me_power: 'Give Me Power',
   others: 'Others',
   download: 'Download',
@@ -312,6 +310,31 @@ const i18N = {
   question_appoint_title: '\'s exclusive question, pay to see the answer.',
   question_pay_title: 'Payment destination: Respondent 50% Questioner 40% Platform 10%.',
   pay: 'Pay',
+  not_mobile_alert: 'For your best experience, please use this phone to access this site.',
+  male: 'male',
+  female: 'female',
+  secret: 'secret',
+  the_best_of_the_game: 'The best',
+  date_to_time_click: {
+    already: 'Has already',
+    just: 'Just',
+    over: ' over',
+    there_are_still: 'There are still',
+    month: 'month',
+    week: 'week',
+    day: 'day',
+    hour: 'hour',
+    min: 'minute'
+  },
+  date_to_time_show: {
+    just: 'Just',
+    before: ' ago',
+    month: 'month',
+    week: 'week',
+    day: 'day',
+    hour: 'hour',
+    min: 'minute'
+  },
   certification_type: [
     {
       text: 'Personal Certification',
@@ -342,14 +365,17 @@ const i18N = {
     error: 'Error'
   },
   status: [
-    'Successful Operation',
-    'Operation Failed',
+    'Successful operation',
+    'Operation failed',
     'Error',
-    'Not Login',
+    'Not registered yet',
     'Exceed the limit',
-    'Parameter Is Not Legal',
-    'No Permission',
-    'Repeat Operation'
+    'Check no results',
+    'No permission',
+    'Repeat operation',
+    'Operation timeout',
+    'Parameter exception',
+    'Insufficient balance'
   ]
 }
 export default i18N

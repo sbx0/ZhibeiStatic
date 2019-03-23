@@ -1,6 +1,4 @@
 const i18N = {
-  // domain: 'http://192.168.3.2:8085', // 請求地址
-  domain: 'http://zb.sbx0.cn', // 請求地址
   table: {
     user: '用戶',
     tag: '標籤',
@@ -312,6 +310,31 @@ const i18N = {
   question_appoint_title: '的專屬問題，付費即可查看回答。',
   question_pay_title: '付款去向：回答者 50% 提問者 40% 平台 10% 。',
   pay: '付費',
+  not_mobile_alert: '為了您得最佳體驗，請使用手機訪問本站。',
+  male: '男',
+  female: '女',
+  secret: '秘密',
+  the_best_of_the_game: '全場最佳',
+  date_to_time_click: {
+    already: '已',
+    just: '剛剛',
+    over: '結束',
+    there_are_still: '還有',
+    month: '個月',
+    week: '週',
+    day: '天',
+    hour: '小時',
+    min: '分鐘'
+  },
+  date_to_time_show: {
+    just: '剛剛',
+    before: '前',
+    month: '個月',
+    week: '週',
+    day: '天',
+    hour: '小時',
+    min: '分鐘'
+  },
   certification_type: [
     {
       text: '個人認證',
@@ -349,7 +372,10 @@ const i18N = {
     '超出限制',
     '查無結果',
     '暫無權限',
-    '重複操作'
+    '重複操作',
+    '操作超時',
+    '參數異常',
+    '餘額不足'
   ]
 }
 export default i18N

@@ -39,30 +39,31 @@
     </div>
     <template v-for="(item,index) in data" v-else>
       <v-divider class="mt-3" :key="index + 'divider_t'"></v-divider>
-      <v-list-tile
-        :key="item.id"
-        avatar
-      >
-        <v-list-tile-avatar
-          @click="tools.go('/user/'+item.answerer.id+'/article')"
-        >
-          <img :src="i18N.domain+item.answerer.avatar">
-        </v-list-tile-avatar>
-        <v-list-tile-content>
-          <v-list-tile-title>
-            <span v-if="item.answerer.nickname != ''">{{item.answerer.nickname}}</span>
-            <span v-else>{{item.answerer.name}}</span>
-          </v-list-tile-title>
-          <v-list-tile-sub-title>
-            {{tools.timeShow(item.time)}}
-          </v-list-tile-sub-title>
-        </v-list-tile-content>
-      </v-list-tile>
+      <v-layout align-center class="mb-3 mt-3" :key="item.id">
+        <v-flex sm4 text-xs-center>
+          <v-avatar size="32px" @click="tools.go('/user/'+item.answerer.id+'/answer')">
+            <img
+              v-if="item.answerer.avatar !== undefined"
+              :src="i18N.domain+item.answerer.avatar"
+            >
+          </v-avatar>
+          <span v-if="item.answerer.nickname != ''">{{item.answerer.nickname}}</span>
+          <span v-else>{{item.answerer.name}}</span>
+        </v-flex>
+        <v-flex sm4 text-xs-center>{{tools.timeShow(item.time)}}</v-flex>
+        <v-flex sm4 text-xs-center v-if="item.top > 0">
+          <v-chip color="orange" text-color="white">
+            {{i18N.the_best_of_the_game}}
+            <v-icon right>star</v-icon>
+          </v-chip>
+        </v-flex>
+      </v-layout>
       <v-divider :key="item.id + 'divider_c'"></v-divider>
       <div class="markdown-body" :key="item.id + 'content'">
         <div v-html="item.content" v-viewer v-highlight></div>
       </div>
-      <v-divider :key="item.id + 'divider_b'"></v-divider>
+      <more-function :key="item.id + '_more'" :path="'/answer/'+item.id"></more-function>
+      <v-divider :key="item.id + 'divider_bb'"></v-divider>
     </template>
     <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
   </v-list>
@@ -76,9 +77,14 @@ import 'viewerjs/dist/viewer.css'
 import 'github-markdown-css'
 import 'highlight.js'
 import 'highlight.js/styles/googlecode.css'
+import MoreFunction from '@/components/MoreFunction'
 
 export default {
   name: 'AnswerList',
+  components: {MoreFunction},
+  comments: {
+    MoreFunction
+  },
   data () {
     return {
       i18N: i18N,
@@ -90,8 +96,8 @@ export default {
       size: 10, // 每页条数
       totalPage: 0, // 总页数
       totalElements: 0, // 总条数
-      attribute: 'time', // 按什么排序
-      direction: 'DESC', // 倒序
+      attribute: 'top', // 按什么排序
+      direction: 'ASC', // 倒序
       content: '',
       more: false
     }
@@ -258,7 +264,7 @@ export default {
 
 <style scoped>
   .form-control {
-    margin: 25px 25px;
+    margin: 10px 25px 0px 25px;
   }
 
   .v-input__slot {

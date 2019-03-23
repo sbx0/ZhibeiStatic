@@ -3,6 +3,9 @@ import zhTW from '@/assets/i18N/i18N_zh_TW'
 import enUS from '@/assets/i18N/i18N_en_US'
 import tools from '@/assets/tools'
 
+// let domain = 'http://192.168.3.2:8085'
+let domain = 'http://zb.sbx0.cn'
+
 let lib = [
   {name: 'zh_CN', text: '简体中文'},
   {name: 'zh_TW', text: '繁體中文'},
@@ -35,5 +38,6 @@ switch (i18NConfig) {
 }
 
 i18N.lib = lib
+i18N['domain'] = domain
 
 export default i18N

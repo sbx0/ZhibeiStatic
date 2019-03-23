@@ -28,32 +28,9 @@
         <div class="markdown-body">
           <div v-html="markdown" v-viewer v-highlight></div>
         </div>
-        <v-divider class="mt-3 mb-3"></v-divider>
-        <v-container fluid class="mt-0 pa-0">
-          <v-layout align-center>
-            <v-flex sm3 text-xs-center>
-              <v-btn flat icon>
-                <v-icon>favorite</v-icon>
-              </v-btn>
-            </v-flex>
-            <v-flex sm3 text-xs-center>
-              <v-btn flat icon>
-                <v-icon>star</v-icon>
-              </v-btn>
-            </v-flex>
-            <v-flex sm3 text-xs-center>
-              <v-btn flat icon color="green" @click="dialog = true">
-                <v-icon>monetization_on</v-icon>
-              </v-btn>
-            </v-flex>
-            <v-flex sm3 text-xs-center>
-              <v-btn flat icon>
-                <v-icon>thumb_up</v-icon>
-              </v-btn>
-            </v-flex>
-          </v-layout>
-        </v-container>
-        <v-divider class="mt-3 mb-3"></v-divider>
+        <v-divider class="mt-3"></v-divider>
+        <more-function :key="data.id + '_more'" :path="'/article/'+data.id"></more-function>
+        <v-divider class="mb-3"></v-divider>
         <div class="text-xs-center">
           <v-chip
             label
@@ -106,10 +83,11 @@ import 'viewerjs/dist/viewer.css'
 import 'github-markdown-css'
 import 'highlight.js'
 import 'highlight.js/styles/googlecode.css'
+import MoreFunction from '@/components/MoreFunction'
 
 export default {
   name: 'Article',
-  components: {CommentList},
+  components: {CommentList, MoreFunction},
   data () {
     return {
       i18N: i18N, // i18N配置文件

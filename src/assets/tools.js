@@ -27,7 +27,7 @@ const tools = {
       language: (navigator.browserLanguage || navigator.language)
     }
     if (!browser.versions.mobile) {
-      alert('为了您得最佳体验，请使用手机访问本站。')
+      alert(i18N.not_mobile_alert)
     }
     return browser
   },
@@ -39,7 +39,7 @@ const tools = {
     let endTimeStamp = Date.parse(endDateStr.replace(/-/gi, '/'))
     let diffValue = endTimeStamp - beginTimeStamp
     if (diffValue < 0) {
-      return '已结束'
+      return i18N.date_to_time_click.already + i18N.date_to_time_click.over
     }
     let monthC = diffValue / month
     let weekC = diffValue / (7 * day)
@@ -48,17 +48,17 @@ const tools = {
     let minC = diffValue / minute
     let result
     if (monthC >= 1) {
-      result = '还有 ' + parseInt(monthC) + ' 个月'
+      result = i18N.date_to_time_click.there_are_still + ' ' + parseInt(monthC) + ' ' + i18N.date_to_time_click.month
     } else if (weekC >= 1) {
-      result = '还有 ' + parseInt(weekC) + ' 周'
+      result = i18N.date_to_time_click.there_are_still + ' ' + parseInt(weekC) + ' ' + i18N.date_to_time_click.week
     } else if (dayC >= 1) {
-      result = '还有 ' + parseInt(dayC) + ' 天'
+      result = i18N.date_to_time_click.there_are_still + ' ' + parseInt(dayC) + ' ' + i18N.date_to_time_click.day
     } else if (hourC >= 1) {
-      result = '还有 ' + parseInt(hourC) + ' 小时'
+      result = i18N.date_to_time_click.there_are_still + ' ' + parseInt(hourC) + ' ' + i18N.date_to_time_click.hour
     } else if (minC >= 1) {
-      result = '还有 ' + parseInt(minC) + ' 分钟'
+      result = i18N.date_to_time_click.there_are_still + ' ' + parseInt(minC) + ' ' + i18N.date_to_time_click.min
     } else {
-      result = '刚刚结束'
+      result = i18N.date_to_time_click.just + i18N.date_to_time_click.over
     }
     return result
   },
@@ -76,17 +76,17 @@ const tools = {
     let minC = diffValue / minute
     let result
     if (monthC >= 1) {
-      result = '发表于 ' + parseInt(monthC) + ' 个月前'
+      result = parseInt(monthC) + ' ' + i18N.date_to_time_show.month + i18N.date_to_time_show.before
     } else if (weekC >= 1) {
-      result = '发表于 ' + parseInt(weekC) + ' 周前'
+      result = parseInt(weekC) + ' ' + i18N.date_to_time_show.week + i18N.date_to_time_show.before
     } else if (dayC >= 1) {
-      result = '发表于 ' + parseInt(dayC) + ' 天前'
+      result = parseInt(dayC) + ' ' + i18N.date_to_time_show.day + i18N.date_to_time_show.before
     } else if (hourC >= 1) {
-      result = '发表于 ' + parseInt(hourC) + ' 小时前'
+      result = parseInt(hourC) + ' ' + i18N.date_to_time_show.hour + i18N.date_to_time_show.before
     } else if (minC >= 1) {
-      result = '发表于 ' + parseInt(minC) + ' 分钟前'
+      result = parseInt(minC) + ' ' + i18N.date_to_time_show.min + i18N.date_to_time_show.before
     } else {
-      result = '刚刚发表'
+      result = i18N.date_to_time_show.just
     }
     return result
   },
@@ -117,6 +117,8 @@ const tools = {
       case 5:
       case 6:
       case 7:
+      case 8:
+      case 9:
         return i18N.status[status]
       default:
         return i18N.status[1]
