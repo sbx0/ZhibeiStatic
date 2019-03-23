@@ -73,7 +73,8 @@
       </v-card-text>
     </v-card>
     <v-divider class="mt-3 mb-3"></v-divider>
-    <AnswerList v-if="show"></AnswerList>
+    <AnswerList v-if="data.appoint != null && show"></AnswerList>
+    <AnswerList v-if="data.appoint == null"></AnswerList>
   </div>
 </template>
 
@@ -145,7 +146,7 @@ export default {
         },
         success: function (json) {
           let status = json.status
-          if (status === 0 || status === 3 || status === 7) {
+          if (status === 0 || status === 7) {
             _this.show = true
           }
         },
