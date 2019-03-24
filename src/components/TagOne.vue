@@ -59,7 +59,7 @@ export default {
         {
           title: i18N.table.question,
           index: 'Question',
-          icon: 'assignment'
+          icon: 'live_help'
         },
         {
           title: i18N.table.demand,

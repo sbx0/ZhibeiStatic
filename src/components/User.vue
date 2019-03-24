@@ -111,7 +111,7 @@ export default {
         {
           title: i18N.table.answer,
           index: 'Answer',
-          icon: 'assignment'
+          icon: 'wb_incandescent'
         },
         {
           title: i18N.table.demand,
@@ -131,7 +131,7 @@ export default {
         {
           title: i18N.table.question,
           index: 'Question',
-          icon: 'assignment'
+          icon: 'live_help'
         },
         {
           title: i18N.table.comment,
