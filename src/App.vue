@@ -289,6 +289,10 @@ export default {
 </script>
 
 <style>
+  .loading-control {
+    margin: 50px 50px;
+  }
+
   .container {
     padding: 0px !important;
   }

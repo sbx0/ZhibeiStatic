@@ -1,6 +1,14 @@
 <template>
   <div>
+    <div class="text-xs-center" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        class="loading-control"
+      ></v-progress-circular>
+    </div>
     <v-jumbotron
+      v-else
       color="#9e9e9e47"
       height="60px"
     >
@@ -34,6 +42,7 @@ export default {
   data () {
     return {
       i18N: i18N,
+      loading: true,
       items: [],
       active: [],
       open: [],
