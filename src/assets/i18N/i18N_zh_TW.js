@@ -315,6 +315,8 @@ const i18N = {
   female: '女',
   secret: '秘密',
   the_best_of_the_game: '全場最佳',
+  chose_as: '選為',
+  solved: '已解決',
   date_to_time_click: {
     already: '已',
     just: '剛剛',

@@ -315,6 +315,8 @@ const i18N = {
   female: 'female',
   secret: 'secret',
   the_best_of_the_game: 'The best',
+  chose_as: 'Chose as ',
+  solved: 'Solved',
   date_to_time_click: {
     already: 'Has already',
     just: 'Just',

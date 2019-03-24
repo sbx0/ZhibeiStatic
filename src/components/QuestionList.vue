@@ -27,15 +27,20 @@
           </v-list-tile-sub-title>
         </v-list-tile-content>
         <v-list-tile-action>
-          <v-list-tile-action-text v-if="item.price != '0'">{{ item.price }} ￥</v-list-tile-action-text>
+          <v-list-tile-action-text v-if="item.price != '0' && item.status === 0">{{ item.price }} ￥
+          </v-list-tile-action-text>
+          <v-list-tile-action-text v-else>
+            <span v-if="item.status === 1">
+                    <v-chip color="success" text-color="white" small="">
+                      {{i18N.solved}}
+                      <v-icon right>check_circle</v-icon>
+                    </v-chip>
+            </span>
+            <span v-if="item.status == -1">已关闭</span>
+          </v-list-tile-action-text>
           <v-list-tile-action-text v-if="item.tags.length > 0">
             <v-chip small outline label>{{item.tags[0].name}}</v-chip>
           </v-list-tile-action-text>
-          <!--<v-icon-->
-          <!--color="grey lighten-1"-->
-          <!--&gt;-->
-          <!--star_border-->
-          <!--</v-icon>-->
         </v-list-tile-action>
       </v-list-tile>
       <v-divider

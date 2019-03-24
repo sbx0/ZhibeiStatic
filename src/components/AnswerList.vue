@@ -57,6 +57,16 @@
             <v-icon right>star</v-icon>
           </v-chip>
         </v-flex>
+        <v-flex sm4 text-xs-center v-if="item.is_quizzer && item.top === 0 && item.question.status === 0">
+          <v-btn
+            @click="chose_as_the_best(item.id)"
+            color="pink"
+            class="white--text"
+          >
+            {{i18N.chose_as+i18N.the_best_of_the_game}}
+            <v-icon right dark>favorite</v-icon>
+          </v-btn>
+        </v-flex>
       </v-layout>
       <v-divider :key="item.id + 'divider_c'"></v-divider>
       <div class="markdown-body" :key="item.id + 'content'">
@@ -94,12 +104,34 @@ export default {
       totalPage: 0, // 总页数
       totalElements: 0, // 总条数
       attribute: 'top', // 按什么排序
-      direction: 'ASC', // 倒序
+      direction: 'DESC', // 倒序
       content: '',
       more: false
     }
   },
   methods: {
+    chose_as_the_best (id) {
+      let _this = this
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/answer/best?id=' + id,
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            _this.getData()
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
     readMore: function () {
       let _this = this
       let url = i18N.domain +

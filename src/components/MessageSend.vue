@@ -280,6 +280,7 @@ export default {
     vertical-align: middle;
     font-size: 15px;
     padding-left: 10px;
+    padding-right: 10px;
     border-radius: 10px;
     margin-right: 50px;
     margin-bottom: 10px;
