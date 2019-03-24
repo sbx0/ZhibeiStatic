@@ -123,7 +123,7 @@ export default {
           this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/message'})
           break
         default:
-          this.$router.push({path: '/'})
+          this.$router.push({path: '/answer'})
           break
       }
     },
@@ -193,7 +193,6 @@ export default {
   watch: {
     '$route' () {
       this.routeChange()
-      this.getData()
     }
   },
   created () {

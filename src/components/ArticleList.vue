@@ -55,7 +55,7 @@ export default {
   data () {
     return {
       i18N: i18N, // i18N配置文件
-      loading: true, // 是否加载中
+      loading: false, // 是否加载中
       more: false,
       page: 1, // 当前页数
       size: 10, // 每页条数
@@ -105,6 +105,19 @@ export default {
         }
         url = i18N.domain +
             '/article/user?id=' + id +
+            '&page=' + (_this.page + 1) +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
+      } else if (path === '/tag/article') {
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain +
+            '/article/tag?id=' + id +
             '&page=' + (_this.page + 1) +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
@@ -165,6 +178,19 @@ export default {
           id = idM[1].replace(/</, '&lt;')
         }
         url = i18N.domain + '/article/user?id=' + id +
+            '&page=' + _this.page +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
+      } else if (path === '/tag/article') {
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain +
+            '/article/tag?id=' + id +
             '&page=' + _this.page +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +

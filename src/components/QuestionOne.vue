@@ -62,10 +62,10 @@
         <v-divider class="mt-3 mb-3" v-if="data.appoint != null && !show"></v-divider>
         <div class="text-xs-center">
           <v-chip
-            label
-            small
+            small outline label
             v-for="tag in data.tags"
             v-bind:key="tag.id"
+            @click="tools.go('/tag/'+tag.id+'/question')"
           >
             {{tag.name}}
           </v-chip>

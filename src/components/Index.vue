@@ -89,6 +89,7 @@ export default {
       }
     },
     routeChange () {
+      this.currentItem = 'tab-Article'
       let path = this.$router.currentRoute.path
       if (path === '/') {
         this.$router.push({path: '/question'})
@@ -114,6 +115,9 @@ export default {
   },
   watch: {
     '$route' () {
+      this.routeChange()
+    },
+    currentItem () {
       this.routeChange()
     }
   },

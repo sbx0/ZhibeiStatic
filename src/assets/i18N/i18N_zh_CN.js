@@ -137,7 +137,8 @@ const i18N = {
       id: '编号',
       name: '名称',
       introduction: '简介',
-      cover: '封面'
+      cover: '封面',
+      father: '父标签'
     },
     verify: {
       id: '编号',
@@ -317,6 +318,8 @@ const i18N = {
   the_best_of_the_game: '全场最佳',
   chose_as: '选为',
   solved: '已解决',
+  closed: '已关闭',
+  tree: '树',
   date_to_time_click: {
     already: '已',
     just: '刚刚',

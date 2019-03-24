@@ -27,6 +27,8 @@ import QuestionPost from '@/components/QuestionPost'
 import QuestionOne from '@/components/QuestionOne'
 import AnswerList from '@/components/AnswerList'
 import AnswerPost from '@/components/AnswerPost'
+import TagTree from '@/components/TagTree'
+import TagOne from '@/components/TagOne'
 
 export default new Router({
   mode: 'hash',
@@ -90,6 +92,25 @@ export default new Router({
       path: '/demand/:id',
       name: 'DemandOne',
       component: DemandOne
+    },
+    {
+      path: '/tag/:id',
+      name: 'TagOne',
+      component: TagOne,
+      children: [
+        {
+          path: 'question',
+          component: QuestionList
+        },
+        {
+          path: 'article',
+          component: ArticleList
+        },
+        {
+          path: 'message_board',
+          component: CommentList
+        }
+      ]
     },
     {
       path: '/user/:id',
@@ -189,6 +210,11 @@ export default new Router({
       path: '/alipay',
       name: 'Alipay',
       component: Alipay
+    },
+    {
+      path: '/tag_tree',
+      name: 'TagTree',
+      component: TagTree
     },
     {
       path: '/NotFound',

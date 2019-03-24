@@ -137,7 +137,8 @@ const i18N = {
       id: '編號',
       name: '名稱',
       introduction: '簡介',
-      cover: '封面'
+      cover: '封面',
+      father: '父標籤'
     },
     verify: {
       id: '編號',
@@ -317,6 +318,8 @@ const i18N = {
   the_best_of_the_game: '全場最佳',
   chose_as: '選為',
   solved: '已解決',
+  closed: '已關閉',
+  tree: '樹',
   date_to_time_click: {
     already: '已',
     just: '剛剛',

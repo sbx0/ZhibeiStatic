@@ -40,8 +40,7 @@
         <v-divider class="mb-3"></v-divider>
         <div class="text-xs-center">
           <v-chip
-            label
-            small
+            small outline label
           >
             {{data.category.name}}
           </v-chip>

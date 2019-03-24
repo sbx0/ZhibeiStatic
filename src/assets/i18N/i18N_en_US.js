@@ -137,7 +137,8 @@ const i18N = {
       id: 'ID',
       name: 'Name',
       introduction: 'Introduction',
-      cover: 'Cover'
+      cover: 'Cover',
+      father: 'Parent tag'
     },
     verify: {
       id: 'ID',
@@ -317,6 +318,8 @@ const i18N = {
   the_best_of_the_game: 'The best',
   chose_as: 'Chose as ',
   solved: 'Solved',
+  closed: 'Closed',
+  tree: 'Tree',
   date_to_time_click: {
     already: 'Has already',
     just: 'Just',

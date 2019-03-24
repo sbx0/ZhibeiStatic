@@ -31,15 +31,16 @@
           </v-list-tile-action-text>
           <v-list-tile-action-text v-else>
             <span v-if="item.status === 1">
-                    <v-chip color="success" text-color="white" small="">
-                      {{i18N.solved}}
-                      <v-icon right>check_circle</v-icon>
-                    </v-chip>
+              <v-chip color="success" text-color="white" small="">
+                {{i18N.solved}}
+                <v-icon right>check_circle</v-icon>
+              </v-chip>
             </span>
-            <span v-if="item.status == -1">已关闭</span>
+            <span v-if="item.status == -1">{{i18N.closed}}</span>
           </v-list-tile-action-text>
           <v-list-tile-action-text v-if="item.tags.length > 0">
-            <v-chip small outline label>{{item.tags[0].name}}</v-chip>
+            <v-chip small outline label @click="tools.go('/tag/'+item.tags[0].id+'/question')">{{item.tags[0].name}}
+            </v-chip>
           </v-list-tile-action-text>
         </v-list-tile-action>
       </v-list-tile>
@@ -102,6 +103,19 @@ export default {
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
             '&direction=' + _this.direction
+      } else if (path === '/tag/question') {
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain +
+            '/question/tag?id=' + id +
+            '&page=' + (_this.page + 1) +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
       }
       $.ajax({
         type: 'get',
@@ -158,6 +172,19 @@ export default {
           id = idM[1].replace(/</, '&lt;')
         }
         url = i18N.domain + '/question/user?id=' + id +
+            '&page=' + _this.page +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
+      } else if (path === '/tag/question') {
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain +
+            '/question/tag?id=' + id +
             '&page=' + _this.page +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +

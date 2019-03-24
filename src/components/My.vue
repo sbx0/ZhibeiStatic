@@ -167,14 +167,6 @@ export default {
           action: 'money',
           title: i18N.give_me_power,
           page: '/alipay'
-        },
-        {
-          action: 'move_to_inbox',
-          title: i18N.message
-        },
-        {
-          action: 'send',
-          title: i18N.send + i18N.message
         }
         // {divider: true},
         // {header: i18N.others},

@@ -33,10 +33,10 @@
         <v-divider class="mb-3"></v-divider>
         <div class="text-xs-center">
           <v-chip
-            label
-            small
+            small outline label
             v-for="tag in data.tags"
             v-bind:key="tag.id"
+            @click="tools.go('/tag/'+tag.id+'/article')"
           >
             {{tag.name}}
           </v-chip>
