@@ -71,20 +71,57 @@
           >
             <v-card-title>
               <v-layout
-                column
+                wrap
                 align-start
               >
-                <div class="caption grey--text text-uppercase">
-                  {{i18N.attribute.wallet.money}}
-                </div>
-                <div>
+                <v-flex xs6>
+                  <div class="caption grey--text text-uppercase">
+                    {{i18N.attribute.wallet.money}}
+                  </div>
                   <span
                     class="display-2 font-weight-black"
                   >
                     {{money}}
                   </span>
                   <strong>￥</strong>
-                </div>
+                </v-flex>
+                <v-flex xs6>
+                  <div class="caption grey--text text-uppercase">
+                    {{i18N.attribute.user.integral}}
+                  </div>
+                  <span
+                    class="display-2 font-weight-black"
+                  >
+                    {{user.integral}}
+                  </span>
+                </v-flex>
+                <v-flex xs6>
+                  <div class="caption grey--text text-uppercase">
+                    {{i18N.attribute.user.level}}
+                  </div>
+                  <span
+                    class="display-2 font-weight-black"
+                  >
+                    Lv
+                    {{user.level}}
+                  </span>
+                </v-flex>
+                <v-flex xs6>
+                  <div class="caption grey--text text-uppercase">
+                    {{i18N.attribute.user.exp}}
+                  </div>
+                  <div class="text-xs-center">
+                    <v-progress-circular
+                      rotate="360"
+                      size="100"
+                      width="10"
+                      :value="(user.exp / user.exp_max) * 100"
+                      color="teal"
+                    >
+                      {{ user.exp + '/' + user.exp_max }}
+                    </v-progress-circular>
+                  </div>
+                </v-flex>
               </v-layout>
             </v-card-title>
           </v-card>
@@ -152,6 +189,7 @@ export default {
       md5: '',
       checking: false,
       heartbeats: [],
+      exp_progress: 0,
       user: {
         name: i18N.not + i18N.login,
         nickname: i18N.not + i18N.login,
