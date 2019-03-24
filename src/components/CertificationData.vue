@@ -52,46 +52,59 @@
       ></v-progress-circular>
     </div>
     <div v-else>
-      <v-card color="purple" class="white--text" v-if="certification.passed == null">
-        <v-layout row>
-          <v-flex xs7>
-            <v-card-title primary-title>
-              <div>
-                <div class="headline">{{i18N.under_review}}</div>
-                <div>{{certification.type}}</div>
-                <div>{{certification.info}}</div>
-                <div>{{certification.start_time}}</div>
-              </div>
-            </v-card-title>
-          </v-flex>
-          <v-flex xs5>
-            <v-img
-              :src="certification.img"
-              height="125px"
-              contain
-            ></v-img>
-          </v-flex>
-        </v-layout>
+      <v-card
+        v-if="certification.passed == null"
+        class="mt-3 mx-auto text-xs-center"
+        max-width="400"
+      >
+        <v-sheet
+          dark
+          class="v-sheet--offset mx-auto mb-3"
+          color="success"
+          elevation="12"
+          max-width="calc(100% - 32px)"
+        >
+          <h3>{{certification.type}}</h3>
+        </v-sheet>
+        <v-card-text class="pt-0">
+          <div class="title font-weight-light mb-2">{{certification.info}}</div>
+          <div class="subheading font-weight-light grey--text">{{i18N.under_review}}</div>
+          <v-divider class="my-2"></v-divider>
+          <v-icon
+            class="mr-2"
+            small
+          >
+            mdi-clock
+          </v-icon>
+          <span class="caption grey--text font-weight-light">{{certification.startTime}}</span>
+        </v-card-text>
       </v-card>
-      <v-card color="purple" class="white--text" v-if="certification.passed">
-        <v-layout row>
-          <v-flex xs7>
-            <v-card-title primary-title>
-              <div>
-                <div class="headline">{{certification.info}}</div>
-                <div>{{certification.type}}</div>
-                <div>{{certification.end_time+' '+i18N.before_can_use}}</div>
-              </div>
-            </v-card-title>
-          </v-flex>
-          <v-flex xs5>
-            <v-img
-              :src="certification.img"
-              height="125px"
-              contain
-            ></v-img>
-          </v-flex>
-        </v-layout>
+      <v-card
+        v-if="certification.passed"
+        class="mt-3 mx-auto text-xs-center"
+        max-width="400"
+      >
+        <v-sheet
+          dark
+          class="v-sheet--offset mx-auto mb-3"
+          color="success"
+          elevation="12"
+          max-width="calc(100% - 32px)"
+        >
+          <h3>{{certification.type}}</h3>
+        </v-sheet>
+        <v-card-text class="pt-0">
+          <div class="title font-weight-light mb-2">{{certification.info}}</div>
+          <div class="subheading font-weight-light grey--text"></div>
+          <v-divider class="my-2"></v-divider>
+          <v-icon
+            class="mr-2"
+            small
+          >
+            mdi-clock
+          </v-icon>
+          <span class="caption grey--text font-weight-light">{{certification.endTime+' '+i18N.before_can_use}}</span>
+        </v-card-text>
       </v-card>
     </div>
   </div>
@@ -134,8 +147,12 @@ export default {
         success: function (json) {
           let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
-            json.certification.start_time = _this.tools.formatDate(json.certification.start_time, 'yyyy-MM-dd')
-            json.certification.end_time = _this.tools.formatDate(json.certification.end_time, 'yyyy-MM-dd')
+            let type = _this.i18N.certification_type
+            for (let i = 0; i < type.length; i++) {
+              if (type[i].value === json.certification.type) {
+                json.certification.type = type[i].text
+              }
+            }
             _this.certification = json.certification
             _this.not_yet = true
             _this.loading = false

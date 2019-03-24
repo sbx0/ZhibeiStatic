@@ -1,14 +1,62 @@
-<template>
+<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
   <div>
     <v-container>
-      <v-layout align-center mt-3 mb-3>
-        <v-flex sm12 text-xs-center>
-          <v-avatar class="mb-3">
-            <img v-if="userData.avatar !== undefined" :src="i18N.domain+userData.avatar" alt="avatar">
-          </v-avatar>
+      <v-layout mt-3 mb-3 wrap>
+        <v-flex xs12 text-xs-center>
+          <v-badge
+            color="success"
+            bottom
+            overlap
+            class="mb-3"
+            transition
+          >
+            <!--<template v-slot:badge>-->
+              <!--<v-icon-->
+                <!--dark-->
+                <!--small-->
+              <!--&gt;-->
+                <!--school-->
+              <!--</v-icon>-->
+            <!--</template>-->
+            <v-avatar>
+              <img v-if="userData.avatar !== undefined" :src="i18N.domain+userData.avatar" alt="avatar">
+            </v-avatar>
+          </v-badge>
           <h2 v-if="userData.nickname != ''">{{userData.nickname}}#{{userData.name}}</h2>
           <h2 v-else>{{userData.name}}</h2>
-          <p v-if="userData.introduction != undefined">{{userData.introduction}}</p>
+          <span v-if="userData.introduction != undefined">{{userData.introduction}}</span>
+        </v-flex>
+        <v-flex xs12 text-xs-center>
+          <p>Lv.{{userData.level}}</p>
+        </v-flex>
+        <v-flex xs12 v-if="certification !== null && !loading">
+          <v-card
+            class="mx-auto text-xs-center"
+            max-width="400"
+          >
+            <v-sheet
+              dark
+              class="v-sheet--offset mx-auto mb-3"
+              color="success"
+              elevation="12"
+              max-width="calc(100% - 32px)"
+            >
+              <h3>{{certification.type}}</h3>
+            </v-sheet>
+            <v-card-text class="pt-0">
+              <div class="title font-weight-light mb-2">{{certification.info}}</div>
+              <div class="subheading font-weight-light grey--text"></div>
+              <v-divider class="my-2"></v-divider>
+              <v-icon
+                class="mr-2"
+                small
+              >
+                mdi-clock
+              </v-icon>
+              <span
+                class="caption grey--text font-weight-light">{{certification.endTime+' '+i18N.before_can_use}}</span>
+            </v-card-text>
+          </v-card>
         </v-flex>
       </v-layout>
     </v-container>
@@ -53,6 +101,7 @@ export default {
     return {
       i18N: i18N, // i18N配置文件
       loading: true, // 是否加载中
+      certification: null,
       userData: {
         name: i18N.loading
       },
@@ -159,6 +208,38 @@ export default {
         }
       })
     },
+    getCertification () {
+      let _this = this
+      _this.loading = true
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/certification/user?id=' + _this.$route.params.id,
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            let type = _this.i18N.certification_type
+            for (let i = 0; i < type.length; i++) {
+              if (type[i].value === json.certification.type) {
+                json.certification.type = type[i].text
+              }
+            }
+            _this.certification = json.certification
+            _this.loading = false
+          } else {
+            _this.loading = false
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
     routeChange () {
       let path = this.$router.currentRoute.path
       let char = path.split('/')
@@ -198,6 +279,7 @@ export default {
   created () {
     this.routeChange()
     this.getData()
+    this.getCertification()
   }
 }
 </script>

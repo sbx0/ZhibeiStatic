@@ -104,7 +104,7 @@
               </v-subheader>
             </template>
           </v-list>
-          <v-dialog v-model="dataDialog" persistent max-width="600px">
+          <v-dialog v-model="dataDialog">
             <v-card>
               <v-card-title>
                 <span class="headline">{{cardTitle}}</span>
