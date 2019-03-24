@@ -115,7 +115,7 @@ export default {
       priceRules: [
         v => !!v || i18N.attribute.question.price + i18N.is + i18N.empty
       ],
-      price: '0.00',
+      price: '0.0',
       content: ''
     }
   },

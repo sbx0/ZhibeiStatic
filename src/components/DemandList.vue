@@ -123,6 +123,19 @@ export default {
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +
             '&direction=' + _this.direction
+      } else if (path === '/tag/demand') {
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain +
+            '/demand/tag?id=' + id +
+            '&page=' + (_this.page + 1) +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
       }
       $.ajax({
         type: 'get',
@@ -179,6 +192,19 @@ export default {
           id = idM[1].replace(/</, '&lt;')
         }
         url = i18N.domain + '/demand/user?id=' + id +
+            '&page=' + _this.page +
+            '&size=' + _this.size +
+            '&attribute=' + _this.attribute +
+            '&direction=' + _this.direction
+      } else if (path === '/tag/demand') {
+        let id = '-1'
+        let idRegExp = new RegExp('.*?(\\d+)')
+        let idM = idRegExp.exec(_this.$router.currentRoute.path)
+        if (idM != null) {
+          id = idM[1].replace(/</, '&lt;')
+        }
+        url = i18N.domain +
+            '/demand/tag?id=' + id +
             '&page=' + _this.page +
             '&size=' + _this.size +
             '&attribute=' + _this.attribute +

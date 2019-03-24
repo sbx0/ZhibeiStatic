@@ -29,7 +29,7 @@
         <v-flex xs12 text-xs-center>
           <p>Lv.{{userData.level}}</p>
         </v-flex>
-        <v-flex xs12 v-if="certification !== null && !loading">
+        <v-flex xs12 v-if="certification !== null && show">
           <v-card
             class="mx-auto text-xs-center"
             max-width="400"
@@ -102,6 +102,7 @@ export default {
       i18N: i18N, // i18N配置文件
       loading: true, // 是否加载中
       certification: null,
+      show: false,
       userData: {
         name: i18N.loading
       },
@@ -210,6 +211,8 @@ export default {
     },
     getCertification () {
       let _this = this
+      _this.certification = null
+      _this.show = false
       _this.loading = true
       $.ajax({
         type: 'get',
@@ -222,7 +225,7 @@ export default {
         },
         success: function (json) {
           let status = json.status
-          if (_this.tools.statusCodeToBool(status)) {
+          if (_this.tools.statusCodeToBool(status) && json.certification.type !== undefined) {
             let type = _this.i18N.certification_type
             for (let i = 0; i < type.length; i++) {
               if (type[i].value === json.certification.type) {
@@ -231,6 +234,7 @@ export default {
             }
             _this.certification = json.certification
             _this.loading = false
+            _this.show = true
           } else {
             _this.loading = false
           }

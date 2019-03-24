@@ -59,19 +59,20 @@
           required
         ></v-text-field>
         <textarea name="content" :value="content" hidden></textarea>
-        <select name="category" multiple style="display: none;">
-          <option v-for="(tag,key) in categoriesSelected" v-bind:key="key" :value="tag" selected>
+        <select name="tags" multiple style="display: none;">
+          <option v-for="(tag,key) in tagsSelected" v-bind:key="key" :value="tag" selected>
             {{tag}}
           </option>
         </select>
         <v-select
-          :label="i18N.attribute.demand.category"
-          :items="categories"
-          v-model="categoriesSelected"
+          :label="i18N.attribute.demand.tags"
+          :items="tags"
+          v-model="tagsSelected"
           item-text="name"
           item-value="id"
           attach
           chips
+          multiple
         ></v-select>
         <v-menu
           ref="endTimeMenu"
@@ -124,13 +125,13 @@ export default {
       loading: true,
       title: '',
       img: '',
-      categories: [],
-      categoriesSelected: [],
+      tags: [],
+      tagsSelected: [],
       titleRules: [
         v => !!v || i18N.attribute.demand.title + i18N.is + i18N.empty
       ],
       content: '',
-      budget: '10000.00',
+      budget: '0',
       budgetRules:
           [
             v => !!v || i18N.attribute.demand.budget + i18N.is + i18N.empty
@@ -174,8 +175,8 @@ export default {
       let _this = this
       $.ajax({
         type: 'get',
-        url: i18N.domain + '/category/normal/list?page=1' +
-            '&size=9999',
+        url: i18N.domain + '/tag/normal/list?page=1' +
+          '&size=9999',
         dataType: 'json',
         async: true,
         crossDomain: true,
@@ -186,7 +187,7 @@ export default {
           let status = json.status
           if (_this.tools.statusCodeToBool(status)) {
             if (json.objects !== undefined) {
-              _this.categories = json.objects
+              _this.tags = json.objects
             }
           } else {
             alert(_this.tools.statusCodeToAlert(status))

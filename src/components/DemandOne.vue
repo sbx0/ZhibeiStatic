@@ -38,11 +38,15 @@
         <v-divider class="mt-3"></v-divider>
         <more-function :key="data.id + '_more'" :path="'/demand/'+data.id"></more-function>
         <v-divider class="mb-3"></v-divider>
+        <v-divider class="mb-3"></v-divider>
         <div class="text-xs-center">
           <v-chip
             small outline label
+            v-for="tag in data.tags"
+            v-bind:key="tag.id"
+            @click="tools.go('/tag/'+tag.id+'/demand')"
           >
-            {{data.category.name}}
+            {{tag.name}}
           </v-chip>
         </div>
       </v-card-text>

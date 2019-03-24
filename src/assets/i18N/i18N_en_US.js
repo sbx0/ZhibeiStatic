@@ -130,7 +130,7 @@ const i18N = {
       content: 'Content',
       endTime: 'endTime',
       budget: 'Budget',
-      category: 'Category',
+      tags: 'Tags',
       poster: 'poster'
     },
     tag: {

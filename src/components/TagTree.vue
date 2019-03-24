@@ -17,7 +17,6 @@
       :items="items"
       :active.sync="active"
       :open.sync="open"
-      open-all="true"
       activatable
       active-class="primary--text"
       class="grey lighten-5"

@@ -103,6 +103,10 @@ export default new Router({
           component: QuestionList
         },
         {
+          path: 'demand',
+          component: DemandList
+        },
+        {
           path: 'article',
           component: ArticleList
         },

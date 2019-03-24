@@ -62,6 +62,11 @@ export default {
           icon: 'assignment'
         },
         {
+          title: i18N.table.demand,
+          index: 'Demand',
+          icon: 'assignment'
+        },
+        {
           title: i18N.table.article,
           index: 'Article',
           icon: 'book'
@@ -91,6 +96,9 @@ export default {
         case 'Question':
           this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/question'})
           break
+        case 'Demand':
+          this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/demand'})
+          break
         case 'Article':
           this.$router.push({path: char[0] + '/' + char[1] + '/' + char[2] + '/article'})
           break
@@ -108,6 +116,9 @@ export default {
       switch (char[3]) {
         case 'question':
           this.currentItem = 'tab-Question'
+          break
+        case 'demand':
+          this.currentItem = 'tab-Demand'
           break
         case 'article':
           this.currentItem = 'tab-Article'

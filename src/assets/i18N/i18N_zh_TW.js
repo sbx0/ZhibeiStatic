@@ -130,7 +130,7 @@ const i18N = {
       content: '內容',
       endTime: '截止時間',
       budget: '預算',
-      category: '分類',
+      tags: '標籤',
       poster: '發布者'
     },
     tag: {
