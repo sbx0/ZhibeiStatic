@@ -11,6 +11,7 @@
         {{i18N.upload}}
       </file-upload>
     </v-btn>
+    <v-textarea v-show="url !== ''" v-model="url"></v-textarea>
   </div>
 </template>
 
@@ -24,6 +25,7 @@ export default {
   data () {
     return {
       i18N: i18N,
+      url: '',
       files: []
     }
   },
@@ -73,9 +75,10 @@ export default {
                 alert(i18N.network + i18N.alert.error)
               }
             })
-          } else if (this.$router.currentRoute.path === '/my/certification' ||
-              this.$router.currentRoute.path === '/post/demand') {
+          } else if (this.$router.currentRoute.path === '/my/certification' || this.$router.currentRoute.path === '/post/demand') {
             this.$emit('uploadUrl', i18N.domain + '/upload/' + json.type + '/' + json.name)
+          } else {
+            this.url = i18N.domain + '/upload/' + json.type + '/' + json.name
           }
         } else {
           alert(this.tools.statusCodeToAlert(status))

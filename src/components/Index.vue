@@ -2,6 +2,7 @@
   <v-container fluid fill-height>
     <v-layout column>
       <v-carousel
+        hidden
         hide-delimiters
         height="200"
       >
@@ -44,29 +45,28 @@ export default {
   data () {
     return {
       i18N: i18N, // i18N配置文件
-      images: [
-        {id: 13, cover: 'http://zb.sbx0.cn/upload/image/20190314135052392.jpg'},
-        {id: 14, cover: 'http://zb.sbx0.cn/upload/image/20190314133156400.jpg'},
-        {id: 15, cover: 'http://zb.sbx0.cn/upload/image/20190314133502162.jpg'},
-        {id: 16, cover: 'http://zb.sbx0.cn/upload/image/20190314133850762.jpg'}
-      ],
-      currentItem: 'tab-Question',
+      images: [],
+      currentItem: 'tab-Article',
       dialog: false,
       items: [
-        {
-          title: i18N.table.question,
-          index: 'Question',
-          icon: 'question_answer'
-        },
-        {
-          title: i18N.table.demand,
-          index: 'Demand',
-          icon: 'assignment'
-        },
         {
           title: i18N.table.article,
           index: 'Article',
           icon: 'book'
+        },
+        {
+          title: i18N.table.question,
+          index:
+              'Question',
+          icon:
+              'question_answer'
+        },
+        {
+          title: i18N.table.demand,
+          index:
+              'Demand',
+          icon:
+              'assignment'
         }
       ]
     }
@@ -84,7 +84,7 @@ export default {
           this.$router.push({path: '/demand'})
           break
         default:
-          this.$router.push({path: '/question'})
+          this.$router.push({path: '/article'})
           break
       }
     },
@@ -92,7 +92,7 @@ export default {
       this.currentItem = 'tab-Article'
       let path = this.$router.currentRoute.path
       if (path === '/') {
-        this.$router.push({path: '/question'})
+        this.$router.push({path: '/article'})
       }
       switch (path) {
         case '/':

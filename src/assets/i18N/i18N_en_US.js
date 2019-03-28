@@ -203,8 +203,8 @@ const i18N = {
     }
   },
   user: 'User',
-  website_name: 'ZhiBei',
-  website_slogan: 'Communication platform between industrial technology practitioners and domain experts',
+  website_name: 'sbx0.cn',
+  website_slogan: 'sbx0\'s Blog',
   admin_management_system: 'AMS',
   logout: 'Logout',
   search: 'Search',
@@ -362,7 +362,7 @@ const i18N = {
       value: 'mechanism'
     }
   ],
-  foot_html: 'ZhiBei 2019',
+  foot_html: 'sbx0.cn',
   alert: {
     empty: 'Empty',
     illegal: 'Illegal',

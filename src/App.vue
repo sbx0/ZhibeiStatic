@@ -217,7 +217,7 @@ export default {
     setTimer: function () {
       this.timer = setInterval(() => {
         this.getMsg()
-      }, 6000)
+      }, 10000)
     },
     onSwipeLeft () {
       this.$router.go(-1)
@@ -259,17 +259,28 @@ export default {
         type: 'get',
         url: i18N.domain + '/message/count',
         dataType: 'json',
-        async: true,
+        async: false,
+        timeout: 3000,
         crossDomain: true,
         xhrFields: {
           withCredentials: true
         },
         success: function (json) {
-          _this.message_count = json.count
-          if (_this.message_count > 0) {
-            _this.message_show = true
+          let status = json.status
+          if (tools.statusCodeToBool(status)) {
+            _this.message_count = json.count
+            if (_this.message_count > 0) {
+              _this.message_show = true
+            } else {
+              _this.message_show = false
+            }
           } else {
-            _this.message_show = false
+            clearInterval(_this.timer)
+          }
+        },
+        complete: function (XMLHttpRequest, textStatus) {
+          if (textStatus === 'timeout') {
+            clearInterval(_this.timer)
           }
         },
         error: function () {

@@ -1,36 +1,5 @@
-<template xmlns:v-slot="http://www.w3.org/1999/XSL/Transform">
+<template>
   <v-app>
-    <v-jumbotron
-      height="200"
-      src="https://github.githubassets.com/images/modules/site/heroes/simple-codelines.svg"
-      light
-    >
-      <v-container fill-height>
-        <v-layout align-center>
-          <v-img
-            src="http://zb.sbx0.cn/upload/image/20190311131606581.png"
-            lazy-src="http://zb.sbx0.cn/upload/image/20190311131606581.png"
-            aspect-ratio="1"
-            class="lighten-2"
-          >
-            <template v-slot:placeholder>
-              <v-layout
-                fill-height
-                align-center
-                justify-center
-                ma-0
-              >
-                <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
-              </v-layout>
-            </template>
-          </v-img>
-          <v-flex text-xs-center>
-            <h3 class="display-3">{{i18N.website_name}}</h3>
-            <h4>{{i18N.website_slogan}}</h4>
-          </v-flex>
-        </v-layout>
-      </v-container>
-    </v-jumbotron>
     <v-form
       id="loginForm"
       ref="form"

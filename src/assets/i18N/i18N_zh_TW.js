@@ -203,8 +203,8 @@ const i18N = {
     }
   },
   user: '用戶',
-  website_name: '智貝',
-  website_slogan: '工業技術類從業者與領域專家的交流平台',
+  website_name: 'sbx0.cn',
+  website_slogan: 'sbx0的个人博客',
   admin_management_system: '後台管理系統',
   logout: '退出登錄',
   search: '搜索',
@@ -362,7 +362,7 @@ const i18N = {
       value: 'mechanism'
     }
   ],
-  foot_html: '智貝科技有限公司 2019',
+  foot_html: 'sbx0.cn',
   alert: {
     empty: '為空',
     illegal: '不合法',
