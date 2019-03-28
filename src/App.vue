@@ -187,7 +187,7 @@ export default {
       dialog: false,
       drawer: null,
       items: [
-        {icon: 'home', text: i18N.index, url: '/demand'},
+        {icon: 'home', text: i18N.index, url: '/'},
         {icon: 'settings', text: i18N.setting},
         {icon: 'help', text: i18N.help},
         {icon: 'phonelink', text: i18N.download},
