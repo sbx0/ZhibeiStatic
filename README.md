@@ -1,6 +1,11 @@
+> [2018年全国大学生“互联网+”创新大赛 暨第六届“发现杯”全国大学生互联网软件设计大奖赛区域赛 华东赛区 二等奖 不太会玩加一队](http://www.dajiangsai.org/news/0403-1044.html "发现杯")
+# 2018 “发现杯”华东赛区 二等奖
+  
+------------  
+  
 ### [智贝 网页客户端](http://m.sbx0.cn "智贝 网页客户端")  
 
-> 配套后端代码 [智贝](https://github.com/sbx0/Zhibei "智贝")  （暂时是私有项目）  
+> 配套后端代码 [智贝](https://github.com/sbx0/Zhibei "智贝")  
 
 > A Vue.js project  
 
