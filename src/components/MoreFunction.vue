@@ -9,6 +9,8 @@
         @click="click('like')"
       >
         <v-icon>thumb_up</v-icon>
+        &nbsp;
+        {{likeTimes}}
       </v-btn>
     </v-flex>
     <v-flex sm4 text-xs-center>
@@ -20,6 +22,8 @@
         @click="click('dislike')"
       >
         <v-icon>thumb_down</v-icon>
+        &nbsp;
+        {{dislikeTimes}}
       </v-btn>
     </v-flex>
     <v-flex sm4 text-xs-center>
@@ -31,6 +35,8 @@
         @click="click('collect')"
       >
         <v-icon>star</v-icon>
+        &nbsp;
+        {{collectTimes}}
       </v-btn>
     </v-flex>
   </v-layout>
@@ -49,8 +55,11 @@ export default {
     return {
       i18N: i18N,
       isLike: '',
+      likeTimes: 0,
       isDislike: '',
-      isCollect: ''
+      dislikeTimes: 0,
+      isCollect: '',
+      collectTimes: 0
     }
   },
   methods: {
@@ -95,6 +104,9 @@ export default {
           _this.isCollect = ''
           if (json.objects !== undefined) {
             let objects = json.objects
+            _this.likeTimes = json.likeTimes
+            _this.dislikeTimes = json.dislikeTimes
+            _this.collectTimes = json.collectTimes
             for (let i = 0; i < objects.length; i++) {
               switch (objects[i].type) {
                 case 'like':

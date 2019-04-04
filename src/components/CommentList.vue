@@ -22,41 +22,41 @@
       >
         {{i18N.post}}
       </v-btn>
-      <div class="text-xs-center" v-if="loading">
-        <v-progress-circular
-          indeterminate
-          color="primary"
-          class="loading-control"
-        ></v-progress-circular>
-      </div>
-      <template v-for="item in data" v-else>
-        <v-list-tile
-          :key="item.id"
-          avatar
-        >
-          <v-list-tile-avatar
-            @click="tools.go('/user/'+item.poster.id+'/article')"
-          >
-            <img :src="i18N.domain+item.poster.avatar">
-          </v-list-tile-avatar>
-          <v-list-tile-content>
-            <v-list-tile-title v-html="item.content"></v-list-tile-title>
-            <v-list-tile-sub-title
-              v-if="!canPost"
-              @click="tools.go(item.path)"
-            >
-              {{item.path}}
-            </v-list-tile-sub-title>
-            <v-list-tile-sub-title v-else>
-              {{tools.timeShow(item.time)}}
-            </v-list-tile-sub-title>
-          </v-list-tile-content>
-        </v-list-tile>
-        <more-function :key="item.id + '_c_more'" :path="'/comment/'+item.id"></more-function>
-        <v-divider v-bind:key="item.id+'_divider_b'"></v-divider>
-      </template>
-      <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
     </v-form>
+    <div class="text-xs-center" v-if="loading">
+      <v-progress-circular
+        indeterminate
+        color="primary"
+        class="loading-control"
+      ></v-progress-circular>
+    </div>
+    <template v-for="item in data" v-else>
+      <v-list-tile
+        :key="item.id"
+        avatar
+      >
+        <v-list-tile-avatar
+          @click="tools.go('/user/'+item.poster.id+'/article')"
+        >
+          <img :src="i18N.domain+item.poster.avatar">
+        </v-list-tile-avatar>
+        <v-list-tile-content>
+          <v-list-tile-title v-html="item.content"></v-list-tile-title>
+          <v-list-tile-sub-title
+            v-if="!canPost"
+            @click="tools.go(item.path)"
+          >
+            {{item.path}}
+          </v-list-tile-sub-title>
+          <v-list-tile-sub-title v-else>
+            {{tools.timeShow(item.time)}}
+          </v-list-tile-sub-title>
+        </v-list-tile-content>
+      </v-list-tile>
+      <more-function :key="item.id + '_c_more'" :path="'/comment/'+item.id"></more-function>
+      <v-divider v-bind:key="item.id+'_divider_b'"></v-divider>
+    </template>
+    <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
   </v-list>
 </template>
 
