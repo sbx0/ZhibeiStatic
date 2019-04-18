@@ -203,8 +203,8 @@ const i18N = {
     }
   },
   user: '用户',
-  website_name: 'sbx0.cn',
-  website_slogan: 'sbx0的个人博客',
+  website_name: '智贝',
+  website_slogan: '线上科研成果商业化平台',
   admin_management_system: '后台管理系统',
   logout: '退出登录',
   search: '搜索',

@@ -2,7 +2,6 @@
   <v-container fluid fill-height>
     <v-layout column>
       <v-carousel
-        hidden
         hide-delimiters
         height="200"
       >
@@ -45,14 +44,21 @@ export default {
   data () {
     return {
       i18N: i18N, // i18N配置文件
-      images: [],
-      currentItem: 'tab-Article',
+      images: [
+        {id: 13, cover: 'http://zb.sbx0.cn/upload/image/20190314135052392.jpg'},
+        {id: 14, cover: 'http://zb.sbx0.cn/upload/image/20190314133156400.jpg'},
+        {id: 15, cover: 'http://zb.sbx0.cn/upload/image/20190314133502162.jpg'},
+        {id: 16, cover: 'http://zb.sbx0.cn/upload/image/20190314133850762.jpg'}
+      ],
+      currentItem: 'tab-Demand',
       dialog: false,
       items: [
         {
-          title: i18N.table.article,
-          index: 'Article',
-          icon: 'book'
+          title: i18N.table.demand,
+          index:
+              'Demand',
+          icon:
+              'assignment'
         },
         {
           title: i18N.table.question,
@@ -62,11 +68,9 @@ export default {
               'question_answer'
         },
         {
-          title: i18N.table.demand,
-          index:
-              'Demand',
-          icon:
-              'assignment'
+          title: i18N.table.article,
+          index: 'Article',
+          icon: 'book'
         }
       ]
     }
@@ -84,15 +88,15 @@ export default {
           this.$router.push({path: '/demand'})
           break
         default:
-          this.$router.push({path: '/article'})
+          this.$router.push({path: '/demand'})
           break
       }
     },
     routeChange () {
-      this.currentItem = 'tab-Article'
+      this.currentItem = 'tab-Demand'
       let path = this.$router.currentRoute.path
       if (path === '/') {
-        this.$router.push({path: '/article'})
+        this.$router.push({path: '/demand'})
       }
       switch (path) {
         case '/':
@@ -108,7 +112,7 @@ export default {
           this.currentItem = 'tab-Demand'
           break
         default:
-          this.currentItem = 'tab-Article'
+          this.currentItem = 'tab-Demand'
           break
       }
     }

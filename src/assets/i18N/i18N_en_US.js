@@ -203,8 +203,8 @@ const i18N = {
     }
   },
   user: 'User',
-  website_name: 'sbx0.cn',
-  website_slogan: 'sbx0\'s Blog',
+  website_name: 'WisdomShells',
+  website_slogan: 'Online research results commercialization platform',
   admin_management_system: 'AMS',
   logout: 'Logout',
   search: 'Search',
