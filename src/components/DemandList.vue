@@ -55,6 +55,21 @@
       </v-card>
       <v-divider class="mt-1 mb-1" v-bind:key="item.id +'d'"></v-divider>
     </template>
+    <v-parallax
+      dark
+      src="https://cdn.vuetifyjs.com/images/backgrounds/vbanner.jpg"
+      height="50"
+      class="mb-1 mt-1"
+      @click="tools.go('/search/article')"
+    >
+      <v-layout
+        align-center
+        column
+        justify-center
+      >
+        <span class="display-1 font-weight-thin">{{i18N.search+i18N.table.demand}}</span>
+      </v-layout>
+    </v-parallax>
     <v-btn block @click="readMore()" v-if="more">{{i18N.read_more}}</v-btn>
   </v-list>
 </template>
