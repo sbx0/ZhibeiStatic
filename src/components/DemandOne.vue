@@ -38,6 +38,15 @@
         <v-divider class="mt-3"></v-divider>
         <more-function :key="data.id + '_more'" :path="'/demand/'+data.id"></more-function>
         <v-divider class="mb-3"></v-divider>
+        <div class="text-xs-center">
+          <v-chip
+            disabled
+            v-for="(word,index) in keywords"
+            v-bind:key="index"
+          >
+            {{word}}
+          </v-chip>
+        </div>
         <v-divider class="mb-3"></v-divider>
         <div class="text-xs-center">
           <v-chip
@@ -76,6 +85,7 @@ export default {
         title: i18N.loading,
         content: ''
       },
+      keywords: [],
       markdown: ''
     }
   },
@@ -112,15 +122,41 @@ export default {
           alert(i18N.network + i18N.alert.error)
         }
       })
+    },
+    analysis () {
+      let _this = this
+      let _id = _this.$route.params.id
+      if (_id === undefined) {
+        _this.$router.push({path: '/NotFound'})
+        return false
+      }
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/demand/analysis?id=' + _id,
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          _this.keywords = json.keywords
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
     }
   },
   watch: {
     '$route' () {
       this.getData()
+      this.analysis()
     }
   },
   created () {
     this.getData()
+    this.analysis()
   }
 }
 </script>
