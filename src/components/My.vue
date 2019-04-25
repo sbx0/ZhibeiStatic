@@ -205,6 +205,11 @@ export default {
           action: 'money',
           title: i18N.give_me_power,
           page: '/alipay'
+        },
+        {
+          action: 'money',
+          title: i18N.my_project,
+          page: '/project/my'
         }
         // {divider: true},
         // {header: i18N.others},

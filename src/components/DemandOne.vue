@@ -36,6 +36,10 @@
           <div v-html="markdown" v-viewer></div>
         </div>
         <v-divider class="mt-3"></v-divider>
+        <div class="text-xs-center mt-3">
+          <v-btn round color="success" dark @click="apply">{{i18N.i_want}}</v-btn>
+        </div>
+        <v-divider class="mt-3"></v-divider>
         <more-function :key="data.id + '_more'" :path="'/demand/'+data.id"></more-function>
         <v-divider class="mb-3"></v-divider>
         <div class="text-xs-center">
@@ -141,6 +145,35 @@ export default {
         },
         success: function (json) {
           _this.keywords = json.keywords
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
+    },
+    apply () {
+      let _this = this
+      let _id = _this.$route.params.id
+      if (_id === undefined) {
+        _this.$router.push({path: '/NotFound'})
+        return false
+      }
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/project/apply?id=' + _id,
+        dataType: 'json',
+        async: true,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            _this.$router.push({path: '/project/my'})
+          } else {
+            alert(_this.tools.statusCodeToAlert(status))
+          }
         },
         error: function () {
           alert(i18N.network + i18N.alert.error)

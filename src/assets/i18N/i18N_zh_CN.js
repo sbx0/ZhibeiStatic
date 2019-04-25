@@ -320,6 +320,8 @@ const i18N = {
   solved: '已解决',
   closed: '已关闭',
   tree: '树',
+  i_want: '我要合作',
+  my_project: '我的项目',
   date_to_time_click: {
     already: '已',
     just: '刚刚',

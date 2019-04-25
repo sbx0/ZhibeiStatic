@@ -29,6 +29,8 @@ import AnswerList from '@/components/AnswerList'
 import AnswerPost from '@/components/AnswerPost'
 import TagTree from '@/components/TagTree'
 import TagOne from '@/components/TagOne'
+import Project from '@/components/Project'
+import ProjectList from '@/components/ProjectList'
 
 export default new Router({
   mode: 'hash',
@@ -171,6 +173,16 @@ export default new Router({
       path: '/post/answer/:id',
       name: 'AnswerPost',
       component: AnswerPost
+    },
+    {
+      path: '/project/my',
+      name: 'ProjectList',
+      component: ProjectList
+    },
+    {
+      path: '/project/:id',
+      name: 'Project',
+      component: Project
     },
     {
       path: '/upload',
