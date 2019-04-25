@@ -208,6 +208,11 @@ export default {
         },
         {
           action: 'money',
+          title: i18N.apply_list,
+          page: '/project/applyList'
+        },
+        {
+          action: 'money',
           title: i18N.my_project,
           page: '/project/my'
         }

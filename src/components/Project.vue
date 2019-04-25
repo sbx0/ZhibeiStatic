@@ -85,12 +85,21 @@
         <v-btn flat @click="setStatus(2)">取消</v-btn>
       </v-stepper-content>
 
-      <v-stepper-step step="4" :complete="data.status > 4">状态</v-stepper-step>
+      <v-stepper-step step="4" :complete="data.status > 4">申请已提交</v-stepper-step>
       <v-stepper-content step="4">
         <div>
           <p>对方已收到合作申请，请耐心等待</p>
         </div>
-        <v-btn @click="setStatus(3)">放弃</v-btn>
+        <v-btn v-if="data.sponsor.id === user.id" @click="setStatus(6)">接受</v-btn>
+        <v-btn v-if="data.sponsor.id === user.id" @click="setStatus(-1)">拒绝</v-btn>
+        <v-btn v-if="data.sponsor.id !== user.id" @click="setStatus(3)">放弃</v-btn>
+      </v-stepper-content>
+
+      <v-stepper-step step="5" :complete="data.status > 5">申请通过</v-stepper-step>
+      <v-stepper-content step="5">
+        <div>
+          <p>合作申请通过</p>
+        </div>
       </v-stepper-content>
     </v-stepper>
   </div>
@@ -105,6 +114,14 @@ export default {
   data () {
     return {
       i18N: i18N,
+      user: {
+        nickname: '',
+        email: '',
+        avatar: '/img/avatar-min-img.png',
+        sex: '',
+        introduction: '',
+        birthday: ''
+      },
       data: {
         status: 0,
         title: i18N.loading,
@@ -175,9 +192,39 @@ export default {
           alert(i18N.network + i18N.alert.error)
         }
       })
+    },
+    getInfo () {
+      let _this = this
+      _this.loading = true
+      $.ajax({
+        type: 'get',
+        url: i18N.domain + '/user/info',
+        dataType: 'json',
+        async: false,
+        crossDomain: true,
+        xhrFields: {
+          withCredentials: true
+        },
+        success: function (json) {
+          let status = json.status
+          if (_this.tools.statusCodeToBool(status)) {
+            if (json.user !== undefined) {
+              json.user.birthday = _this.tools.formatDate(json.user.birthday, 'yyyy-MM-dd')
+              _this.user = json.user
+            }
+            _this.loading = false
+          } else {
+            _this.$router.push({path: '/login'})
+          }
+        },
+        error: function () {
+          alert(i18N.network + i18N.alert.error)
+        }
+      })
     }
   },
   created () {
+    this.getInfo()
     this.getData()
   }
 }

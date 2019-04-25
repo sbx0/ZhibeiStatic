@@ -322,6 +322,7 @@ const i18N = {
   tree: '树',
   i_want: '我要合作',
   my_project: '我的项目',
+  apply_list: '申请列表',
   date_to_time_click: {
     already: '已',
     just: '刚刚',

@@ -31,6 +31,7 @@ import TagTree from '@/components/TagTree'
 import TagOne from '@/components/TagOne'
 import Project from '@/components/Project'
 import ProjectList from '@/components/ProjectList'
+import ApplyList from '@/components/ApplyList'
 
 export default new Router({
   mode: 'hash',
@@ -178,6 +179,11 @@ export default new Router({
       path: '/project/my',
       name: 'ProjectList',
       component: ProjectList
+    },
+    {
+      path: '/project/applyList',
+      name: 'ApplyList',
+      component: ApplyList
     },
     {
       path: '/project/:id',
