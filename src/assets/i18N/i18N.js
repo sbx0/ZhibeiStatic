@@ -13,10 +13,6 @@ let lib = [
 ]
 
 let i18NConfig = tools.getCookie('i18N_config')
-if (i18NConfig === '') {
-  let browser = tools.device()
-  i18NConfig = browser.language
-}
 
 let i18N = ''
 switch (i18NConfig) {
